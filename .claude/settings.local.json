@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx next build)",
+      "Bash(cmd /c \"del \\?\\e:\\WebDev\\Projects\\Marvel\\nul\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
