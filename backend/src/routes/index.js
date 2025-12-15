@@ -1,6 +1,12 @@
 import { Router } from "express";
-// Import feature routes here
-// import authRoutes from "./auth.routes.js";
+import {
+  characterRoutes,
+  movieRoutes,
+  artifactRoutes,
+  battleRoutes,
+  quizRoutes,
+  teamRoutes,
+} from "../modules/index.js";
 
 const router = Router();
 
@@ -13,7 +19,12 @@ router.get("/", (req, res) => {
   });
 });
 
-// Mount feature routes here
-// router.use("/auth", authRoutes);
+// Mount feature routes
+router.use("/characters", characterRoutes);
+router.use("/movies", movieRoutes);
+router.use("/artifacts", artifactRoutes);
+router.use("/battles", battleRoutes);
+router.use("/quiz", quizRoutes);
+router.use("/teams", teamRoutes);
 
 export default router;

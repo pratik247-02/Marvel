@@ -1,14 +1,10 @@
-// Export all types here
-// Example: export * from "./featureOne";
+// API Types
+export * from "./api";
 
-export type ApiResponse<T> = {
-  success: boolean;
-  data: T;
-  message?: string;
-};
-
-export type ApiError = {
-  success: false;
-  message: string;
-  errors?: Record<string, string[]>;
-};
+// Domain Types
+export * from "./character";
+export * from "./movie";
+export * from "./artifact";
+export * from "./battle";
+export * from "./quiz";
+export * from "./team";
