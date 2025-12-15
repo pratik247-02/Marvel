@@ -5,7 +5,10 @@
       "Bash(npm uninstall:*)",
       "Bash(npm run build:*)",
       "Bash(npx next build)",
-      "Bash(cmd /c \"del \\?\\e:\\WebDev\\Projects\\Marvel\\nul\")"
+      "Bash(cmd /c \"del \\?\\e:\\WebDev\\Projects\\Marvel\\nul\")",
+      "Bash(git -C \"e:\\WebDev\\Projects\\Marvel\" log --oneline --all)",
+      "Bash(npm run lint:*)",
+      "Bash(npx eslint:*)"
     ],
     "deny": [],
     "ask": []

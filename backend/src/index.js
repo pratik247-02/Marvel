@@ -5,12 +5,26 @@ import morgan from "morgan";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit";
+import mongoose from "mongoose";
 import { config } from "./config/index.js";
 import { errorHandler, notFoundHandler } from "./middlewares/errorHandler.js";
 import { logger } from "./utils/logger.js";
 import routes from "./routes/index.js";
 
 const app = express();
+
+// Connect to MongoDB
+const connectDB = async () => {
+  try {
+    await mongoose.connect(config.mongoUri);
+    logger.info("MongoDB connected successfully");
+  } catch (error) {
+    logger.error("MongoDB connection error:", error);
+    process.exit(1);
+  }
+};
+
+connectDB();
 
 // Security middlewares
 app.use(helmet());
