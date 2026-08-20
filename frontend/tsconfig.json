@@ -52,9 +52,7 @@
       "@/constants/*": [
         "./constants/*"
       ]
-    },
-    "baseUrl": ".",
-    "target": "ES2017"
+    },  "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",

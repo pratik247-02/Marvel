@@ -1,5 +1,4 @@
-// TODO: Uncomment when api service is configured
-// import { api } from "@/services/main";
+import { apiGet, apiGetPaginated, apiPost, apiPatch, apiDelete } from "@/services/main";
 import type {
   Team,
   TeamListItem,
@@ -10,41 +9,39 @@ import type {
   QueryParams,
 } from "@/types";
 
-// const BASE_URL = "/teams";
+const BASE_URL = "/teams";
 
 export const teamService = {
-  async getAll(_params?: QueryParams): Promise<PaginatedResponse<TeamListItem>> {
-    // TODO: return api.get(BASE_URL, { params });
-    return { success: true, data: [], pagination: { page: 1, limit: 10, total: 0, pages: 0 } };
+  async getAll(params?: QueryParams): Promise<PaginatedResponse<TeamListItem>> {
+    return apiGetPaginated<TeamListItem>(BASE_URL, { params });
   },
 
-  async getById(_id: string): Promise<ApiResponse<Team>> {
-    // TODO: return api.get(`${BASE_URL}/${id}`);
-    throw new Error("Not implemented");
+  async getById(id: string): Promise<ApiResponse<Team>> {
+    return apiGet<Team>(`${BASE_URL}/${id}`);
   },
 
-  async create(_data: CreateTeamInput): Promise<ApiResponse<Team>> {
-    // TODO: return api.post(BASE_URL, data);
-    throw new Error("Not implemented");
+  async create(data: CreateTeamInput): Promise<ApiResponse<Team>> {
+    return apiPost<Team, CreateTeamInput>(BASE_URL, data);
   },
 
-  async update(_id: string, _data: UpdateTeamInput): Promise<ApiResponse<Team>> {
-    // TODO: return api.patch(`${BASE_URL}/${id}`, data);
-    throw new Error("Not implemented");
+  async update(id: string, data: UpdateTeamInput): Promise<ApiResponse<Team>> {
+    return apiPatch<Team, UpdateTeamInput>(`${BASE_URL}/${id}`, data);
   },
 
-  async delete(_id: string): Promise<void> {
-    // TODO: return api.delete(`${BASE_URL}/${id}`);
-    throw new Error("Not implemented");
+  async delete(id: string): Promise<void> {
+    await apiDelete<void>(`${BASE_URL}/${id}`);
   },
 
-  async addMember(_teamId: string, _memberId: string): Promise<ApiResponse<Team>> {
-    // TODO: return api.post(`${BASE_URL}/${teamId}/members`, { memberId });
-    throw new Error("Not implemented");
+  async addMember(teamId: string, memberId: string): Promise<ApiResponse<Team>> {
+    return apiPost<Team, { memberId: string }>(`${BASE_URL}/${teamId}/members`, {
+      memberId,
+    });
   },
 
-  async removeMember(_teamId: string, _memberId: string): Promise<ApiResponse<Team>> {
-    // TODO: return api.delete(`${BASE_URL}/${teamId}/members`, { data: { memberId } });
-    throw new Error("Not implemented");
+  async removeMember(teamId: string, memberId: string): Promise<ApiResponse<Team>> {
+    // DELETE with a body - the route reads `memberId` from req.body.
+    return apiDelete<Team>(`${BASE_URL}/${teamId}/members`, {
+      data: { memberId },
+    });
   },
 };

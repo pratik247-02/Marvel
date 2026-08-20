@@ -13,7 +13,7 @@ export const quizService = {
 
     const skip = (page - 1) * limit;
 
-    let queryObj = { ...filters };
+    const queryObj = { ...filters };
 
     if (isActive !== undefined) {
       queryObj.isActive = isActive === "true";

@@ -1,5 +1,5 @@
 import { apiClient, type AxiosRequestConfig } from "./config";
-import type { ApiResponse, ApiError } from "@/types";
+import type { ApiResponse, PaginatedResponse, ApiError } from "@/types";
 import { AxiosError } from "axios";
 
 type RequestConfig = Omit<AxiosRequestConfig, "url" | "method" | "data">;
@@ -8,6 +8,38 @@ export async function apiGet<T>(url: string, config?: RequestConfig): Promise<Ap
   try {
     const response = await apiClient.get<ApiResponse<T>>(url, config);
     return response.data;
+  } catch (error) {
+    throw handleApiError(error);
+  }
+}
+
+/**
+ * GET a list endpoint that returns the paginated envelope
+ * (`{ success, data: T[], pagination }`) rather than `{ success, data }`.
+ *
+ * The API sends `pagination.totalPages`, while the client type uses `pages`;
+ * both are normalized here so callers get a consistent shape.
+ */
+export async function apiGetPaginated<T>(
+  url: string,
+  config?: RequestConfig
+): Promise<PaginatedResponse<T>> {
+  try {
+    const response = await apiClient.get<PaginatedResponse<T> & {
+      pagination?: { totalPages?: number };
+    }>(url, config);
+    const { data, pagination } = response.data;
+
+    return {
+      success: true,
+      data: data ?? [],
+      pagination: {
+        page: pagination?.page ?? 1,
+        limit: pagination?.limit ?? 10,
+        total: pagination?.total ?? 0,
+        pages: pagination?.pages ?? pagination?.totalPages ?? 0,
+      },
+    };
   } catch (error) {
     throw handleApiError(error);
   }
@@ -52,7 +84,15 @@ export async function apiPatch<T, D = unknown>(
   }
 }
 
-export async function apiDelete<T>(url: string, config?: RequestConfig): Promise<ApiResponse<T>> {
+/**
+ * DELETE permits a request body (`config.data`) - some routes, such as
+ * `DELETE /teams/:id/members`, identify the target in the body rather than
+ * the URL.
+ */
+export async function apiDelete<T>(
+  url: string,
+  config?: RequestConfig & { data?: unknown }
+): Promise<ApiResponse<T>> {
   try {
     const response = await apiClient.delete<ApiResponse<T>>(url, config);
     return response.data;

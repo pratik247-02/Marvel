@@ -18,7 +18,10 @@ export const notFoundHandler = (req, res, next) => {
   next(new AppError(`Cannot find ${req.originalUrl} on this server`, StatusCodes.NOT_FOUND));
 };
 
-export const errorHandler = (err, req, res, next) => {
+// `_next` is unused but must stay: Express identifies an error handler by its
+// four-argument arity, so removing it would silently demote this to normal
+// middleware and errors would fall through to the default handler.
+export const errorHandler = (err, req, res, _next) => {
   err.statusCode = err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
   err.status = err.status || "error";
 

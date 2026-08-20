@@ -19,7 +19,7 @@ interface BattlePageProps {
   params: Promise<{ id: string }>;
 }
 
-export default function BattlePage({ params }: BattlePageProps) {
+export default function BattlePage({ params }: Readonly<BattlePageProps>) {
   const { id } = use(params);
   const { battle, isLoading, error } = useBattle(id);
 

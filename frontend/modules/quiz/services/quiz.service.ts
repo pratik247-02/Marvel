@@ -1,5 +1,4 @@
-// TODO: Uncomment when api service is configured
-// import { api } from "@/services/main";
+import { apiGet, apiGetPaginated, apiPost, apiPatch, apiDelete } from "@/services/main";
 import type {
   Quiz,
   QuizListItem,
@@ -11,46 +10,40 @@ import type {
   QueryParams,
 } from "@/types";
 
-// const BASE_URL = "/quiz";
+const BASE_URL = "/quiz";
 
 export const quizService = {
-  async getAll(_params?: QueryParams): Promise<PaginatedResponse<QuizListItem>> {
-    // TODO: return api.get(BASE_URL, { params });
-    return { success: true, data: [], pagination: { page: 1, limit: 10, total: 0, pages: 0 } };
+  async getAll(params?: QueryParams): Promise<PaginatedResponse<QuizListItem>> {
+    return apiGetPaginated<QuizListItem>(BASE_URL, { params });
   },
 
-  async getById(_id: string): Promise<ApiResponse<Quiz>> {
-    // TODO: return api.get(`${BASE_URL}/${id}`);
-    throw new Error("Not implemented");
+  async getById(id: string): Promise<ApiResponse<Quiz>> {
+    return apiGet<Quiz>(`${BASE_URL}/${id}`);
   },
 
-  async getForPlay(_id: string): Promise<ApiResponse<QuizForPlay>> {
-    // TODO: return api.get(`${BASE_URL}/${id}/play`);
-    throw new Error("Not implemented");
+  async getForPlay(id: string): Promise<ApiResponse<QuizForPlay>> {
+    return apiGet<QuizForPlay>(`${BASE_URL}/${id}/play`);
   },
 
   async getActive(): Promise<ApiResponse<QuizForPlay>> {
-    // TODO: return api.get(`${BASE_URL}/active`);
-    throw new Error("Not implemented");
+    return apiGet<QuizForPlay>(`${BASE_URL}/active`);
   },
 
-  async create(_data: Partial<Quiz>): Promise<ApiResponse<Quiz>> {
-    // TODO: return api.post(BASE_URL, data);
-    throw new Error("Not implemented");
+  async create(data: Partial<Quiz>): Promise<ApiResponse<Quiz>> {
+    return apiPost<Quiz, Partial<Quiz>>(BASE_URL, data);
   },
 
-  async update(_id: string, _data: Partial<Quiz>): Promise<ApiResponse<Quiz>> {
-    // TODO: return api.patch(`${BASE_URL}/${id}`, data);
-    throw new Error("Not implemented");
+  async update(id: string, data: Partial<Quiz>): Promise<ApiResponse<Quiz>> {
+    return apiPatch<Quiz, Partial<Quiz>>(`${BASE_URL}/${id}`, data);
   },
 
-  async delete(_id: string): Promise<void> {
-    // TODO: return api.delete(`${BASE_URL}/${id}`);
-    throw new Error("Not implemented");
+  async delete(id: string): Promise<void> {
+    await apiDelete<void>(`${BASE_URL}/${id}`);
   },
 
-  async submit(_id: string, _answers: QuizAnswers): Promise<ApiResponse<QuizResult>> {
-    // TODO: return api.post(`${BASE_URL}/${id}/submit`, { answers });
-    throw new Error("Not implemented");
+  async submit(id: string, answers: QuizAnswers): Promise<ApiResponse<QuizResult>> {
+    return apiPost<QuizResult, { answers: QuizAnswers }>(`${BASE_URL}/${id}/submit`, {
+      answers,
+    });
   },
 };

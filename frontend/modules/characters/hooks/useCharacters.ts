@@ -25,9 +25,14 @@ export function useCharacters(initialParams?: QueryParams) {
     }
   }, []);
 
+  // `initialParams` is typically an object literal from the caller, so it has a
+  // new identity every render. Depending on it directly would refetch in a loop.
+  // Serializing gives a stable primitive dep keyed on the actual values.
+  const serializedParams = JSON.stringify(initialParams ?? {});
+
   useEffect(() => {
-    fetchCharacters(initialParams);
-  }, [fetchCharacters, initialParams]);
+    fetchCharacters(JSON.parse(serializedParams) as QueryParams);
+  }, [fetchCharacters, serializedParams]);
 
   return {
     characters,
