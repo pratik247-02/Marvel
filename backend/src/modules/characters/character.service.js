@@ -13,7 +13,7 @@ export const characterService = {
 
     const skip = (page - 1) * limit;
 
-    let queryObj = { ...filters };
+    const queryObj = { ...filters };
 
     // Text search
     if (search) {

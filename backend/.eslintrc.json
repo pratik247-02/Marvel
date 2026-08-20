@@ -15,5 +15,13 @@
     "no-var": "error",
     "eqeqeq": ["error", "always"],
     "curly": ["error", "all"]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["scripts/**/*.js"],
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ]
 }

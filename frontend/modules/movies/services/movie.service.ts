@@ -1,5 +1,4 @@
-// TODO: Uncomment when api service is configured
-// import { api } from "@/services/main";
+import { apiGet, apiGetPaginated, apiPost, apiPatch, apiDelete } from "@/services/main";
 import type {
   Movie,
   MovieListItem,
@@ -10,41 +9,34 @@ import type {
   QueryParams,
 } from "@/types";
 
-// const BASE_URL = "/movies";
+const BASE_URL = "/movies";
 
 export const movieService = {
-  async getAll(_params?: QueryParams): Promise<PaginatedResponse<MovieListItem>> {
-    // TODO: return api.get(BASE_URL, { params });
-    return { success: true, data: [], pagination: { page: 1, limit: 10, total: 0, pages: 0 } };
+  async getAll(params?: QueryParams): Promise<PaginatedResponse<MovieListItem>> {
+    return apiGetPaginated<MovieListItem>(BASE_URL, { params });
   },
 
-  async getById(_id: string): Promise<ApiResponse<Movie>> {
-    // TODO: return api.get(`${BASE_URL}/${id}`);
-    throw new Error("Not implemented");
+  async getById(id: string): Promise<ApiResponse<Movie>> {
+    return apiGet<Movie>(`${BASE_URL}/${id}`);
   },
 
-  async create(_data: Partial<Movie>): Promise<ApiResponse<Movie>> {
-    // TODO: return api.post(BASE_URL, data);
-    throw new Error("Not implemented");
+  async create(data: Partial<Movie>): Promise<ApiResponse<Movie>> {
+    return apiPost<Movie, Partial<Movie>>(BASE_URL, data);
   },
 
-  async update(_id: string, _data: Partial<Movie>): Promise<ApiResponse<Movie>> {
-    // TODO: return api.patch(`${BASE_URL}/${id}`, data);
-    throw new Error("Not implemented");
+  async update(id: string, data: Partial<Movie>): Promise<ApiResponse<Movie>> {
+    return apiPatch<Movie, Partial<Movie>>(`${BASE_URL}/${id}`, data);
   },
 
-  async delete(_id: string): Promise<void> {
-    // TODO: return api.delete(`${BASE_URL}/${id}`);
-    throw new Error("Not implemented");
+  async delete(id: string): Promise<void> {
+    await apiDelete<void>(`${BASE_URL}/${id}`);
   },
 
-  async getByPhase(_phase: Phase): Promise<ApiResponse<MovieListItem[]>> {
-    // TODO: return api.get(`${BASE_URL}/phase/${encodeURIComponent(phase)}`);
-    return { success: true, data: [] };
+  async getByPhase(phase: Phase): Promise<ApiResponse<MovieListItem[]>> {
+    return apiGet<MovieListItem[]>(`${BASE_URL}/phase/${encodeURIComponent(phase)}`);
   },
 
   async getTimeline(): Promise<ApiResponse<MovieTimeline[]>> {
-    // TODO: return api.get(`${BASE_URL}/timeline`);
-    return { success: true, data: [] };
+    return apiGet<MovieTimeline[]>(`${BASE_URL}/timeline`);
   },
 };

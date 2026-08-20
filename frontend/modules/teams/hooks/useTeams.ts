@@ -25,9 +25,14 @@ export function useTeams(initialParams?: QueryParams) {
     }
   }, []);
 
+  // `initialParams` is typically an object literal from the caller, so it has a
+  // new identity every render. Depending on it directly would refetch in a loop.
+  // Serializing gives a stable primitive dep keyed on the actual values.
+  const serializedParams = JSON.stringify(initialParams ?? {});
+
   useEffect(() => {
-    fetchTeams(initialParams);
-  }, [fetchTeams, initialParams]);
+    fetchTeams(JSON.parse(serializedParams) as QueryParams);
+  }, [fetchTeams, serializedParams]);
 
   return {
     teams,

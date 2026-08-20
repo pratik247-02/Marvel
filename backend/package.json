@@ -7,8 +7,11 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
-    "lint": "eslint src/",
-    "lint:fix": "eslint src/ --fix",
+    "lint": "eslint src/ scripts/",
+    "lint:fix": "eslint src/ scripts/ --fix",
+    "seed": "node scripts/seed.js",
+    "seed:dry": "node scripts/seed.js --dry-run",
+    "seed:fresh": "node scripts/seed.js --purge",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
@@ -24,7 +27,6 @@
     "helmet": "^8.0.0",
     "http-status-codes": "^2.3.0",
     "jsonwebtoken": "^9.0.2",
-    "marvel": "file:..",
     "mongoose": "^8.8.1",
     "morgan": "^1.10.0",
     "winston": "^3.17.0",

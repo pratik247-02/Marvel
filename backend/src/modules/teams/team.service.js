@@ -14,7 +14,7 @@ export const teamService = {
 
     const skip = (page - 1) * limit;
 
-    let queryObj = { ...filters };
+    const queryObj = { ...filters };
 
     if (search) {
       queryObj.$text = { $search: search };

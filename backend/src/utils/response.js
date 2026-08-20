@@ -61,3 +61,24 @@ export const sendPaginated = (
     },
   });
 };
+
+/**
+ * Short aliases used by the module controllers.
+ *
+ * `paginated` adapts the (res, data, pagination) call shape the controllers use
+ * to the options-object shape `sendPaginated` expects. Services return
+ * `{ page, limit, total, pages }`, so `pages` is carried through as `totalPages`.
+ *
+ * @param {import("express").Response} res
+ * @param {Array} data
+ * @param {{ page: number, limit: number, total: number, pages?: number }} pagination
+ * @param {string} message
+ */
+export const paginated = (res, data, pagination = {}, message = "Success") => {
+  const { page = 1, limit = 10, total = 0 } = pagination;
+  return sendPaginated(res, { data, page, limit, total, message });
+};
+
+export const success = sendSuccess;
+export const created = sendCreated;
+export const noContent = sendNoContent;
