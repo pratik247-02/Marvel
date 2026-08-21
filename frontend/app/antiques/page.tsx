@@ -118,7 +118,7 @@ export default function AntiquesPage() {
                 transition={{ delay: index * 0.05 }}
               >
                 <Link href={`/antiques/${artifact._id}`}>
-                  <Card className="group overflow-hidden hover:border-primary/50 transition-colors h-full">
+                  <Card interactive className="group h-full overflow-hidden">
                     <div className="relative aspect-video overflow-hidden">
                       {artifact.image ? (
                         <Image
@@ -128,7 +128,7 @@ export default function AntiquesPage() {
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-red-500/20 to-orange-500/20 flex items-center justify-center">
+                        <div className="w-full h-full bg-linear-to-br from-red-500/20 to-orange-500/20 flex items-center justify-center">
                           <Gem className="w-16 h-16 text-red-400/50" />
                         </div>
                       )}

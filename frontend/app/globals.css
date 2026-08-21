@@ -35,6 +35,20 @@
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
 
+  /*
+   * Entity theming.
+   *
+   * Every character, team and artifact carries its own colour pair in the
+   * database. A page sets `--entity-primary` / `--entity-secondary` once on a
+   * wrapper element and every child inherits, so a detail page takes on that
+   * character's identity without threading colour props through the tree.
+   *
+   * The fallbacks below are the house palette, so a component using these is
+   * safe on pages that set no entity at all.
+   */
+  --color-entity: var(--entity-primary, hsl(var(--primary)));
+  --color-entity-secondary: var(--entity-secondary, hsl(var(--secondary)));
+
   /* Animations */
   --animate-fade-in: fade-in 0.5s ease-in-out;
   --animate-slide-up: slide-up 0.5s ease-out;
@@ -57,27 +71,54 @@
 }
 
 @layer base {
+  /*
+   * Cinematic dark palette.
+   *
+   * The base is a very dark neutral with a slight blue cast rather than pure
+   * black, so elevated surfaces read as lighter without looking grey. Marvel
+   * red is the primary action colour and gold the secondary accent.
+   *
+   * Contrast against the base was checked for the text tokens: foreground
+   * sits well above WCAG AA, muted-foreground clears AA for body text, and
+   * primary-foreground is near-black so it reads on the red.
+   */
   :root {
-    --background: 0 0% 0%;
+    /* Surfaces - each step up is a lighter elevation */
+    --background: 240 8% 4%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 6%;
+    --card: 240 7% 7%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 6%;
+    --popover: 240 8% 6%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 0%;
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
-    --accent: 0 0% 15%;
+
+    /* Marvel red. Bright enough to carry white text at AA. */
+    --primary: 355 78% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Gold, used for secondary emphasis rather than as a button colour. */
+    --secondary: 41 96% 52%;
+    --secondary-foreground: 240 10% 6%;
+
+    --muted: 240 6% 13%;
+    --muted-foreground: 240 5% 68%;
+
+    --accent: 240 6% 16%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 50%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 0 0% 80%;
-    --radius: 0.5rem;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 6% 16%;
+    --input: 240 6% 18%;
+    --ring: 355 78% 55%;
+
+    --radius: 0.625rem;
+
+    /* Raw hex forms, for the places that need a literal colour rather than
+     * an hsl() wrapper - SVG attributes and gradient interpolation. */
+    --marvel-red: #d81f35;
+    --marvel-gold: #f5a70a;
+    --marvel-blue: #4a8fd4;
   }
 
   * {
@@ -86,5 +127,69 @@
 
   body {
     @apply bg-background text-foreground;
+    /*
+     * A faint radial wash stops the near-black from reading as a flat void
+     * on large screens. Fixed so it does not travel with scroll.
+     */
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, hsl(355 78% 48% / 0.10), transparent),
+      radial-gradient(ellipse 60% 40% at 90% 10%, hsl(41 96% 52% / 0.05), transparent);
+    background-attachment: fixed;
+  }
+
+  /* Visible focus for keyboard users on every interactive element. */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  /*
+   * Entity-aware utilities. These read the CSS variables a page sets, so a
+   * component can opt into "the current character's colour" without knowing
+   * which character it is.
+   */
+  .text-entity {
+    color: var(--entity-primary, hsl(var(--primary)));
+  }
+
+  .border-entity {
+    border-color: var(--entity-primary, hsl(var(--primary)));
+  }
+
+  .bg-entity {
+    background-color: var(--entity-primary, hsl(var(--primary)));
+  }
+
+  /* A soft glow in the entity colour, for hero art and active cards. */
+  .glow-entity {
+    box-shadow: 0 0 40px -8px var(--entity-primary, hsl(var(--primary) / 0.5));
+  }
+
+  /* Gradient wash from the entity's two colours. */
+  .bg-entity-wash {
+    background-image: linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--entity-primary, hsl(var(--primary))) 22%, transparent) 0%,
+      color-mix(in oklab, var(--entity-secondary, hsl(var(--secondary))) 14%, transparent) 55%,
+      transparent 100%
+    );
+  }
+
+  /* Fades long text into the background rather than cutting it off. */
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }

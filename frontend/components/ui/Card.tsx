@@ -3,14 +3,25 @@
 import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Adds hover lift and an entity-coloured border. For clickable cards. */
+  interactive?: boolean;
+}
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ className, ...props }, ref) => (
+  ({ className, interactive, ...props }, ref) => (
     <div
       ref={ref}
       className={cn(
-        "rounded-lg border border-border bg-card text-card-foreground shadow-sm",
+        // A hairline top highlight reads as a lit edge and stops cards
+        // disappearing into the near-black background.
+        "relative rounded-lg border border-border/80 bg-card text-card-foreground",
+        "shadow-[0_1px_0_0_hsl(0_0%_100%/0.04)_inset,0_8px_24px_-12px_hsl(0_0%_0%/0.8)]",
+        interactive && [
+          "transition-[transform,border-color,box-shadow] duration-300",
+          "hover:-translate-y-1 hover:border-entity/50",
+          "hover:shadow-[0_1px_0_0_hsl(0_0%_100%/0.06)_inset,0_16px_40px_-16px_hsl(0_0%_0%/0.9)]",
+        ],
         className
       )}
       {...props}

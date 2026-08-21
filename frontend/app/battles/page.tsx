@@ -114,7 +114,7 @@ export default function BattlesPage() {
                 transition={{ delay: index * 0.05 }}
               >
                 <Link href={`/battles/${battle._id}`}>
-                  <Card className="group overflow-hidden hover:border-primary/50 transition-colors h-full">
+                  <Card interactive className="group h-full overflow-hidden">
                     <div className="relative h-48 bg-linear-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center">
                       <Swords className="w-16 h-16 text-orange-400/50" />
                       <div className="absolute top-2 right-2">

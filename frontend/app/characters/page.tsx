@@ -69,7 +69,7 @@ export default function CharactersPage() {
                 transition={{ delay: index * 0.05 }}
               >
                 <Link href={`/characters/${character._id}`}>
-                  <Card className="group overflow-hidden hover:border-primary/50 transition-colors">
+                  <Card interactive className="group overflow-hidden">
                     <div className="relative aspect-3/4 overflow-hidden">
                       {character.image ? (
                         <Image
