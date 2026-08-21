@@ -104,7 +104,7 @@ export default function HomePage() {
               >
                 <Link href={category.href}>
                   <div
-                    className={`group relative h-48 rounded-2xl border border-border overflow-hidden bg-gradient-to-br ${category.gradient} hover:border-white/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl`}
+                    className={`group relative h-48 rounded-2xl border border-border overflow-hidden bg-linear-to-br ${category.gradient} hover:border-white/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl`}
                   >
                     {/* Icon Background */}
                     <div className="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
