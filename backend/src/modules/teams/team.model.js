@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { withSlug } from "../../utils/slug.js";
 
 const teamSchema = new mongoose.Schema(
   {
@@ -65,9 +66,14 @@ const teamSchema = new mongoose.Schema(
 );
 
 // Indexes
+withSlug(teamSchema, "name");
+
 teamSchema.index({ name: "text", description: "text" });
 teamSchema.index({ name: 1 });
 teamSchema.index({ status: 1 });
+
+teamSchema.index({ members: 1 });
+teamSchema.index({ appearances: 1 });
 
 const Team = mongoose.model("Team", teamSchema);
 

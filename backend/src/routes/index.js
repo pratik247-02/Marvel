@@ -6,6 +6,7 @@ import {
   battleRoutes,
   quizRoutes,
   teamRoutes,
+  graphRoutes,
 } from "../modules/index.js";
 
 const router = Router();
@@ -26,5 +27,6 @@ router.use("/artifacts", artifactRoutes);
 router.use("/battles", battleRoutes);
 router.use("/quiz", quizRoutes);
 router.use("/teams", teamRoutes);
+router.use("/graph", graphRoutes);
 
 export default router;

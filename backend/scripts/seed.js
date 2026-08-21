@@ -43,19 +43,28 @@ const log = (...m) => console.log(...m);
 
 /**
  * Pass 1 - upsert bare entities (no relation fields) and return key -> _id.
+ *
+ * The upsert filter is the `slug`, not the display name. That is what makes a
+ * rerun safe: correcting a title in the source data updates the existing
+ * document instead of inserting a second one beside it.
  */
-async function upsertBase(Model, items, naturalKey, pick) {
+async function upsertBase(Model, items, pick) {
   const idsByKey = new Map();
   let created = 0;
   let updated = 0;
 
   for (const item of items) {
-    const filter = { [naturalKey]: item[naturalKey] };
-    const doc = pick(item);
+    const slug = item.key;
+    const filter = { slug };
+    const doc = { ...pick(item), slug };
 
     if (DRY_RUN) {
       const existing = await Model.findOne(filter).select("_id").lean();
-      existing ? updated++ : created++;
+      if (existing) {
+        updated++;
+      } else {
+        created++;
+      }
       // Use the real id when present so pass 1 dry-run counts stay meaningful.
       idsByKey.set(item.key, existing?._id ?? null);
       continue;
@@ -74,7 +83,11 @@ async function upsertBase(Model, items, naturalKey, pick) {
       saved.createdAt && saved.updatedAt
         ? new Date(saved.createdAt).getTime() === new Date(saved.updatedAt).getTime()
         : false;
-    isNew ? created++ : updated++;
+    if (isNew) {
+      created++;
+    } else {
+      updated++;
+    }
     idsByKey.set(item.key, saved._id);
   }
 
@@ -106,7 +119,7 @@ async function main() {
   // ---- Pass 1: bare entities -------------------------------------------
   log("\nPass 1 - upserting entities");
 
-  const movieRes = await upsertBase(Movie, movies, "title", (m) => ({
+  const movieRes = await upsertBase(Movie, movies, (m) => ({
     title: m.title,
     releaseYear: m.releaseYear,
     phase: m.phase,
@@ -118,7 +131,7 @@ async function main() {
   }));
   log(`  movies      ${movieRes.created} created, ${movieRes.updated} updated`);
 
-  const charRes = await upsertBase(Character, characters, "name", (c) => ({
+  const charRes = await upsertBase(Character, characters, (c) => ({
     name: c.name,
     alias: c.alias,
     description: c.description,
@@ -128,7 +141,7 @@ async function main() {
   }));
   log(`  characters  ${charRes.created} created, ${charRes.updated} updated`);
 
-  const artRes = await upsertBase(Artifact, artifacts, "name", (a) => ({
+  const artRes = await upsertBase(Artifact, artifacts, (a) => ({
     name: a.name,
     description: a.description,
     origin: a.origin,
@@ -137,7 +150,7 @@ async function main() {
   }));
   log(`  artifacts   ${artRes.created} created, ${artRes.updated} updated`);
 
-  const teamRes = await upsertBase(Team, teams, "name", (t) => ({
+  const teamRes = await upsertBase(Team, teams, (t) => ({
     name: t.name,
     description: t.description,
     headquarters: t.headquarters,
@@ -147,7 +160,7 @@ async function main() {
   }));
   log(`  teams       ${teamRes.created} created, ${teamRes.updated} updated`);
 
-  const battleRes = await upsertBase(Battle, battles, "name", (b) => ({
+  const battleRes = await upsertBase(Battle, battles, (b) => ({
     name: b.name,
     description: b.description,
     location: b.location,

@@ -15,3 +15,6 @@ export { Quiz, quizService, quizController, quizRoutes } from "./quiz/index.js";
 
 // Teams Module
 export { Team, teamService, teamController, teamRoutes } from "./teams/index.js";
+
+// Graph Module (Connection Engine)
+export { graphService, graphController, graphRoutes } from "./graph/index.js";

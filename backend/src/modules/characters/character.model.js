@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { withSlug } from "../../utils/slug.js";
 
 const sectionSchema = new mongoose.Schema(
   {
@@ -98,9 +99,17 @@ const characterSchema = new mongoose.Schema(
   }
 );
 
+withSlug(characterSchema, "name");
+
 // Index for search
 characterSchema.index({ name: "text", alias: "text", description: "text" });
 characterSchema.index({ name: 1 });
+
+// Multikey indexes backing the graph traversal - every relation the
+// Connection Engine walks is filtered on one of these.
+characterSchema.index({ affiliations: 1 });
+characterSchema.index({ appearances: 1 });
+characterSchema.index({ artifactsUsed: 1 });
 
 const Character = mongoose.model("Character", characterSchema);
 

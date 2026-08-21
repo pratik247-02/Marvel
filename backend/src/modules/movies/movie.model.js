@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { withSlug } from "../../utils/slug.js";
 
 const movieSchema = new mongoose.Schema(
   {
@@ -58,9 +59,15 @@ const movieSchema = new mongoose.Schema(
 );
 
 // Indexes
+withSlug(movieSchema, "title");
+
 movieSchema.index({ title: "text", synopsis: "text" });
 movieSchema.index({ releaseYear: 1 });
 movieSchema.index({ phase: 1 });
+
+// Timeline and phase browsing sort by year within a phase.
+movieSchema.index({ phase: 1, releaseYear: -1 });
+movieSchema.index({ characters: 1 });
 
 const Movie = mongoose.model("Movie", movieSchema);
 
