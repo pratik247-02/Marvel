@@ -74,10 +74,10 @@ scale. Redis earns its place only for the rate limiter under horizontal scaling.
 - [x] Add `slug` (unique, indexed) to all five content models
 - [x] Migration `001-backfill-slugs` for documents seeded before the field existed
 - [x] Compound indexes for real query patterns
-- [ ] TMDB integration for movie metadata and character portraits
-- [ ] Commit TMDB responses as fixtures so seeding needs no API key
+- [x] TMDB integration for movie metadata and character portraits
+- [x] Commit TMDB responses as fixtures so seeding needs no API key
 - [ ] Expand the curated relationship data to ~60 characters / ~50 battles
-- [ ] TMDB attribution in the footer (required by their terms)
+- [x] TMDB attribution in the footer (required by their terms)
 
 **Where the data comes from, and why it is split.**
 

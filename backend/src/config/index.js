@@ -20,6 +20,14 @@ export const config = {
 
   // Bcrypt
   bcryptSaltRounds: parseInt(process.env.BCRYPT_SALT_ROUNDS, 10) || 12,
+
+  // TMDB - only needed to refresh the fixtures. The seed reads committed
+  // fixtures by default, so the app runs without a key.
+  tmdb: {
+    accessToken: process.env.TMDB_ACCESS_TOKEN || "",
+    apiUrl: "https://api.themoviedb.org/3",
+    imageUrl: "https://image.tmdb.org/t/p",
+  },
 };
 
 // Validate required environment variables in production
