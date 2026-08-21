@@ -22,14 +22,43 @@ const backoffDelay = (attempt) => {
   return Math.random() * ceiling;
 };
 
+/**
+ * Recover the v3 key embedded in a v4 bearer token.
+ *
+ * The v4 token is a JWT whose `aud` claim is the account's v3 API key. That is
+ * public information inside a token the user already holds, not a secret being
+ * extracted - it just saves asking for the same credential twice when the v4
+ * token turns out not to be activated.
+ */
+const v3KeyFromBearer = (token) => {
+  try {
+    const payload = JSON.parse(
+      Buffer.from(token.split(".")[1], "base64").toString("utf8")
+    );
+    return typeof payload.aud === "string" ? payload.aud : "";
+  } catch {
+    return "";
+  }
+};
+
 export class TmdbClient {
-  constructor(accessToken = config.tmdb.accessToken) {
-    if (!accessToken) {
+  constructor({
+    accessToken = config.tmdb.accessToken,
+    apiKey = config.tmdb.apiKey,
+  } = {}) {
+    this.accessToken = accessToken;
+    this.apiKey = apiKey || (accessToken ? v3KeyFromBearer(accessToken) : "");
+
+    if (!this.accessToken && !this.apiKey) {
       throw new Error(
-        "TMDB_ACCESS_TOKEN is not set. Add it to backend/.env to refresh fixtures."
+        "No TMDB credentials. Set TMDB_ACCESS_TOKEN (v4 bearer) or TMDB_API_KEY " +
+          "(v3 key) in backend/.env to refresh fixtures."
       );
     }
-    this.accessToken = accessToken;
+
+    // Set once the first bearer attempt is rejected, so the whole run switches
+    // rather than paying a failed request per call.
+    this.useApiKey = !this.accessToken;
     this.requestCount = 0;
   }
 
@@ -40,18 +69,52 @@ export class TmdbClient {
         url.searchParams.set(key, String(value));
       }
     }
+    if (this.useApiKey) {
+      url.searchParams.set("api_key", this.apiKey);
+    }
+
+    let lastNetworkError = null;
 
     for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
-      const response = await fetch(url, {
-        headers: {
-          Authorization: `Bearer ${this.accessToken}`,
-          Accept: "application/json",
-        },
-      });
+      let response;
+      try {
+        response = await fetch(url, {
+          headers: {
+            ...(this.useApiKey
+              ? {}
+              : { Authorization: `Bearer ${this.accessToken}` }),
+            Accept: "application/json",
+          },
+          signal: AbortSignal.timeout(20000),
+        });
+      } catch (error) {
+        // A dropped connection is transient and is exactly what retries are
+        // for. ECONNRESET in particular shows up on machines where something
+        // inspects TLS traffic - antivirus, a VPN, a corporate proxy - and it
+        // fails intermittently rather than consistently.
+        lastNetworkError = error;
+        if (attempt < MAX_RETRIES) {
+          await sleep(backoffDelay(attempt));
+          continue;
+        }
+        const cause = error.cause?.code ?? error.name;
+        throw new Error(
+          `TMDB request to ${path} failed after ${MAX_RETRIES + 1} attempts (${cause}). ` +
+            "The network dropped the connection repeatedly; check for a VPN, proxy or " +
+            "antivirus intercepting HTTPS."
+        );
+      }
       this.requestCount++;
 
       if (response.ok) {
         return response.json();
+      }
+
+      // A rejected bearer token usually means the v4 credential was issued but
+      // not activated. Fall back to the v3 key and replay the request once.
+      if (response.status === 401 && !this.useApiKey && this.apiKey) {
+        this.useApiKey = true;
+        return this.request(path, params);
       }
 
       // 429 carries a Retry-After; honour it rather than guessing.
@@ -77,7 +140,10 @@ export class TmdbClient {
       );
     }
 
-    throw new Error(`TMDB request to ${path} failed after ${MAX_RETRIES} retries`);
+    throw new Error(
+      `TMDB request to ${path} failed after ${MAX_RETRIES} retries` +
+        (lastNetworkError ? `: ${lastNetworkError.message}` : "")
+    );
   }
 
   /** Find a movie by title, optionally narrowed by release year. */

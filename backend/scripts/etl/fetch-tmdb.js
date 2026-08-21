@@ -43,8 +43,20 @@ const matchesCharacter = (creditName, character) => {
   if (!credit) {
     return false;
   }
+
   const candidates = [character.name, character.alias].filter(Boolean).map(normalize);
-  return candidates.some((c) => c && (credit === c || credit.includes(c)));
+  if (candidates.some((c) => c && (credit === c || credit.includes(c)))) {
+    return true;
+  }
+
+  // Credits are often shorter than the curated name - TMDB lists "Loki" where
+  // the dataset says "Loki Laufeyson". Accept a credit that exactly matches the
+  // first name, but only when that name is distinctive enough to be unambiguous
+  // on its own. A bare "Peter" would match two different characters, so short
+  // and common first names are excluded.
+  const firstName = normalize(character.name).split(" ")[0];
+  const AMBIGUOUS = new Set(["peter", "steve", "tony", "bruce", "sam", "james", "john"]);
+  return firstName.length >= 4 && !AMBIGUOUS.has(firstName) && credit === firstName;
 };
 
 async function main() {

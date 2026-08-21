@@ -24,7 +24,11 @@ export const config = {
   // TMDB - only needed to refresh the fixtures. The seed reads committed
   // fixtures by default, so the app runs without a key.
   tmdb: {
+    // TMDB accepts either a v4 bearer token or a v3 api_key query parameter.
+    // Both are supported because a newly created account often has the v4
+    // token issued but not yet activated, while the v3 key works immediately.
     accessToken: process.env.TMDB_ACCESS_TOKEN || "",
+    apiKey: process.env.TMDB_API_KEY || "",
     apiUrl: "https://api.themoviedb.org/3",
     imageUrl: "https://image.tmdb.org/t/p",
   },
