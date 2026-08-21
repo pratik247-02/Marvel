@@ -20,6 +20,30 @@ export const movies = [
       "After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.",
   },
   {
+    key: "the-incredible-hulk",
+    title: "The Incredible Hulk",
+    releaseYear: 2008,
+    phase: "Phase 1",
+  },
+  {
+    key: "iron-man-2",
+    title: "Iron Man 2",
+    releaseYear: 2010,
+    phase: "Phase 1",
+  },
+  {
+    key: "thor",
+    title: "Thor",
+    releaseYear: 2011,
+    phase: "Phase 1",
+  },
+  {
+    key: "captain-america-the-first-avenger",
+    title: "Captain America: The First Avenger",
+    releaseYear: 2011,
+    phase: "Phase 1",
+  },
+  {
     key: "the-avengers",
     title: "The Avengers",
     releaseYear: 2012,
@@ -30,6 +54,18 @@ export const movies = [
     boxOffice: 1518815515,
     synopsis:
       "Earth's mightiest heroes must come together to stop Loki and his alien army from enslaving humanity.",
+  },
+  {
+    key: "iron-man-3",
+    title: "Iron Man 3",
+    releaseYear: 2013,
+    phase: "Phase 2",
+  },
+  {
+    key: "thor-the-dark-world",
+    title: "Thor: The Dark World",
+    releaseYear: 2013,
+    phase: "Phase 2",
   },
   {
     key: "captain-america-the-winter-soldier",
@@ -56,6 +92,24 @@ export const movies = [
       "A group of intergalactic criminals must pull together to stop a fanatical warrior from taking control of the universe.",
   },
   {
+    key: "avengers-age-of-ultron",
+    title: "Avengers: Age of Ultron",
+    releaseYear: 2015,
+    phase: "Phase 2",
+  },
+  {
+    key: "ant-man",
+    title: "Ant-Man",
+    releaseYear: 2015,
+    phase: "Phase 2",
+  },
+  {
+    key: "captain-america-civil-war",
+    title: "Captain America: Civil War",
+    releaseYear: 2016,
+    phase: "Phase 3",
+  },
+  {
     key: "doctor-strange",
     title: "Doctor Strange",
     releaseYear: 2016,
@@ -66,6 +120,18 @@ export const movies = [
     boxOffice: 677718395,
     synopsis:
       "A neurosurgeon discovers the hidden world of magic and alternate dimensions after a career-ending car accident.",
+  },
+  {
+    key: "guardians-of-the-galaxy-vol-2",
+    title: "Guardians of the Galaxy Vol. 2",
+    releaseYear: 2017,
+    phase: "Phase 3",
+  },
+  {
+    key: "spider-man-homecoming",
+    title: "Spider-Man: Homecoming",
+    releaseYear: 2017,
+    phase: "Phase 3",
   },
   {
     key: "thor-ragnarok",
@@ -104,6 +170,18 @@ export const movies = [
       "The Avengers must stop Thanos from collecting all six Infinity Stones and wiping out half of all life.",
   },
   {
+    key: "ant-man-and-the-wasp",
+    title: "Ant-Man and the Wasp",
+    releaseYear: 2018,
+    phase: "Phase 3",
+  },
+  {
+    key: "captain-marvel",
+    title: "Captain Marvel",
+    releaseYear: 2019,
+    phase: "Phase 3",
+  },
+  {
     key: "avengers-endgame",
     title: "Avengers: Endgame",
     releaseYear: 2019,
@@ -114,6 +192,102 @@ export const movies = [
     boxOffice: 2799439100,
     synopsis:
       "After the devastating events of Infinity War, the remaining Avengers take one final stand to undo Thanos' snap.",
+  },
+  {
+    key: "spider-man-far-from-home",
+    title: "Spider-Man: Far From Home",
+    releaseYear: 2019,
+    phase: "Phase 3",
+  },
+  {
+    key: "black-widow",
+    title: "Black Widow",
+    releaseYear: 2021,
+    phase: "Phase 4",
+  },
+  {
+    key: "shang-chi-and-the-legend-of-the-ten-rings",
+    title: "Shang-Chi and the Legend of the Ten Rings",
+    releaseYear: 2021,
+    phase: "Phase 4",
+  },
+  {
+    key: "eternals",
+    title: "Eternals",
+    releaseYear: 2021,
+    phase: "Phase 4",
+  },
+  {
+    key: "spider-man-no-way-home",
+    title: "Spider-Man: No Way Home",
+    releaseYear: 2021,
+    phase: "Phase 4",
+  },
+  {
+    key: "doctor-strange-in-the-multiverse-of-madness",
+    title: "Doctor Strange in the Multiverse of Madness",
+    releaseYear: 2022,
+    phase: "Phase 4",
+  },
+  {
+    key: "thor-love-and-thunder",
+    title: "Thor: Love and Thunder",
+    releaseYear: 2022,
+    phase: "Phase 4",
+  },
+  {
+    key: "black-panther-wakanda-forever",
+    title: "Black Panther: Wakanda Forever",
+    releaseYear: 2022,
+    phase: "Phase 4",
+  },
+  {
+    key: "ant-man-and-the-wasp-quantumania",
+    title: "Ant-Man and the Wasp: Quantumania",
+    releaseYear: 2023,
+    phase: "Phase 5",
+  },
+  {
+    key: "guardians-of-the-galaxy-vol-3",
+    title: "Guardians of the Galaxy Vol. 3",
+    releaseYear: 2023,
+    phase: "Phase 5",
+  },
+  {
+    key: "the-marvels",
+    title: "The Marvels",
+    releaseYear: 2023,
+    phase: "Phase 5",
+  },
+  {
+    key: "deadpool-and-wolverine",
+    title: "Deadpool & Wolverine",
+    releaseYear: 2024,
+    phase: "Phase 5",
+  },
+  {
+    key: "captain-america-brave-new-world",
+    title: "Captain America: Brave New World",
+    releaseYear: 2025,
+    phase: "Phase 5",
+  },
+  {
+    key: "thunderbolts",
+    title: "Thunderbolts*",
+    releaseYear: 2025,
+    phase: "Phase 5",
+  },
+  {
+    key: "the-fantastic-four-first-steps",
+    title: "The Fantastic Four: First Steps",
+    releaseYear: 2025,
+    phase: "Phase 6",
+  },
+  {
+    key: "spider-man-brand-new-day",
+    title: "Spider-Man: Brand New Day",
+    releaseYear: 2026,
+    phase: "Phase 6",
   },
 ];
 
