@@ -2,7 +2,6 @@ import { apiGet, apiGetPaginated, apiPost, apiPatch, apiDelete } from "@/service
 import type {
   Character,
   CharacterListItem,
-  CharacterStats,
   CharacterSection,
   ApiResponse,
   PaginatedResponse,
@@ -34,12 +33,5 @@ export const characterService = {
 
   async addSection(id: string, section: CharacterSection): Promise<ApiResponse<Character>> {
     return apiPost<Character, CharacterSection>(`${BASE_URL}/${id}/sections`, section);
-  },
-
-  async updateStats(
-    id: string,
-    stats: Partial<CharacterStats>
-  ): Promise<ApiResponse<Character>> {
-    return apiPatch<Character, Partial<CharacterStats>>(`${BASE_URL}/${id}/stats`, stats);
   },
 };

@@ -89,18 +89,4 @@ export const characterService = {
 
     return character;
   },
-
-  async updateStats(id, stats) {
-    const character = await Character.findByIdAndUpdate(
-      id,
-      { stats },
-      { new: true, runValidators: true }
-    );
-
-    if (!character) {
-      throw new AppError("Character not found", 404);
-    }
-
-    return character;
-  },
 };

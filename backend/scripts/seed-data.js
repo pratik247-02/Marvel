@@ -299,7 +299,6 @@ export const characters = [
     description:
       "Genius, billionaire, playboy, philanthropist. Founder of Stark Industries and a founding member of the Avengers.",
     powers: ["Powered Armor", "Genius Intellect", "Flight", "Repulsor Blasts"],
-    stats: { strength: 60, intelligence: 100, speed: 60, durability: 75, energy: 85, combat: 70 },
     theme: { colorPrimary: "#c8102e", colorSecondary: "#f0a500" },
     appearances: ["iron-man", "the-avengers", "avengers-infinity-war", "avengers-endgame"],
     affiliations: ["steve-rogers", "bruce-banner", "peter-parker", "stephen-strange"],
@@ -312,7 +311,6 @@ export const characters = [
     description:
       "The first Avenger. A World War II super soldier who became the moral center of Earth's mightiest heroes.",
     powers: ["Super Soldier Serum", "Peak Human Strength", "Shield Mastery", "Tactical Genius"],
-    stats: { strength: 75, intelligence: 70, speed: 65, durability: 80, energy: 40, combat: 100 },
     theme: { colorPrimary: "#0a3161", colorSecondary: "#c8102e" },
     appearances: [
       "the-avengers",
@@ -330,7 +328,6 @@ export const characters = [
     description:
       "The God of Thunder and rightful king of Asgard. Wielder of Mjolnir and later Stormbreaker.",
     powers: ["Godly Strength", "Weather Manipulation", "Flight", "Longevity"],
-    stats: { strength: 100, intelligence: 65, speed: 85, durability: 95, energy: 95, combat: 85 },
     theme: { colorPrimary: "#1e3a8a", colorSecondary: "#dc2626" },
     appearances: ["the-avengers", "thor-ragnarok", "avengers-infinity-war", "avengers-endgame"],
     affiliations: ["loki-laufeyson", "bruce-banner", "tony-stark"],
@@ -343,7 +340,6 @@ export const characters = [
     description:
       "A brilliant physicist whose exposure to gamma radiation transforms him into an unstoppable green giant.",
     powers: ["Superhuman Strength", "Regeneration", "Genius Intellect", "Limitless Rage"],
-    stats: { strength: 100, intelligence: 95, speed: 60, durability: 100, energy: 50, combat: 65 },
     theme: { colorPrimary: "#15803d", colorSecondary: "#581c87" },
     appearances: ["the-avengers", "thor-ragnarok", "avengers-infinity-war", "avengers-endgame"],
     affiliations: ["tony-stark", "thor-odinson", "natasha-romanoff"],
@@ -356,7 +352,6 @@ export const characters = [
     description:
       "A former KGB assassin turned S.H.I.E.L.D. agent and founding Avenger, deadly without any powers.",
     powers: ["Master Assassin", "Espionage", "Acrobatics", "Multilingual"],
-    stats: { strength: 45, intelligence: 80, speed: 65, durability: 50, energy: 20, combat: 95 },
     theme: { colorPrimary: "#7f1d1d", colorSecondary: "#111827" },
     appearances: [
       "the-avengers",
@@ -373,7 +368,6 @@ export const characters = [
     alias: "Hawkeye",
     description: "A master marksman and S.H.I.E.L.D. agent who never misses his target.",
     powers: ["Master Archer", "Marksmanship", "Hand-to-Hand Combat"],
-    stats: { strength: 45, intelligence: 70, speed: 55, durability: 50, energy: 20, combat: 90 },
     theme: { colorPrimary: "#4c1d95", colorSecondary: "#111827" },
     appearances: ["the-avengers", "avengers-endgame"],
     affiliations: ["natasha-romanoff", "steve-rogers"],
@@ -386,7 +380,6 @@ export const characters = [
     description:
       "Steve Rogers' closest friend, brainwashed into a HYDRA assassin before reclaiming his identity.",
     powers: ["Enhanced Strength", "Bionic Arm", "Master Marksman", "Espionage"],
-    stats: { strength: 70, intelligence: 65, speed: 65, durability: 75, energy: 25, combat: 92 },
     theme: { colorPrimary: "#374151", colorSecondary: "#7f1d1d" },
     appearances: ["captain-america-the-winter-soldier", "avengers-infinity-war"],
     affiliations: ["steve-rogers", "sam-wilson"],
@@ -399,7 +392,6 @@ export const characters = [
     description:
       "A former pararescue airman who fights alongside Captain America with a winged flight suit.",
     powers: ["Flight", "Aerial Combat", "Military Training"],
-    stats: { strength: 45, intelligence: 65, speed: 70, durability: 50, energy: 30, combat: 80 },
     theme: { colorPrimary: "#b91c1c", colorSecondary: "#f3f4f6" },
     appearances: ["captain-america-the-winter-soldier", "avengers-infinity-war"],
     affiliations: ["steve-rogers", "bucky-barnes"],
@@ -412,7 +404,6 @@ export const characters = [
     description:
       "A teenage genius from Queens with the proportionate abilities of a spider, mentored by Tony Stark.",
     powers: ["Wall-Crawling", "Spider-Sense", "Superhuman Agility", "Genius Intellect"],
-    stats: { strength: 75, intelligence: 90, speed: 80, durability: 70, energy: 30, combat: 80 },
     theme: { colorPrimary: "#dc2626", colorSecondary: "#1d4ed8" },
     appearances: ["avengers-infinity-war", "avengers-endgame"],
     affiliations: ["tony-stark", "stephen-strange"],
@@ -425,7 +416,6 @@ export const characters = [
     description:
       "A former neurosurgeon who became Master of the Mystic Arts and guardian of the Time Stone.",
     powers: ["Sorcery", "Astral Projection", "Time Manipulation", "Portal Creation"],
-    stats: { strength: 45, intelligence: 95, speed: 60, durability: 60, energy: 100, combat: 75 },
     theme: { colorPrimary: "#b45309", colorSecondary: "#7f1d1d" },
     appearances: ["doctor-strange", "avengers-infinity-war", "avengers-endgame"],
     affiliations: ["tony-stark", "peter-parker"],
@@ -437,7 +427,6 @@ export const characters = [
     alias: "Black Panther",
     description: "King of Wakanda and protector of its people, enhanced by the heart-shaped herb.",
     powers: ["Enhanced Strength", "Vibranium Suit", "Superhuman Agility", "Master Tactician"],
-    stats: { strength: 70, intelligence: 85, speed: 75, durability: 80, energy: 40, combat: 95 },
     theme: { colorPrimary: "#4c1d95", colorSecondary: "#111827" },
     appearances: ["black-panther", "avengers-infinity-war", "avengers-endgame"],
     affiliations: ["steve-rogers", "shuri"],
@@ -450,7 +439,6 @@ export const characters = [
     description:
       "T'Challa's younger sister and the technological genius behind Wakanda's vibranium innovations.",
     powers: ["Genius Intellect", "Engineering Mastery", "Combat Training"],
-    stats: { strength: 40, intelligence: 100, speed: 55, durability: 45, energy: 35, combat: 65 },
     theme: { colorPrimary: "#7c3aed", colorSecondary: "#0f766e" },
     appearances: ["black-panther", "avengers-infinity-war"],
     affiliations: ["tchalla"],
@@ -463,7 +451,6 @@ export const characters = [
     description:
       "A human abducted from Earth as a child who leads the Guardians of the Galaxy.",
     powers: ["Celestial Heritage", "Marksmanship", "Piloting", "Improvisation"],
-    stats: { strength: 50, intelligence: 70, speed: 55, durability: 55, energy: 60, combat: 75 },
     theme: { colorPrimary: "#b45309", colorSecondary: "#1e40af" },
     appearances: ["guardians-of-the-galaxy", "avengers-infinity-war", "avengers-endgame"],
     affiliations: ["gamora", "rocket-raccoon", "groot"],
@@ -476,7 +463,6 @@ export const characters = [
     description:
       "The adopted daughter of Thanos who turned against him to join the Guardians of the Galaxy.",
     powers: ["Enhanced Strength", "Master Assassin", "Swordsmanship"],
-    stats: { strength: 65, intelligence: 75, speed: 70, durability: 65, energy: 30, combat: 95 },
     theme: { colorPrimary: "#15803d", colorSecondary: "#7f1d1d" },
     appearances: ["guardians-of-the-galaxy", "avengers-infinity-war"],
     affiliations: ["peter-quill", "thanos", "rocket-raccoon"],
@@ -489,7 +475,6 @@ export const characters = [
     description:
       "A genetically engineered raccoon bounty hunter, expert in weapons and tactics.",
     powers: ["Weapons Expert", "Engineering Genius", "Marksmanship"],
-    stats: { strength: 30, intelligence: 90, speed: 55, durability: 40, energy: 35, combat: 80 },
     theme: { colorPrimary: "#a16207", colorSecondary: "#1f2937" },
     appearances: ["guardians-of-the-galaxy", "avengers-infinity-war", "avengers-endgame"],
     affiliations: ["peter-quill", "groot", "thor-odinson"],
@@ -501,7 +486,6 @@ export const characters = [
     alias: "I am Groot",
     description: "A tree-like humanoid and Rocket's closest companion, capable of regrowth.",
     powers: ["Regeneration", "Body Manipulation", "Superhuman Strength"],
-    stats: { strength: 85, intelligence: 40, speed: 40, durability: 90, energy: 45, combat: 65 },
     theme: { colorPrimary: "#4d7c0f", colorSecondary: "#78350f" },
     appearances: ["guardians-of-the-galaxy", "avengers-infinity-war"],
     affiliations: ["rocket-raccoon", "peter-quill"],
@@ -514,7 +498,6 @@ export const characters = [
     description:
       "Thor's adopted brother, a Frost Giant raised in Asgard, whose loyalties shift constantly.",
     powers: ["Illusion Casting", "Shapeshifting", "Sorcery", "Longevity"],
-    stats: { strength: 60, intelligence: 90, speed: 65, durability: 70, energy: 85, combat: 80 },
     theme: { colorPrimary: "#15803d", colorSecondary: "#a16207" },
     appearances: ["the-avengers", "thor-ragnarok", "avengers-infinity-war"],
     affiliations: ["thor-odinson"],
@@ -527,7 +510,6 @@ export const characters = [
     description:
       "A warlord from Titan who seeks the Infinity Stones to erase half of all life in the universe.",
     powers: ["Immense Strength", "Invulnerability", "Genius Tactician", "Energy Projection"],
-    stats: { strength: 100, intelligence: 90, speed: 70, durability: 100, energy: 100, combat: 95 },
     theme: { colorPrimary: "#6d28d9", colorSecondary: "#a16207" },
     appearances: ["avengers-infinity-war", "avengers-endgame"],
     affiliations: ["gamora"],

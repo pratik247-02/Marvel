@@ -2,15 +2,6 @@ import { z } from "zod";
 
 const objectIdSchema = z.string().regex(/^[0-9a-fA-F]{24}$/, "Invalid ObjectId");
 
-const statsSchema = z.object({
-  strength: z.number().min(0).max(100).optional(),
-  intelligence: z.number().min(0).max(100).optional(),
-  speed: z.number().min(0).max(100).optional(),
-  durability: z.number().min(0).max(100).optional(),
-  energy: z.number().min(0).max(100).optional(),
-  combat: z.number().min(0).max(100).optional(),
-});
-
 const themeSchema = z.object({
   colorPrimary: z.string().optional(),
   colorSecondary: z.string().optional(),
@@ -32,7 +23,6 @@ export const characterValidators = {
       appearances: z.array(objectIdSchema).optional(),
       artifactsUsed: z.array(objectIdSchema).optional(),
       powers: z.array(z.string()).optional(),
-      stats: statsSchema.optional(),
       sections: z.array(sectionSchema).optional(),
       theme: themeSchema.optional(),
     }),
@@ -51,7 +41,6 @@ export const characterValidators = {
       appearances: z.array(objectIdSchema).optional(),
       artifactsUsed: z.array(objectIdSchema).optional(),
       powers: z.array(z.string()).optional(),
-      stats: statsSchema.optional(),
       sections: z.array(sectionSchema).optional(),
       theme: themeSchema.optional(),
       // Optional optimistic-concurrency guard. When present the update only
@@ -71,12 +60,5 @@ export const characterValidators = {
       id: objectIdSchema,
     }),
     body: sectionSchema,
-  }),
-
-  updateStats: z.object({
-    params: z.object({
-      id: objectIdSchema,
-    }),
-    body: statsSchema,
   }),
 };

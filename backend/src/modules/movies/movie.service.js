@@ -48,7 +48,7 @@ export const movieService = {
   async findById(id) {
     const movie = await Movie.findById(id).populate(
       "characters",
-      "name alias image description powers stats"
+      "name alias image description powers"
     );
 
     if (!movie) {

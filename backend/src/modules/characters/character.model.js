@@ -16,18 +16,6 @@ const sectionSchema = new mongoose.Schema(
   { _id: false }
 );
 
-const statsSchema = new mongoose.Schema(
-  {
-    strength: { type: Number, min: 0, max: 100, default: 50 },
-    intelligence: { type: Number, min: 0, max: 100, default: 50 },
-    speed: { type: Number, min: 0, max: 100, default: 50 },
-    durability: { type: Number, min: 0, max: 100, default: 50 },
-    energy: { type: Number, min: 0, max: 100, default: 50 },
-    combat: { type: Number, min: 0, max: 100, default: 50 },
-  },
-  { _id: false }
-);
-
 const themeSchema = new mongoose.Schema(
   {
     colorPrimary: { type: String, default: "#e23636" },
@@ -82,10 +70,6 @@ const characterSchema = new mongoose.Schema(
         trim: true,
       },
     ],
-    stats: {
-      type: statsSchema,
-      default: () => ({}),
-    },
     sections: [sectionSchema],
     theme: {
       type: themeSchema,

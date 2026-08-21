@@ -49,7 +49,7 @@ export const teamService = {
 
   async findById(id) {
     const team = await Team.findById(id)
-      .populate("members", "name alias image description powers stats")
+      .populate("members", "name alias image description powers")
       .populate("leaders", "name alias image description")
       .populate("appearances", "title releaseYear poster phase synopsis");
 

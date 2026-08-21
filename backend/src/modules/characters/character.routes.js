@@ -30,11 +30,4 @@ router.post(
   characterController.addSection
 );
 
-router.patch(
-  "/:id/stats",
-  ...requireAdmin,
-  validate(characterValidators.updateStats),
-  characterController.updateStats
-);
-
 export default router;

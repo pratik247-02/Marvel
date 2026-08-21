@@ -54,7 +54,7 @@ export const battleService = {
 
   async findById(id) {
     const battle = await Battle.findById(id)
-      .populate("participants", "name alias image description powers stats")
+      .populate("participants", "name alias image description powers")
       .populate("movie", "title releaseYear poster phase synopsis")
       .populate("winner", "name alias image");
 

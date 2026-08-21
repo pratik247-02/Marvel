@@ -1,5 +1,4 @@
 export { HeroBanner } from "./HeroBanner";
-export { PowerStats } from "./PowerStats";
 export { Timeline } from "./Timeline";
 export { Gallery } from "./Gallery";
 export { FactList } from "./FactList";

@@ -55,13 +55,4 @@ export const characterController = {
       next(error);
     }
   },
-
-  async updateStats(req, res, next) {
-    try {
-      const character = await characterService.updateStats(req.params.id, req.body);
-      return success(res, character, "Stats updated successfully");
-    } catch (error) {
-      next(error);
-    }
-  },
 };

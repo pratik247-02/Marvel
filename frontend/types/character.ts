@@ -1,12 +1,3 @@
-export interface CharacterStats {
-  strength: number;
-  intelligence: number;
-  speed: number;
-  durability: number;
-  energy: number;
-  combat: number;
-}
-
 export interface CharacterTheme {
   colorPrimary: string;
   colorSecondary: string;
@@ -28,7 +19,6 @@ export interface Character {
   appearances?: Movie[];
   artifactsUsed?: Artifact[];
   powers?: string[];
-  stats: CharacterStats;
   sections: CharacterSection[];
   theme: CharacterTheme;
   createdAt: string;

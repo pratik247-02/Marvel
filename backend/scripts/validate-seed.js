@@ -75,8 +75,6 @@ for (const movie of movies) {
   }
 }
 
-const STAT_KEYS = ["strength", "intelligence", "speed", "durability", "energy", "combat"];
-
 for (const character of characters) {
   const label = `character "${character.key}"`;
   if (!character.name) {
@@ -88,15 +86,6 @@ for (const character of characters) {
 
   if (character.affiliations?.includes(character.key)) {
     problems.push(`${label}: lists itself as an affiliation`);
-  }
-
-  if (character.stats) {
-    for (const stat of STAT_KEYS) {
-      const value = character.stats[stat];
-      if (value !== undefined && !(value >= 0 && value <= 100)) {
-        problems.push(`${label}: stats.${stat} = ${value} is outside 0-100`);
-      }
-    }
   }
 
   // Not fatal, but a character with no ties is invisible to the graph, which
