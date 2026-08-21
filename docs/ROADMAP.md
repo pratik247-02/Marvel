@@ -148,7 +148,8 @@ the test task.
 ### Phase 3 — Auth and hardening (admin only)
 
 **Scope decision: admin-only for now.** No public registration and no
-user-facing account features in this phase. The security hole worth closing is
+user-facing account features in this phase. Admin is deliberately a single
+account rather than a role hierarchy — see Phase 8 for the full access model. The security hole worth closing is
 that every write endpoint is currently open — anyone can `POST /api/characters`
 or delete a movie — and locking those behind a role does that completely.
 Public signup, favourites and saved queries are real features but they are
@@ -171,7 +172,7 @@ keep this phase small enough to finish and defend.
       than silently clobbering a concurrent edit
 - [x] `scripts/create-admin.js` to seed the first admin, since there is no
       signup path to bootstrap from
-- [ ] Minimal `/admin` UI — login plus character CRUD. Small on its own, but
+- [x] Minimal `/admin` UI — login plus character CRUD. Small on its own, but
       it is what Phase 5's optimistic-update work hangs off later
 
 ### Phase 4 — Search, caching, observability
@@ -269,11 +270,38 @@ Public-facing account features, split out of Phase 3 so that phase stayed
 scoped to closing the open-writes hole. Everything here is product surface
 rather than security, and none of it blocks a deploy.
 
-- [ ] Public registration and login
+**The access model, in three tiers.** This is the shape the whole product
+follows — browse freely, sign in to participate, one owner edits.
+
+| Tier | Who | Can do |
+|---|---|---|
+| Visitor | Anyone, no account | Browse everything: characters, movies, battles, teams, artifacts, the Connection Engine and `/explore`. Nothing is paywalled or hidden behind a login. |
+| User | Signed in | Everything a visitor can, plus taking quizzes with saved results, favourites, and saved graph queries |
+| Admin | The owner, one account | Everything a user can, plus creating, editing and deleting content |
+
+Two things follow from that and are worth stating so they are not
+re-litigated later:
+
+**Reads are never gated.** The point of a reference site is that people can
+read it. Requiring an account to view a character page would cost every
+first-time visitor and buy nothing. Sign-in unlocks *participation* — the
+features that need somewhere to store your state — not access.
+
+**Admin is a single account, not a hierarchy.** The `role` field already
+supports `admin` and `user` and that is where it stops. There are no
+moderators, no per-resource permissions, no invite flow, no admin-managing-
+admins screen. Those solve a problem this project does not have: one person
+maintains the content. A permissions system with one admin in it is
+scaffolding pretending to be architecture.
+
+- [ ] Public registration, with the same password policy the CLI enforces
+- [ ] Sign-in and sign-up UI, distinct from `/admin/login`
+- [ ] Quiz results saved per user, with history
 - [ ] Favourite characters, teams and artifacts
 - [ ] Saved graph queries — a user's own "six degrees" lookups
-- [ ] Quiz history and results per user
 - [ ] Rate limits and abuse protection on the public signup path
+- [ ] Prompt-to-sign-in when an anonymous visitor hits a gated action,
+      rather than a hard redirect that loses what they were doing
 
 ### Phase 7 — Polish and documentation
 
