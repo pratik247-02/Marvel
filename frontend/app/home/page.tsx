@@ -2,10 +2,18 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Users, Film, UsersRound, Swords, HelpCircle, Gem, Mail } from "lucide-react";
+import { Users, Film, UsersRound, Swords, HelpCircle, Gem, Mail, Route } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 
 const categories = [
+  {
+    href: "/explore",
+    label: "Explore",
+    description: "Trace how any two characters connect",
+    icon: Route,
+    color: "#e23636",
+    gradient: "from-red-500/20 to-orange-900/20",
+  },
   {
     href: "/characters",
     label: "Characters",
