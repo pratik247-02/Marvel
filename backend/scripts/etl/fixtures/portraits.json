@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-08-21T10:34:11.463Z",
+  "source": "https://marvelcinematicuniverse.fandom.com",
+  "licence": "CC BY-SA - attribute the MCU Wiki when displaying these images",
+  "characterImages": {
+    "tony-stark": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/9/9d/Iron_Man_Infobox.jpg",
+    "steve-rogers": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/9/9d/Captain_America_Infobox.jpg",
+    "thor-odinson": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/2b/Thor_Infobox.jpg",
+    "bruce-banner": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/29/Hulk_Infobox.jpg",
+    "natasha-romanoff": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/3/3f/Black_Widow_Infobox.jpg",
+    "clint-barton": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/5/5b/Hawkeye_Infobox.jpg",
+    "bucky-barnes": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/21/Winter_Soldier_Infobox.jpg",
+    "sam-wilson": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/3/3d/Falcon_Infobox.png",
+    "peter-parker": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/4/41/Spider-Man_Infobox.jpg",
+    "stephen-strange": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/b/b2/Doctor_Strange_MoM_Profile.jpeg",
+    "tchalla": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/9/93/Black_Panther_Infobox.jpg",
+    "shuri": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/d/dd/Princesse_shuri_legends.jpg",
+    "peter-quill": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/6/6c/Star-Lord_Infobox.jpg",
+    "gamora": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/7/70/Gamora_Infobox.jpg",
+    "rocket-raccoon": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/3/30/Rocket_Vol._3.jpg",
+    "groot": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/5/57/Groot_Infobox.png",
+    "loki-laufeyson": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/b/b5/Loki_Infobox.png",
+    "thanos": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/27/Thanos_Infobox.png"
+  }
+}

@@ -13,6 +13,10 @@
     "seed:dry": "node scripts/seed.js --dry-run",
     "seed:fresh": "node scripts/seed.js --purge",
     "create-admin": "node scripts/create-admin.js",
+    "tmdb:fetch": "node scripts/etl/fetch-tmdb.js",
+    "tmdb:dry": "node scripts/etl/fetch-tmdb.js --dry-run",
+    "portraits:fetch": "node scripts/etl/fetch-portraits.js",
+    "portraits:dry": "node scripts/etl/fetch-portraits.js --dry-run",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

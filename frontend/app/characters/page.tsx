@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
@@ -10,6 +9,7 @@ import { Container } from "@/components/layout/Container";
 import { HeroBanner } from "@/components/blocks/HeroBanner";
 import { Input } from "@/components/ui/Input";
 import { Card } from "@/components/ui/Card";
+import { EntityPortrait } from "@/components/blocks/EntityPortrait";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useCharacters } from "@/modules/characters";
 
@@ -71,20 +71,11 @@ export default function CharactersPage() {
                 <Link href={`/characters/${character._id}`}>
                   <Card interactive className="group overflow-hidden">
                     <div className="relative aspect-3/4 overflow-hidden">
-                      {character.image ? (
-                        <Image
-                          src={character.image}
-                          alt={character.name}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-muted flex items-center justify-center">
-                          <span className="text-4xl font-bold text-muted-foreground">
-                            {character.name[0]}
-                          </span>
-                        </div>
-                      )}
+                      <EntityPortrait
+                        name={character.name}
+                        image={character.image}
+                        theme={character.theme}
+                      />
                       <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
                     </div>
                     <div className="p-4">

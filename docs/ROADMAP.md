@@ -74,10 +74,10 @@ scale. Redis earns its place only for the rate limiter under horizontal scaling.
 - [x] Add `slug` (unique, indexed) to all five content models
 - [x] Migration `001-backfill-slugs` for documents seeded before the field existed
 - [x] Compound indexes for real query patterns
-- [ ] TMDB integration for movie metadata and character portraits
-- [ ] Commit TMDB responses as fixtures so seeding needs no API key
+- [x] TMDB integration for movie metadata and character portraits
+- [x] Commit TMDB responses as fixtures so seeding needs no API key
 - [ ] Expand the curated relationship data to ~60 characters / ~50 battles
-- [ ] TMDB attribution in the footer (required by their terms)
+- [x] TMDB attribution in the footer (required by their terms)
 
 **Where the data comes from, and why it is split.**
 
@@ -93,8 +93,33 @@ So the split is deliberate:
 | Layer | Source | Why |
 |---|---|---|
 | Movie titles, posters, runtime, box office, cast | TMDB | Nobody differentiates on knowing Endgame runs 181 minutes |
-| Character portraits | TMDB cast profiles | Cards currently render initials; real art changes the whole site |
+| Character portraits | MCU Fandom wiki | TMDB has no character art at all; Marvel's own API is shut down |
 | Affiliations, stats, battles, artifacts, teams | Hand-curated | The graph. Does not exist in any public API |
+
+**Portraits are not fully automatic — new characters must be checked by hand.**
+
+`scripts/etl/fetch-portraits.js` reads a `PAGE_TITLES` map because the wiki
+titles pages by the name currently in use, which frequently is not the curated
+name. Four of the first eighteen already needed an explicit entry: Bruce Banner
+lives at "Hulk", Bucky Barnes at "Winter Soldier", Sam Wilson at "Falcon",
+Shuri at "Princess Shuri".
+
+One case is worse than a miss and is the reason this needs eyes rather than a
+green tick. Searching "Black Widow" returns **Yelena Belova**, because she took
+the mantle — a wrong portrait that looks perfectly fine until somebody notices.
+A miss is loud; a wrong match is silent.
+
+So whenever characters are added or renamed:
+
+- [ ] Re-run `npm run portraits:dry` and read the output rather than the count
+- [ ] Add a `PAGE_TITLES` entry for anything reported as MISS
+- [ ] Open the resulting images and confirm each is the right character,
+      paying attention to any name another character has since inherited
+- [ ] Re-run `npm run tmdb:fetch` if the movie list changed
+
+TMDB is deliberately never consulted for character images. Its cast records
+carry `profile_path`, which is a photo of the actor — using it put Vin Diesel's
+headshot on Groot. That is recorded in the ETL so it is not reintroduced.
 
 Using TMDB for the factual layer is not what would make the project generic —
 having *only* that layer would be. The curated relationship data is the product.

@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "image.tmdb.org", pathname: "/t/p/**" },
       // Marvel CDN - used by some curated character art.
       { protocol: "https", hostname: "*.marvel.com" },
+      // MCU Fandom wiki - character infobox portraits.
+      { protocol: "https", hostname: "static.wikia.nocookie.net" },
       // Wikimedia - fallback for public-domain stills.
       { protocol: "https", hostname: "upload.wikimedia.org" },
     ],

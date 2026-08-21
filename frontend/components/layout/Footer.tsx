@@ -73,8 +73,34 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
+        <div className="mt-8 space-y-2 border-t border-border pt-8 text-center text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} MCU Hub. Built with Next.js.</p>
+          {/* Required by the TMDB terms of use when their API supplies data. */}
+          <p className="text-xs">
+            Movie metadata and imagery from{" "}
+            <a
+              href="https://www.themoviedb.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-foreground"
+            >
+              TMDB
+            </a>
+            . This product uses the TMDB API but is not endorsed or certified by TMDB.
+          </p>
+          {/* The MCU Wiki is CC BY-SA, which requires attribution. */}
+          <p className="text-xs">
+            Character artwork from the{" "}
+            <a
+              href="https://marvelcinematicuniverse.fandom.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-foreground"
+            >
+              MCU Wiki
+            </a>
+            , used under CC BY-SA.
+          </p>
         </div>
       </div>
     </footer>

@@ -7,3 +7,4 @@ export { Quotes } from "./Quotes";
 export { Appearances } from "./Appearances";
 export { RelationshipGraph } from "./RelationshipGraph";
 export { ForceGraph } from "./ForceGraph";
+export { EntityPortrait } from "./EntityPortrait";

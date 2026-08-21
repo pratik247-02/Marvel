@@ -18,6 +18,9 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { characters, movies, artifacts, teams, battles } from "./seed-data.js";
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 
 import Character from "../src/modules/characters/character.model.js";
 import Movie from "../src/modules/movies/movie.model.js";
@@ -26,6 +29,47 @@ import Team from "../src/modules/teams/team.model.js";
 import Battle from "../src/modules/battles/battle.model.js";
 
 dotenv.config();
+
+/**
+ * TMDB enrichment, read from a committed fixture rather than the live API.
+ *
+ * The curated data is authoritative for anything about relationships or
+ * character identity; TMDB only fills in factual gaps - posters, runtime, box
+ * office, portraits. Curated values always win, so a deliberate choice in
+ * seed-data.js is never silently replaced by whatever TMDB happens to hold.
+ *
+ * An empty or missing fixture is not an error: the seed simply runs without
+ * enrichment, which is what happens on a clone with no API key.
+ */
+const loadTmdbFixture = () => {
+  try {
+    const here = dirname(fileURLToPath(import.meta.url));
+    const raw = readFileSync(join(here, "etl", "fixtures", "tmdb.json"), "utf8");
+    return JSON.parse(raw);
+  } catch {
+    return { movies: {} };
+  }
+};
+
+const tmdb = loadTmdbFixture();
+
+/**
+ * Character portraits from the MCU wiki. TMDB has none - its cast records are
+ * actor headshots - and Marvel's own API is shut down. Same fixture pattern:
+ * absent means the seed runs without artwork and the UI falls back to its
+ * themed placeholder.
+ */
+const loadPortraitFixture = () => {
+  try {
+    const here = dirname(fileURLToPath(import.meta.url));
+    const raw = readFileSync(join(here, "etl", "fixtures", "portraits.json"), "utf8");
+    return JSON.parse(raw);
+  } catch {
+    return { characterImages: {} };
+  }
+};
+
+const portraits = loadPortraitFixture();
 
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes("--dry-run");
@@ -119,26 +163,37 @@ async function main() {
   // ---- Pass 1: bare entities -------------------------------------------
   log("\nPass 1 - upserting entities");
 
-  const movieRes = await upsertBase(Movie, movies, (m) => ({
-    title: m.title,
-    releaseYear: m.releaseYear,
-    phase: m.phase,
-    synopsis: m.synopsis,
-    director: m.director,
-    runtime: m.runtime,
-    rating: m.rating,
-    boxOffice: m.boxOffice,
-  }));
+  const movieRes = await upsertBase(Movie, movies, (m) => {
+    const extra = tmdb.movies?.[m.key] ?? {};
+    return {
+      title: m.title,
+      releaseYear: m.releaseYear,
+      phase: m.phase,
+      // Curated values win; TMDB fills the gaps.
+      synopsis: m.synopsis ?? extra.synopsis,
+      director: m.director ?? extra.director,
+      runtime: m.runtime ?? extra.runtime,
+      rating: m.rating ?? extra.rating,
+      boxOffice: m.boxOffice ?? extra.boxOffice,
+      ...(extra.poster ? { poster: extra.poster } : {}),
+    };
+  });
   log(`  movies      ${movieRes.created} created, ${movieRes.updated} updated`);
 
-  const charRes = await upsertBase(Character, characters, (c) => ({
-    name: c.name,
-    alias: c.alias,
-    description: c.description,
-    powers: c.powers,
-    stats: c.stats,
-    theme: c.theme,
-  }));
+  const charRes = await upsertBase(Character, characters, (c) => {
+    // Curated art wins; the wiki fills the gaps. TMDB is deliberately not
+    // consulted here - its cast records are actor headshots, not characters.
+    const portrait = c.image ?? portraits.characterImages?.[c.key];
+    return {
+      name: c.name,
+      alias: c.alias,
+      description: c.description,
+      powers: c.powers,
+      stats: c.stats,
+      theme: c.theme,
+      ...(portrait ? { image: portrait } : {}),
+    };
+  });
   log(`  characters  ${charRes.created} created, ${charRes.updated} updated`);
 
   const artRes = await upsertBase(Artifact, artifacts, (a) => ({
