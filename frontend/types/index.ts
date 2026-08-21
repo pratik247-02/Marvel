@@ -8,3 +8,4 @@ export * from "./artifact";
 export * from "./battle";
 export * from "./quiz";
 export * from "./team";
+export * from "./graph";

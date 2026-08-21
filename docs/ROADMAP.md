@@ -85,9 +85,35 @@ scale. Redis earns its place only for the rate limiter under horizontal scaling.
 - [x] Ego network at depth N; degree and betweenness centrality
 - [x] In-process cache, invalidated on write with a TTL backstop
 - [x] Re-benchmark and record the before/after
-- [ ] Unit tests: unreachable pairs, self-to-self, cycles, disconnected components
-- [ ] Upgrade `RelationshipGraph.tsx` to a real force-directed visualization
-- [ ] `/explore` page — pick two characters, animate the path
+- [x] Force-directed visualization (`ForceGraph.tsx`) — hand-rolled physics, SVG
+- [x] `/explore` page — pick two characters, animate the path
+- [ ] Focused unit tests on the graph algorithms (see note below)
+
+**Sequencing note — visualization before tests.**
+
+The original order put unit tests first, on the reasoning that a Dijkstra bug is
+silent: a wrong path still looks like a path, so it will not announce itself the
+way a crash does. That reasoning still holds and the tests are still planned.
+
+They were moved after the visualization for two reasons. The engine is already
+verified end to end against real data — every endpoint, every non-happy path,
+and hand-checked routes such as Groot → Rocket → Thor → Tony — so it is not
+running unverified. And the visualization is the demo: it is what makes the
+project legible to anyone looking at it, and it exercises the API in ways that
+surface problems a fixture graph would not.
+
+**Scope of the tests, when they land.** Roughly a dozen focused tests on the
+graph algorithms only, each with its reasoning written next to it. Not a broad
+coverage target. The value is in testing the one part of the system with real
+logic risk — the pure algorithms — and being able to explain every assertion.
+Tests nobody can explain are worse than no tests, because they suggest the code
+was not understood by the person shipping it.
+
+Testing the algorithms first requires separating them from the data fetching:
+they currently call `getGraph()` internally, so a test needs either a database
+or a mock of Mongoose's chained query API. Extracting `dijkstra(graph, from, to)`
+as a pure function over an adjacency map removes both. That refactor is part of
+the test task.
 
 ### Phase 3 — Auth and hardening
 
@@ -167,13 +193,27 @@ win available.
 
 ### Phase 6 — Testing and CI/CD
 
-- [ ] Vitest + Supertest + mongodb-memory-server
-- [ ] ~95% on graph algorithms, ~70% overall
-- [ ] Non-happy paths: 401, 403, malformed ids, out-of-range pages
-- [ ] 5 Playwright end-to-end specs
-- [ ] Full CI pipeline with coverage upload and branch protection
+- [ ] Vitest, starting with the graph algorithm tests from Phase 2
+- [ ] Supertest on the route layer: non-happy paths first (400/401/403/404),
+      since those are the ones that actually regress
+- [ ] `mongodb-memory-server` for service-layer tests, so they run against a
+      real mongod rather than a mock of Mongoose's query API
+- [ ] Full CI pipeline with branch protection
 - [ ] Multi-stage Dockerfile + `docker-compose.yml`
 - [ ] Deploy: Vercel + Render/Fly + Atlas
+
+**On coverage targets.** No percentage goal is set here deliberately. A number
+invites writing tests to move the number, which is how suites fill up with
+assertions on presentational components that cannot meaningfully fail. The
+useful question is which code would fail silently if it were wrong — the graph
+algorithms, the weighting model, the ETL's idempotency — and that list is short
+and worth testing properly. Whatever percentage falls out of that is the
+honest number to report.
+
+Playwright is deliberately not listed. End-to-end browser tests are the most
+expensive kind to write and maintain, and with a single-developer project that
+has no regression history yet, they would be machinery without a problem to
+solve. Worth revisiting once the UI has stabilized.
 
 ### Phase 7 — Polish and documentation
 
