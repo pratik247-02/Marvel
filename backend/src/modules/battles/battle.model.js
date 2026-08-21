@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { withSlug } from "../../utils/slug.js";
 
 const battleSchema = new mongoose.Schema(
   {
@@ -60,9 +61,15 @@ const battleSchema = new mongoose.Schema(
 );
 
 // Indexes
+withSlug(battleSchema, "name");
+
 battleSchema.index({ name: "text", description: "text" });
 battleSchema.index({ movie: 1 });
 battleSchema.index({ significance: 1 });
+
+// Battle lists filter by significance and sort newest-first.
+battleSchema.index({ significance: 1, createdAt: -1 });
+battleSchema.index({ participants: 1 });
 
 const Battle = mongoose.model("Battle", battleSchema);
 

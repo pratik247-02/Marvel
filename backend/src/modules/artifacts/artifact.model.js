@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { withSlug } from "../../utils/slug.js";
 
 const artifactSchema = new mongoose.Schema(
   {
@@ -53,8 +54,13 @@ const artifactSchema = new mongoose.Schema(
 );
 
 // Indexes
+withSlug(artifactSchema, "name");
+
 artifactSchema.index({ name: "text", description: "text" });
 artifactSchema.index({ name: 1 });
+
+artifactSchema.index({ status: 1 });
+artifactSchema.index({ holders: 1 });
 
 const Artifact = mongoose.model("Artifact", artifactSchema);
 

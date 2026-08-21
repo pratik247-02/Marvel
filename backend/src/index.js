@@ -10,6 +10,7 @@ import { config } from "./config/index.js";
 import { errorHandler, notFoundHandler } from "./middlewares/errorHandler.js";
 import { logger } from "./utils/logger.js";
 import routes from "./routes/index.js";
+import { registerGraphInvalidation } from "./modules/graph/index.js";
 
 const app = express();
 
@@ -25,6 +26,9 @@ const connectDB = async () => {
 };
 
 connectDB();
+
+// Drop the graph snapshot whenever content changes.
+registerGraphInvalidation();
 
 // Security middlewares
 app.use(helmet());

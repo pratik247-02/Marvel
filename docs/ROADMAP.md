@@ -71,19 +71,20 @@ scale. Redis earns its place only for the rate limiter under horizontal scaling.
 - [x] Idempotent loader with two-pass FK resolution and batched `bulkWrite`
 - [x] `--dry-run`, `--purge` and `--uri` flags
 - [x] Seeded to MongoDB Atlas and verified end to end
-- [ ] Add `slug` (unique, indexed) to all five content models
+- [x] Add `slug` (unique, indexed) to all five content models
+- [x] Migration `001-backfill-slugs` for documents seeded before the field existed
 - [ ] TMDB integration for posters, runtime, box office and cast
 - [ ] Expand to ~100 characters / ~35 movies / ~50 battles
 - [ ] Commit TMDB responses as fixtures so seeding needs no API key
-- [ ] Compound indexes for real query patterns
+- [x] Compound indexes for real query patterns
 
 ### Phase 2 — Connection Engine (flagship)
 
-- [ ] Implement naive `$graphLookup` traversal and **benchmark it first**
-- [ ] `modules/graph/`: adjacency snapshot, BFS shortest path, weighted Dijkstra
-- [ ] Ego network at depth N; degree and betweenness centrality
-- [ ] In-process cache, invalidated on write with a TTL backstop
-- [ ] Re-benchmark and record the before/after
+- [x] Implement naive `$graphLookup` traversal and **benchmark it first**
+- [x] `modules/graph/`: adjacency snapshot, BFS shortest path, weighted Dijkstra
+- [x] Ego network at depth N; degree and betweenness centrality
+- [x] In-process cache, invalidated on write with a TTL backstop
+- [x] Re-benchmark and record the before/after
 - [ ] Unit tests: unreachable pairs, self-to-self, cycles, disconnected components
 - [ ] Upgrade `RelationshipGraph.tsx` to a real force-directed visualization
 - [ ] `/explore` page — pick two characters, animate the path
@@ -186,11 +187,54 @@ win available.
 
 ## Benchmarks
 
-Numbers go in once measured — not before.
+### Baseline — naive `$graphLookup`, measured 2026-08-21
 
-| Endpoint | Naive `$graphLookup` | + indexes | + adjacency cache |
-|---|---|---|---|
-| `/api/graph/path` p95 | | | |
-| `/api/characters` p95 | | | |
+Shortest path Groot → Tony Stark (a genuine 3-hop route), measured at the
+service layer rather than over HTTP so the numbers reflect query and algorithm
+cost without Express and JSON serialization mixed in.
 
-Record alongside each run: hardware, concurrency, duration and warmup.
+Node v22.22.2, concurrency 1, 18 character nodes / 105 edges.
+Local: 200 iterations, 50 warmup. Atlas: 100 iterations, 30 warmup.
+
+| Traversal | Local p95 | Atlas p95 |
+|---|---|---|
+| `shortestPath` maxDepth=2 | 2.6 ms | 22.7 ms |
+| `shortestPath` maxDepth=3 | 2.6 ms | 32.8 ms |
+| `shortestPath` maxDepth=4 | 2.8 ms | 31.6 ms |
+| `shortestPath` maxDepth=6 | 2.7 ms | 21.6 ms |
+| *context:* `findById` | 0.6 ms | 10.3 ms |
+| *context:* find all + populate | 2.7 ms | 29.8 ms |
+
+### Result — in-process adjacency snapshot
+
+The original premise, that naive `$graphLookup` would cost 200-350 ms and an
+in-memory BFS would be a 20-40x win, **did not hold at this data size**. At 18
+nodes `$graphLookup` against a local mongod is ~2 ms; the algorithm was never
+the bottleneck.
+
+The real cost is the **network round trip**. A single `findById` against Atlas
+is ~10 ms and the naive traversal issues two queries, which is essentially the
+whole ~22 ms. So the optimization that mattered was not beating `$graphLookup`
+but not crossing the network at all for a graph that fits in memory.
+
+Measured 2026-08-21, Atlas, Node v22.22.2, concurrency 1, path Groot -> Tony
+Stark. Naive: 100 iterations / 30 warmup. Engine: 2000 iterations / 200 warmup
+(the coarser harness could not resolve sub-millisecond timings).
+
+| Traversal | p95 | vs naive |
+|---|---|---|
+| Naive `$graphLookup` maxDepth=2 | 24.2 ms | baseline |
+| Naive `$graphLookup` maxDepth=4 | 28.6 ms | baseline |
+| **Engine — Dijkstra (weighted)** | **0.027 ms** | **~900x** |
+| **Engine — BFS (fewest hops)** | **0.006 ms** | **~4000x** |
+| Engine — cold rebuild + path | 27.1 ms | ~1x |
+
+Snapshot build: 18 nodes, 84 edges, 12-27 ms against Atlas (5 concurrent
+queries). The cold-rebuild row is the honest caveat: the first request after a
+write or a restart pays the full rebuild, which costs about the same as one
+naive traversal. Every subsequent request inside the TTL is essentially free.
+
+The speedup is large because it is a comparison between doing I/O and not doing
+I/O, not between two algorithms. That distinction is the point.
+
+Harness: `node scripts/bench/graph-bench.js [--uri ...] [--iterations N] [--warmup N]`
