@@ -1,5 +1,6 @@
 import Character from "./character.model.js";
 import { AppError } from "../../middlewares/errorHandler.js";
+import { updateWithVersion } from "../../utils/concurrency.js";
 
 export const characterService = {
   async findAll(query = {}) {
@@ -60,16 +61,9 @@ export const characterService = {
   },
 
   async update(id, data) {
-    const character = await Character.findByIdAndUpdate(id, data, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!character) {
-      throw new AppError("Character not found", 404);
-    }
-
-    return character;
+    // Honours `expectedVersion` when the caller sends one, returning 409
+    // rather than silently overwriting a concurrent edit.
+    return updateWithVersion(Character, id, data, "Character");
   },
 
   async delete(id) {

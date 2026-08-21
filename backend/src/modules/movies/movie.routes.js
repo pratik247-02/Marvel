@@ -2,6 +2,7 @@ import { Router } from "express";
 import { movieController } from "./movie.controller.js";
 import { validate } from "../../middlewares/validate.js";
 import { requireAdmin } from "../../middlewares/requireAdmin.js";
+import { idempotency } from "../../middlewares/idempotency.js";
 import { movieValidators } from "./movie.validators.js";
 
 const router = Router();
@@ -12,7 +13,7 @@ router.get("/phase/:phase", movieController.getByPhase);
 router
   .route("/")
   .get(movieController.getAll)
-  .post(...requireAdmin, validate(movieValidators.create), movieController.create);
+  .post(...requireAdmin, idempotency, validate(movieValidators.create), movieController.create);
 
 router
   .route("/:id")

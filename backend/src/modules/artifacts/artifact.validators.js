@@ -31,6 +31,8 @@ export const artifactValidators = {
       origin: z.string().optional(),
       powers: z.array(z.string()).optional(),
       status: statusEnum.optional(),
+      // Optional optimistic-concurrency guard; see utils/concurrency.js
+      expectedVersion: z.number().int().min(0).optional(),
     }),
   }),
 

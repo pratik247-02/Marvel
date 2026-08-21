@@ -2,6 +2,7 @@ import { Router } from "express";
 import { teamController } from "./team.controller.js";
 import { validate } from "../../middlewares/validate.js";
 import { requireAdmin } from "../../middlewares/requireAdmin.js";
+import { idempotency } from "../../middlewares/idempotency.js";
 import { teamValidators } from "./team.validators.js";
 
 const router = Router();
@@ -9,7 +10,7 @@ const router = Router();
 router
   .route("/")
   .get(teamController.getAll)
-  .post(...requireAdmin, validate(teamValidators.create), teamController.create);
+  .post(...requireAdmin, idempotency, validate(teamValidators.create), teamController.create);
 
 router
   .route("/:id")

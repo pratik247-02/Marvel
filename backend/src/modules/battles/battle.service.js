@@ -1,5 +1,6 @@
 import Battle from "./battle.model.js";
 import { AppError } from "../../middlewares/errorHandler.js";
+import { updateWithVersion } from "../../utils/concurrency.js";
 
 export const battleService = {
   async findAll(query = {}) {
@@ -70,16 +71,9 @@ export const battleService = {
   },
 
   async update(id, data) {
-    const battle = await Battle.findByIdAndUpdate(id, data, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!battle) {
-      throw new AppError("Battle not found", 404);
-    }
-
-    return battle;
+    // Honours `expectedVersion` when supplied, returning 409 instead of
+    // silently overwriting a concurrent edit.
+    return updateWithVersion(Battle, id, data, "Battle");
   },
 
   async delete(id) {

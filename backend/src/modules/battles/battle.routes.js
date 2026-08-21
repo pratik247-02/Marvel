@@ -2,6 +2,7 @@ import { Router } from "express";
 import { battleController } from "./battle.controller.js";
 import { validate } from "../../middlewares/validate.js";
 import { requireAdmin } from "../../middlewares/requireAdmin.js";
+import { idempotency } from "../../middlewares/idempotency.js";
 import { battleValidators } from "./battle.validators.js";
 
 const router = Router();
@@ -12,7 +13,7 @@ router.get("/character/:characterId", battleController.getByCharacter);
 router
   .route("/")
   .get(battleController.getAll)
-  .post(...requireAdmin, validate(battleValidators.create), battleController.create);
+  .post(...requireAdmin, idempotency, validate(battleValidators.create), battleController.create);
 
 router
   .route("/:id")

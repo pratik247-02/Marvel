@@ -35,6 +35,8 @@ export const battleValidators = {
       winner: objectIdSchema.optional(),
       casualties: z.number().min(0).optional(),
       significance: significanceEnum.optional(),
+      // Optional optimistic-concurrency guard; see utils/concurrency.js
+      expectedVersion: z.number().int().min(0).optional(),
     }),
   }),
 

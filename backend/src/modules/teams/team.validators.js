@@ -42,6 +42,8 @@ export const teamValidators = {
       founded: z.string().optional(),
       status: statusEnum.optional(),
       theme: themeSchema.optional(),
+      // Optional optimistic-concurrency guard; see utils/concurrency.js
+      expectedVersion: z.number().int().min(0).optional(),
     }),
   }),
 

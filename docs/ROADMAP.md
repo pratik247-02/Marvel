@@ -166,8 +166,8 @@ keep this phase small enough to finish and defend.
       `middlewares/auth.js` already exists and is unused, so this is wiring
 - [x] Per-route rate limits — tighter on `/auth/login` than on reads; the
       current blanket 100/15min across `/api` is too coarse to reason about
-- [ ] Idempotency keys on POST, so a retried request cannot double-create
-- [ ] Optimistic concurrency via a `version` field → `409 Conflict` rather
+- [x] Idempotency keys on POST, so a retried request cannot double-create
+- [x] Optimistic concurrency via a `version` field → `409 Conflict` rather
       than silently clobbering a concurrent edit
 - [x] `scripts/create-admin.js` to seed the first admin, since there is no
       signup path to bootstrap from

@@ -2,6 +2,7 @@ import { Router } from "express";
 import { characterController } from "./character.controller.js";
 import { validate } from "../../middlewares/validate.js";
 import { requireAdmin } from "../../middlewares/requireAdmin.js";
+import { idempotency } from "../../middlewares/idempotency.js";
 import { characterValidators } from "./character.validators.js";
 
 const router = Router();
@@ -9,7 +10,12 @@ const router = Router();
 router
   .route("/")
   .get(characterController.getAll)
-  .post(...requireAdmin, validate(characterValidators.create), characterController.create);
+  .post(
+    ...requireAdmin,
+    idempotency,
+    validate(characterValidators.create),
+    characterController.create
+  );
 
 router
   .route("/:id")

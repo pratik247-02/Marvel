@@ -2,6 +2,7 @@ import { Router } from "express";
 import { artifactController } from "./artifact.controller.js";
 import { validate } from "../../middlewares/validate.js";
 import { requireAdmin } from "../../middlewares/requireAdmin.js";
+import { idempotency } from "../../middlewares/idempotency.js";
 import { artifactValidators } from "./artifact.validators.js";
 
 const router = Router();
@@ -9,7 +10,7 @@ const router = Router();
 router
   .route("/")
   .get(artifactController.getAll)
-  .post(...requireAdmin, validate(artifactValidators.create), artifactController.create);
+  .post(...requireAdmin, idempotency, validate(artifactValidators.create), artifactController.create);
 
 router
   .route("/:id")
