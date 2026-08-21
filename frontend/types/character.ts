@@ -42,6 +42,10 @@ export interface CharacterListItem {
   alias?: string;
   image?: string;
   description?: string;
+  /** Present on list responses; drives per-entity theming in cards. */
+  theme?: CharacterTheme;
+  /** Mongoose document version, used for optimistic concurrency on edits. */
+  __v?: number;
 }
 
 // Import types that are referenced

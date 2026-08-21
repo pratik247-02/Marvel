@@ -88,6 +88,19 @@ export function Footer() {
             </a>
             . This product uses the TMDB API but is not endorsed or certified by TMDB.
           </p>
+          {/* The MCU Wiki is CC BY-SA, which requires attribution. */}
+          <p className="text-xs">
+            Character artwork from the{" "}
+            <a
+              href="https://marvelcinematicuniverse.fandom.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-foreground"
+            >
+              MCU Wiki
+            </a>
+            , used under CC BY-SA.
+          </p>
         </div>
       </div>
     </footer>

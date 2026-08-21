@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T10:00:08.777Z",
+  "generatedAt": "2026-08-21T10:07:24.808Z",
   "source": "https://www.themoviedb.org",
   "movies": {
     "iron-man": {
@@ -110,25 +110,5 @@
       "synopsis": "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
       "director": "Anthony Russo"
     }
-  },
-  "characterImages": {
-    "tony-stark": "https://image.tmdb.org/t/p/w500/5qHNjhtjMD4YWH3UP0rm4tKwxCL.jpg",
-    "steve-rogers": "https://image.tmdb.org/t/p/w500/3bOGNsHlrswhyW79uvIHH1V43JI.jpg",
-    "thor-odinson": "https://image.tmdb.org/t/p/w500/piQGdoIQOF3C1EI5cbYZLAW1gfj.jpg",
-    "bruce-banner": "https://image.tmdb.org/t/p/w500/5GilHMOt5PAQh6rlUKZzGmaKEI7.jpg",
-    "natasha-romanoff": "https://image.tmdb.org/t/p/w500/druW5adKddizHNSoPbI0q7Mvn0K.jpg",
-    "clint-barton": "https://image.tmdb.org/t/p/w500/yB84D1neTYXfWBaV0QOE9RF2VCu.jpg",
-    "loki-laufeyson": "https://image.tmdb.org/t/p/w500/mclHxMm8aPlCPKptP67257F5GPo.jpg",
-    "bucky-barnes": "https://image.tmdb.org/t/p/w500/mLqE91qUnE8fbfMvsXD7BcWJKNK.jpg",
-    "sam-wilson": "https://image.tmdb.org/t/p/w500/eZSIDrtTzhvabyjrmIITQLsjx8h.jpg",
-    "peter-quill": "https://image.tmdb.org/t/p/w500/cRH6HPAQ98PlOwwEvhYO4CM9lwu.jpg",
-    "gamora": "https://image.tmdb.org/t/p/w500/vQBwmsSOAd0JDaEcZ5p43J9xzsY.jpg",
-    "rocket-raccoon": "https://image.tmdb.org/t/p/w500/sQq0nft6YZmJ7EMQwPcbaxym3AL.jpg",
-    "groot": "https://image.tmdb.org/t/p/w500/nZdVry7lnUkE24PnXakok9okvL4.jpg",
-    "thanos": "https://image.tmdb.org/t/p/w500/sX2etBbIkxRaCsATyw5ZpOVMPTD.jpg",
-    "stephen-strange": "https://image.tmdb.org/t/p/w500/wz3MRiMmoz6b5X3oSzMRC9nLxY1.jpg",
-    "tchalla": "https://image.tmdb.org/t/p/w500/nL16SKfyP1b7Hk6LsuWiqMfbdb8.jpg",
-    "shuri": "https://image.tmdb.org/t/p/w500/f7PevpEeBqwzACPhoZ8K3ktrKvE.jpg",
-    "peter-parker": "https://image.tmdb.org/t/p/w500/xKBAaPIa1c7tzZD3Y0MhBLv4hPE.jpg"
   }
 }

@@ -17,7 +17,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import dotenv from "dotenv";
 import { TmdbClient, imageUrl } from "./tmdb.client.js";
-import { movies as seedMovies, characters as seedCharacters } from "../seed-data.js";
+import { movies as seedMovies } from "../seed-data.js";
 
 dotenv.config();
 
@@ -26,38 +26,16 @@ const FIXTURE = path.join(DIR, "fixtures", "tmdb.json");
 const DRY_RUN = process.argv.includes("--dry-run");
 
 /**
- * Match a curated character to a TMDB cast credit.
+ * Deliberately no character portraits here.
  *
- * TMDB lists the character name as written in the credits ("Tony Stark /
- * Iron Man"), so a match can be on either the real name or the alias. Casing
- * and punctuation vary, hence the normalization.
+ * TMDB's cast objects carry `profile_path`, which is a photo of the *actor*,
+ * not the character - using it puts Vin Diesel's headshot on Groot. TMDB has
+ * no character artwork at all, so there is no other field to reach for.
+ *
+ * Character images are hand-curated in seed-data.js instead. The seed already
+ * prefers curated values over anything in this fixture, so that is purely a
+ * data question and needs no code here.
  */
-const normalize = (value) =>
-  String(value ?? "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim();
-
-const matchesCharacter = (creditName, character) => {
-  const credit = normalize(creditName);
-  if (!credit) {
-    return false;
-  }
-
-  const candidates = [character.name, character.alias].filter(Boolean).map(normalize);
-  if (candidates.some((c) => c && (credit === c || credit.includes(c)))) {
-    return true;
-  }
-
-  // Credits are often shorter than the curated name - TMDB lists "Loki" where
-  // the dataset says "Loki Laufeyson". Accept a credit that exactly matches the
-  // first name, but only when that name is distinctive enough to be unambiguous
-  // on its own. A bare "Peter" would match two different characters, so short
-  // and common first names are excluded.
-  const firstName = normalize(character.name).split(" ")[0];
-  const AMBIGUOUS = new Set(["peter", "steve", "tony", "bruce", "sam", "james", "john"]);
-  return firstName.length >= 4 && !AMBIGUOUS.has(firstName) && credit === firstName;
-};
 
 async function main() {
   const client = new TmdbClient();
@@ -69,7 +47,6 @@ async function main() {
   }
 
   const movies = {};
-  const characterImages = {};
   let missed = 0;
 
   for (const movie of seedMovies) {
@@ -99,19 +76,6 @@ async function main() {
         credits.crew?.find((c) => c.job === "Director")?.name ?? undefined,
     };
 
-    // Harvest a portrait for any curated character appearing in this film.
-    // First match wins - later films do not overwrite an image already found,
-    // so the earliest appearance supplies the portrait.
-    for (const character of seedCharacters) {
-      if (characterImages[character.key]) {
-        continue;
-      }
-      const credit = credits.cast?.find((c) => matchesCharacter(c.character, character));
-      if (credit?.profile_path) {
-        characterImages[character.key] = imageUrl(credit.profile_path, "w500");
-      }
-    }
-
     console.log(`  ok    ${movie.title} (tmdb ${hit.id})`);
   }
 
@@ -119,13 +83,10 @@ async function main() {
     generatedAt: new Date().toISOString(),
     source: "https://www.themoviedb.org",
     movies,
-    characterImages,
   };
 
-  const withImages = Object.keys(characterImages).length;
   console.log(
-    `\n${Object.keys(movies).length} movies, ${withImages}/${seedCharacters.length} character portraits` +
-      (missed ? `, ${missed} not found` : "")
+    `\n${Object.keys(movies).length} movies` + (missed ? `, ${missed} not found` : "")
   );
   console.log(`${client.requestCount} API requests in ${Date.now() - started}ms`);
 

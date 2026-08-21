@@ -47,11 +47,29 @@ const loadTmdbFixture = () => {
     const raw = readFileSync(join(here, "etl", "fixtures", "tmdb.json"), "utf8");
     return JSON.parse(raw);
   } catch {
-    return { movies: {}, characterImages: {} };
+    return { movies: {} };
   }
 };
 
 const tmdb = loadTmdbFixture();
+
+/**
+ * Character portraits from the MCU wiki. TMDB has none - its cast records are
+ * actor headshots - and Marvel's own API is shut down. Same fixture pattern:
+ * absent means the seed runs without artwork and the UI falls back to its
+ * themed placeholder.
+ */
+const loadPortraitFixture = () => {
+  try {
+    const here = dirname(fileURLToPath(import.meta.url));
+    const raw = readFileSync(join(here, "etl", "fixtures", "portraits.json"), "utf8");
+    return JSON.parse(raw);
+  } catch {
+    return { characterImages: {} };
+  }
+};
+
+const portraits = loadPortraitFixture();
 
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes("--dry-run");
@@ -163,7 +181,9 @@ async function main() {
   log(`  movies      ${movieRes.created} created, ${movieRes.updated} updated`);
 
   const charRes = await upsertBase(Character, characters, (c) => {
-    const portrait = c.image ?? tmdb.characterImages?.[c.key];
+    // Curated art wins; the wiki fills the gaps. TMDB is deliberately not
+    // consulted here - its cast records are actor headshots, not characters.
+    const portrait = c.image ?? portraits.characterImages?.[c.key];
     return {
       name: c.name,
       alias: c.alias,
