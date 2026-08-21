@@ -1,5 +1,6 @@
 import Movie from "./movie.model.js";
 import { AppError } from "../../middlewares/errorHandler.js";
+import { updateWithVersion } from "../../utils/concurrency.js";
 
 export const movieService = {
   async findAll(query = {}) {
@@ -63,16 +64,9 @@ export const movieService = {
   },
 
   async update(id, data) {
-    const movie = await Movie.findByIdAndUpdate(id, data, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!movie) {
-      throw new AppError("Movie not found", 404);
-    }
-
-    return movie;
+    // Honours `expectedVersion` when supplied, returning 409 instead of
+    // silently overwriting a concurrent edit.
+    return updateWithVersion(Movie, id, data, "Movie");
   },
 
   async delete(id) {

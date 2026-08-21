@@ -1,5 +1,6 @@
 import Team from "./team.model.js";
 import { AppError } from "../../middlewares/errorHandler.js";
+import { updateWithVersion } from "../../utils/concurrency.js";
 
 export const teamService = {
   async findAll(query = {}) {
@@ -65,16 +66,9 @@ export const teamService = {
   },
 
   async update(id, data) {
-    const team = await Team.findByIdAndUpdate(id, data, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!team) {
-      throw new AppError("Team not found", 404);
-    }
-
-    return team;
+    // Honours `expectedVersion` when supplied, returning 409 instead of
+    // silently overwriting a concurrent edit.
+    return updateWithVersion(Team, id, data, "Team");
   },
 
   async delete(id) {

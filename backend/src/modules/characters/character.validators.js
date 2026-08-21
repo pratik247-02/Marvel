@@ -54,6 +54,9 @@ export const characterValidators = {
       stats: statsSchema.optional(),
       sections: z.array(sectionSchema).optional(),
       theme: themeSchema.optional(),
+      // Optional optimistic-concurrency guard. When present the update only
+      // applies if the stored __v still matches.
+      expectedVersion: z.number().int().min(0).optional(),
     }),
   }),
 

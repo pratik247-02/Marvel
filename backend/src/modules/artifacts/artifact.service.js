@@ -1,5 +1,6 @@
 import Artifact from "./artifact.model.js";
 import { AppError } from "../../middlewares/errorHandler.js";
+import { updateWithVersion } from "../../utils/concurrency.js";
 
 export const artifactService = {
   async findAll(query = {}) {
@@ -63,16 +64,9 @@ export const artifactService = {
   },
 
   async update(id, data) {
-    const artifact = await Artifact.findByIdAndUpdate(id, data, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!artifact) {
-      throw new AppError("Artifact not found", 404);
-    }
-
-    return artifact;
+    // Honours `expectedVersion` when supplied, returning 409 instead of
+    // silently overwriting a concurrent edit.
+    return updateWithVersion(Artifact, id, data, "Artifact");
   },
 
   async delete(id) {

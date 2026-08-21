@@ -35,6 +35,8 @@ export const movieValidators = {
       boxOffice: z.number().optional(),
       runtime: z.number().optional(),
       rating: z.number().min(0).max(10).optional(),
+      // Optional optimistic-concurrency guard; see utils/concurrency.js
+      expectedVersion: z.number().int().min(0).optional(),
     }),
   }),
 

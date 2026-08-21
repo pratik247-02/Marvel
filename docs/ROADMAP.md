@@ -73,10 +73,40 @@ scale. Redis earns its place only for the rate limiter under horizontal scaling.
 - [x] Seeded to MongoDB Atlas and verified end to end
 - [x] Add `slug` (unique, indexed) to all five content models
 - [x] Migration `001-backfill-slugs` for documents seeded before the field existed
-- [ ] TMDB integration for posters, runtime, box office and cast
-- [ ] Expand to ~100 characters / ~35 movies / ~50 battles
-- [ ] Commit TMDB responses as fixtures so seeding needs no API key
 - [x] Compound indexes for real query patterns
+- [ ] TMDB integration for movie metadata and character portraits
+- [ ] Commit TMDB responses as fixtures so seeding needs no API key
+- [ ] Expand the curated relationship data to ~60 characters / ~50 battles
+- [ ] TMDB attribution in the footer (required by their terms)
+
+**Where the data comes from, and why it is split.**
+
+A public API cannot supply what this project is actually about. TMDB has movie
+titles, posters, runtimes, box office and cast lists — the factual scaffolding.
+It has no concept of character affiliations, power stats, battles, artifacts or
+team rosters, and those are precisely the edges the Connection Engine traverses.
+There is no public API that models them, which is the reason this project is not
+another thin wrapper over TMDB.
+
+So the split is deliberate:
+
+| Layer | Source | Why |
+|---|---|---|
+| Movie titles, posters, runtime, box office, cast | TMDB | Nobody differentiates on knowing Endgame runs 181 minutes |
+| Character portraits | TMDB cast profiles | Cards currently render initials; real art changes the whole site |
+| Affiliations, stats, battles, artifacts, teams | Hand-curated | The graph. Does not exist in any public API |
+
+Using TMDB for the factual layer is not what would make the project generic —
+having *only* that layer would be. The curated relationship data is the product.
+
+The integration is also worth building on its own merits: an ETL that handles
+429s with backoff and jitter, batches upserts, resolves foreign keys across two
+passes and commits its responses as fixtures so CI never depends on a live third
+party is a real artifact, and a more interesting one than a hardcoded file.
+
+**Storage is not a constraint.** The current 48 documents occupy ~336 KB. At the
+target size the whole dataset is 1-2 MB against Atlas M0's 512 MB, because text
+is small and images are stored as URLs rather than bytes.
 
 ### Phase 2 — Connection Engine (flagship)
 
@@ -115,16 +145,34 @@ or a mock of Mongoose's chained query API. Extracting `dijkstra(graph, from, to)
 as a pure function over an adjacency map removes both. That refactor is part of
 the test task.
 
-### Phase 3 — Auth and hardening
+### Phase 3 — Auth and hardening (admin only)
 
-- [ ] `User` model and auth module
-- [ ] Access token in memory, refresh token in an httpOnly cookie
-- [ ] Refresh rotation with reuse detection
-- [ ] `authorize("admin")` on all writes (currently wide open)
-- [ ] Per-route rate limits
-- [ ] Idempotency keys on POST
-- [ ] Optimistic concurrency → `409 Conflict`
-- [ ] Minimal `/admin` UI
+**Scope decision: admin-only for now.** No public registration and no
+user-facing account features in this phase. The security hole worth closing is
+that every write endpoint is currently open — anyone can `POST /api/characters`
+or delete a movie — and locking those behind a role does that completely.
+Public signup, favourites and saved queries are real features but they are
+product scope rather than security scope, so they are deferred to Phase 8 to
+keep this phase small enough to finish and defend.
+
+- [x] `User` model — email, bcrypt hash (cost 12), `role`, `refreshTokenVersion`
+- [x] `auth` module: login, refresh, logout, `GET /auth/me`
+- [x] Access token (15 min) in memory; refresh token (7 d) in an httpOnly,
+      secure, sameSite cookie. Replaces the current `localStorage` token read
+      in `services/main/config.ts`, which is the standard XSS exposure.
+- [x] Refresh rotation with reuse detection — replaying an old refresh token
+      invalidates the whole family, on the assumption it was stolen
+- [x] `authorize("admin")` on every POST/PATCH/DELETE. The middleware in
+      `middlewares/auth.js` already exists and is unused, so this is wiring
+- [x] Per-route rate limits — tighter on `/auth/login` than on reads; the
+      current blanket 100/15min across `/api` is too coarse to reason about
+- [x] Idempotency keys on POST, so a retried request cannot double-create
+- [x] Optimistic concurrency via a `version` field → `409 Conflict` rather
+      than silently clobbering a concurrent edit
+- [x] `scripts/create-admin.js` to seed the first admin, since there is no
+      signup path to bootstrap from
+- [ ] Minimal `/admin` UI — login plus character CRUD. Small on its own, but
+      it is what Phase 5's optimistic-update work hangs off later
 
 ### Phase 4 — Search, caching, observability
 
@@ -156,22 +204,22 @@ win available.
 
 **Design tokens**
 
-- [ ] Replace the greyscale palette with a Marvel-derived one; `--primary` becomes the red
-- [ ] Wire per-entity `theme` colors into CSS custom properties at the page level
-- [ ] Verify contrast ratios hit WCAG AA against the dark background
+- [x] Replace the greyscale palette with a Marvel-derived one; `--primary` becomes the red
+- [x] Wire per-entity `theme` colors into CSS custom properties at the page level
+- [x] Verify contrast ratios hit WCAG AA against the dark background
 - [ ] Type scale and font pairing — a display face for headings, not Inter everywhere
 - [ ] Consistent spacing, radius and elevation scales
 
 **Character-themed pages**
 
-- [ ] Detail pages adopt the entity's own colors (Iron Man red/gold, Hulk green/purple)
-- [ ] Accent gradients, borders and stat bars derive from that theme
-- [ ] Fallback palette for entities with no theme set
+- [x] Detail pages adopt the entity's own colors (Iron Man red/gold, Hulk green/purple)
+- [x] Accent gradients, borders and stat bars derive from that theme
+- [x] Fallback palette for entities with no theme set
 
 **Components**
 
-- [ ] Card redesign — better image treatment, hover states, consistent aspect ratios
-- [ ] `PowerStats` as a radar/hexagon chart rather than plain bars
+- [x] Card redesign — better image treatment, hover states, consistent aspect ratios
+- [x] `PowerStats` as a radar/hexagon chart rather than plain bars
 - [ ] `Timeline` as a real phase-by-phase visual, not a list
 - [ ] Empty states, error states and 404 that match the design language
 - [ ] Skeletons that mirror the shape of the content they replace
@@ -214,6 +262,18 @@ Playwright is deliberately not listed. End-to-end browser tests are the most
 expensive kind to write and maintain, and with a single-developer project that
 has no regression history yet, they would be machinery without a problem to
 solve. Worth revisiting once the UI has stabilized.
+
+### Phase 8 — User accounts (deferred from Phase 3)
+
+Public-facing account features, split out of Phase 3 so that phase stayed
+scoped to closing the open-writes hole. Everything here is product surface
+rather than security, and none of it blocks a deploy.
+
+- [ ] Public registration and login
+- [ ] Favourite characters, teams and artifacts
+- [ ] Saved graph queries — a user's own "six degrees" lookups
+- [ ] Quiz history and results per user
+- [ ] Rate limits and abuse protection on the public signup path
 
 ### Phase 7 — Polish and documentation
 
