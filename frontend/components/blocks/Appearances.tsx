@@ -44,7 +44,7 @@ export function Appearances({ movies, title = "Appearances", className }: Appear
                     </span>
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <h3 className="text-sm font-medium group-hover:text-primary transition-colors line-clamp-2">
                 {movie.title}

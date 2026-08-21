@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "destructive";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "destructive" | "entity";
   size?: "sm" | "md" | "lg";
   isLoading?: boolean;
 }
@@ -28,6 +28,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       outline: "border border-border bg-transparent hover:bg-accent hover:text-accent-foreground",
       ghost: "hover:bg-accent hover:text-accent-foreground",
       destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+      // Takes the colour of the surrounding EntityTheme, falling back to
+      // the house primary when no entity is set.
+      entity: "bg-entity text-primary-foreground hover:brightness-110",
     };
 
     const sizes = {
@@ -41,7 +44,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || isLoading}
         className={cn(
-          "inline-flex items-center justify-center rounded-md font-medium transition-colors",
+          "inline-flex items-center justify-center rounded-md font-medium",
+          "transition-[background-color,color,transform,filter] duration-200",
+          "active:scale-[0.98]",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           "disabled:pointer-events-none disabled:opacity-50",
           variants[variant],

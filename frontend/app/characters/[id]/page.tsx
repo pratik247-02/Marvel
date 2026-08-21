@@ -10,6 +10,7 @@ import { RelationshipGraph } from "@/components/blocks/RelationshipGraph";
 import { FactList } from "@/components/blocks/FactList";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { Badge } from "@/components/ui/Badge";
+import { EntityTheme } from "@/components/layout/EntityTheme";
 import { useCharacter } from "@/modules/characters";
 
 interface CharacterPageProps {
@@ -56,6 +57,7 @@ export default function CharacterPage({ params }: CharacterPageProps) {
 
   return (
     <PageWrapper>
+      <EntityTheme theme={character.theme}>
       <HeroBanner
         title={character.name}
         subtitle={character.alias}
@@ -74,11 +76,7 @@ export default function CharacterPage({ params }: CharacterPageProps) {
                 <Badge
                   key={index}
                   variant="secondary"
-                  className="text-sm"
-                  style={{
-                    borderColor: character.theme?.colorPrimary,
-                    color: character.theme?.colorPrimary,
-                  }}
+                  className="text-entity border-entity/60 text-sm"
                 >
                   {power}
                 </Badge>
@@ -125,6 +123,7 @@ export default function CharacterPage({ params }: CharacterPageProps) {
           />
         )}
       </Container>
+      </EntityTheme>
     </PageWrapper>
   );
 }

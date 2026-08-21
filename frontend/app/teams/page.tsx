@@ -87,7 +87,7 @@ export default function TeamsPage() {
                 transition={{ delay: index * 0.05 }}
               >
                 <Link href={`/teams/${team._id}`}>
-                  <Card className="group overflow-hidden hover:border-primary/50 transition-colors h-full">
+                  <Card interactive className="group h-full overflow-hidden">
                     <div className="relative aspect-video overflow-hidden">
                       {team.image ? (
                         <Image
@@ -97,7 +97,7 @@ export default function TeamsPage() {
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-green-600/20 to-emerald-900/40 flex items-center justify-center">
+                        <div className="w-full h-full bg-linear-to-br from-green-600/20 to-emerald-900/40 flex items-center justify-center">
                           <Users className="w-16 h-16 text-green-500/50" />
                         </div>
                       )}
@@ -111,7 +111,7 @@ export default function TeamsPage() {
                           />
                         </div>
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                       <div className="absolute bottom-3 left-3 right-3">
                         <h3 className="font-bold text-xl text-white group-hover:text-green-400 transition-colors">
                           {team.name}

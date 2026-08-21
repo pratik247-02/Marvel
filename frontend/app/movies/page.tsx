@@ -107,7 +107,7 @@ export default function MoviesPage() {
                 transition={{ delay: index * 0.05 }}
               >
                 <Link href={`/movies/${movie._id}`}>
-                  <Card className="group overflow-hidden hover:border-primary/50 transition-colors">
+                  <Card interactive className="group overflow-hidden">
                     <div className="relative aspect-[2/3] overflow-hidden">
                       {movie.poster ? (
                         <Image

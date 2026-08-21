@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { EntityTheme } from "@/components/layout/EntityTheme";
 
 interface HeroBannerProps {
   title: string;
@@ -13,81 +14,91 @@ interface HeroBannerProps {
     colorPrimary?: string;
     colorSecondary?: string;
   };
+  /** Rendered under the description - stats, badges, actions. */
+  children?: React.ReactNode;
   className?: string;
 }
 
+/**
+ * Page header.
+ *
+ * Colour comes from the entity's own theme via CSS variables rather than
+ * inline styles on each element, so the whole banner - eyebrow, title,
+ * gradient wash and base rule - shifts together to that character's identity.
+ */
 export function HeroBanner({
   title,
   subtitle,
   description,
   image,
   theme,
+  children,
   className,
 }: HeroBannerProps) {
-  const gradientStyle = theme?.colorPrimary
-    ? {
-        background: `linear-gradient(135deg, ${theme.colorPrimary}20 0%, ${theme.colorSecondary || "#000"}40 100%)`,
-      }
-    : {};
-
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
+    <EntityTheme
+      as="section"
+      theme={theme}
       className={cn(
-        "relative min-h-[60vh] flex items-center justify-center overflow-hidden",
+        "relative flex min-h-[58vh] items-center justify-center overflow-hidden",
         className
       )}
-      style={gradientStyle}
     >
+      {/* Colour wash, always present so untinted pages still have depth. */}
+      <div className="bg-entity-wash absolute inset-0" />
+
       {image && (
         <div className="absolute inset-0 z-0">
           <Image
             src={image}
-            alt={title}
+            alt=""
             fill
-            className="object-cover opacity-30"
+            className="scale-105 object-cover opacity-40 blur-[1px]"
             priority
+            sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          {/* Two-stop scrim: darkens the base for text, fades the top edge. */}
+          <div className="absolute inset-0 bg-linear-to-t from-background via-background/75 to-background/30" />
         </div>
       )}
 
-      <div className="relative z-10 container mx-auto px-4 text-center">
+      {/* Vignette, so the eye lands centre regardless of the artwork. */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,transparent,hsl(var(--background)/0.85))]" />
+
+      <div className="relative z-10 container mx-auto px-4 py-20 text-center">
         <motion.div
-          initial={{ y: 30, opacity: 0 }}
+          initial={{ y: 24, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
           {subtitle && (
-            <p
-              className="text-sm uppercase tracking-widest mb-4"
-              style={{ color: theme?.colorPrimary || "hsl(var(--muted-foreground))" }}
-            >
+            <p className="text-entity mb-4 text-xs font-semibold uppercase tracking-[0.2em] md:text-sm">
               {subtitle}
             </p>
           )}
-          <h1
-            className="text-5xl md:text-7xl font-bold mb-6"
-            style={{ color: theme?.colorPrimary }}
-          >
+
+          <h1 className="text-balance text-4xl font-black tracking-tight md:text-6xl lg:text-7xl">
             {title}
           </h1>
+
           {description && (
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
               {description}
             </p>
           )}
+
+          {children && <div className="mt-8">{children}</div>}
         </motion.div>
       </div>
 
-      {theme?.colorPrimary && (
-        <div
-          className="absolute bottom-0 left-0 right-0 h-1"
-          style={{ backgroundColor: theme.colorPrimary }}
-        />
-      )}
-    </motion.section>
+      {/* Base rule in the entity colour, fading at both ends. */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-px"
+        style={{
+          background:
+            "linear-gradient(to right, transparent, var(--entity-primary, hsl(var(--primary))), transparent)",
+        }}
+      />
+    </EntityTheme>
   );
 }
