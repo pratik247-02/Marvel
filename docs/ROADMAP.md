@@ -20,6 +20,11 @@ The flagship feature is the **Connection Engine** — shortest-path traversal
 across that graph — and the rest of the project exists to make it fast,
 correct, observable and deployable.
 
+It should also *look* like a Marvel product. Each entity carries its own colour
+theme in the database, and the interface is meant to take on that identity as
+you move through it — Iron Man's page in red and gold, Hulk's in green and
+purple. A reference site that feels generic undersells the data behind it.
+
 ---
 
 ## Architecture decisions
@@ -112,6 +117,52 @@ scale. Redis earns its place only for the rate limiter under horizontal scaling.
 - [ ] URL-as-state for filters
 - [ ] Slug routing (`/characters/tony-stark`)
 - [ ] Measure the client-JS bundle delta
+
+### Phase 5.5 — UI revamp and design system
+
+The pages are structurally complete but visually generic — the palette is the
+default shadcn greyscale, so `--primary` is white and the MARVEL logo renders
+white rather than red. Meanwhile every character already carries its own
+`theme.colorPrimary` / `colorSecondary` in the database, and nothing uses it
+beyond a faint banner gradient. Closing that gap is the single biggest visual
+win available.
+
+**Design tokens**
+
+- [ ] Replace the greyscale palette with a Marvel-derived one; `--primary` becomes the red
+- [ ] Wire per-entity `theme` colors into CSS custom properties at the page level
+- [ ] Verify contrast ratios hit WCAG AA against the dark background
+- [ ] Type scale and font pairing — a display face for headings, not Inter everywhere
+- [ ] Consistent spacing, radius and elevation scales
+
+**Character-themed pages**
+
+- [ ] Detail pages adopt the entity's own colors (Iron Man red/gold, Hulk green/purple)
+- [ ] Accent gradients, borders and stat bars derive from that theme
+- [ ] Fallback palette for entities with no theme set
+
+**Components**
+
+- [ ] Card redesign — better image treatment, hover states, consistent aspect ratios
+- [ ] `PowerStats` as a radar/hexagon chart rather than plain bars
+- [ ] `Timeline` as a real phase-by-phase visual, not a list
+- [ ] Empty states, error states and 404 that match the design language
+- [ ] Skeletons that mirror the shape of the content they replace
+
+**Motion**
+
+- [ ] Consistent easing and duration tokens instead of ad-hoc values per component
+- [ ] Page transitions and shared-element movement into detail views
+- [ ] Scroll-driven reveals on long pages
+- [ ] Respect `prefers-reduced-motion` throughout
+
+**Responsive and polish**
+
+- [ ] Audit every page at 375 / 768 / 1440
+- [ ] Mobile navigation pass
+- [ ] Real favicon, OG images and social preview cards
+- [ ] Focus-visible states and keyboard navigation
+- [ ] Landing page rework — the video-mask effect is a placeholder
 
 ### Phase 6 — Testing and CI/CD
 
