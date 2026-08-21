@@ -9,3 +9,4 @@ export * from "./battle";
 export * from "./quiz";
 export * from "./team";
 export * from "./graph";
+export * from "./auth";

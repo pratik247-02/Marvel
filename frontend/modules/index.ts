@@ -5,3 +5,4 @@ export * from "./battles";
 export * from "./quiz";
 export * from "./teams";
 export * from "./graph";
+export * from "./auth";
