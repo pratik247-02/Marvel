@@ -10,10 +10,9 @@ export const authenticate = asyncHandler(async (req, res, next) => {
   if (req.headers.authorization?.startsWith("Bearer")) {
     token = req.headers.authorization.split(" ")[1];
   }
-  // Check for token in cookies
-  else if (req.cookies?.token) {
-    token = req.cookies.token;
-  }
+  // Note: the refresh cookie is deliberately not read here. It is scoped to
+  // /api/auth and is only ever exchanged for an access token, never used to
+  // authenticate a resource request directly.
 
   if (!token) {
     return next(new AppError("Not authorized to access this route", StatusCodes.UNAUTHORIZED));
@@ -21,6 +20,14 @@ export const authenticate = asyncHandler(async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, config.jwtSecret);
+
+    // Reject anything that is not an access token. Without this check a
+    // refresh token - which lives for 7 days - would authenticate API calls
+    // just as well as the 15-minute access token it is meant to mint.
+    if (decoded.type !== "access") {
+      return next(new AppError("Invalid token type", StatusCodes.UNAUTHORIZED));
+    }
+
     req.user = decoded;
     next();
   } catch (error) {

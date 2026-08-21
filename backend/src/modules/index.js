@@ -18,3 +18,6 @@ export { Team, teamService, teamController, teamRoutes } from "./teams/index.js"
 
 // Graph Module (Connection Engine)
 export { graphService, graphController, graphRoutes } from "./graph/index.js";
+
+// Auth Module
+export { User, authService, authController, authRoutes } from "./auth/index.js";

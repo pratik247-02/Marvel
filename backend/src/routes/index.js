@@ -7,6 +7,7 @@ import {
   quizRoutes,
   teamRoutes,
   graphRoutes,
+  authRoutes,
 } from "../modules/index.js";
 
 const router = Router();
@@ -21,6 +22,7 @@ router.get("/", (req, res) => {
 });
 
 // Mount feature routes
+router.use("/auth", authRoutes);
 router.use("/characters", characterRoutes);
 router.use("/movies", movieRoutes);
 router.use("/artifacts", artifactRoutes);

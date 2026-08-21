@@ -12,6 +12,7 @@
     "seed": "node scripts/seed.js",
     "seed:dry": "node scripts/seed.js --dry-run",
     "seed:fresh": "node scripts/seed.js --purge",
+    "create-admin": "node scripts/create-admin.js",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
