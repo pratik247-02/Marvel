@@ -189,7 +189,6 @@ async function main() {
       alias: c.alias,
       description: c.description,
       powers: c.powers,
-      stats: c.stats,
       theme: c.theme,
       ...(portrait ? { image: portrait } : {}),
     };

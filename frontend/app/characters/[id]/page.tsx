@@ -4,7 +4,6 @@ import { use } from "react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { Container } from "@/components/layout/Container";
 import { HeroBanner } from "@/components/blocks/HeroBanner";
-import { PowerStats } from "@/components/blocks/PowerStats";
 import { Appearances } from "@/components/blocks/Appearances";
 import { RelationshipGraph } from "@/components/blocks/RelationshipGraph";
 import { FactList } from "@/components/blocks/FactList";
@@ -87,9 +86,6 @@ export default function CharacterPage({ params }: CharacterPageProps) {
 
         {/* Facts */}
         {facts.length > 0 && <FactList facts={facts} columns={4} />}
-
-        {/* Stats */}
-        {character.stats && <PowerStats stats={character.stats} theme={character.theme} />}
 
         {/* Appearances */}
         {character.appearances && character.appearances.length > 0 && (

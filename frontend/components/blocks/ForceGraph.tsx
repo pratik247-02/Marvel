@@ -19,7 +19,6 @@ const EDGE_COLORS: Record<EdgeType, string> = {
   team: "#f0a500",
   battle: "#518cca",
   artifact: "#9b59b6",
-  appearance: "#4b5563",
 };
 
 const EDGE_LABELS: Record<EdgeType, string> = {
@@ -27,14 +26,28 @@ const EDGE_LABELS: Record<EdgeType, string> = {
   team: "Same team",
   battle: "Fought together",
   artifact: "Shared artifact",
-  appearance: "Same film",
 };
+
+/**
+ * Labels are capped so one long name cannot overlap its neighbours. The full
+ * name stays available on hover and on the detail page.
+ */
+const LABEL_MAX = 16;
+const truncateLabel = (name: string) =>
+  name.length > LABEL_MAX ? `${name.slice(0, LABEL_MAX - 1).trimEnd()}…` : name;
+
+/** Canvas height bounds when sizing against the viewport. */
+const MIN_HEIGHT = 560;
+const MAX_HEIGHT = 900;
+/** Vertical space the page furniture around the graph needs. */
+const VIEWPORT_CHROME = 260;
 
 interface ForceGraphProps {
   nodes: GraphNode[];
   edges: GraphEdge[];
   /** Ids forming a path to emphasise; everything else dims. */
   highlightPath?: string[];
+  /** Fixed canvas height. Omit to size against the viewport. */
   height?: number;
   onNodeClick?: (node: GraphNode) => void;
   className?: string;
@@ -44,27 +57,51 @@ export function ForceGraph({
   nodes,
   edges,
   highlightPath = [],
-  height = 560,
+  height,
   onNodeClick,
   className,
 }: ForceGraphProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
-  const [size, setSize] = useState({ width: 0, height });
+  const [size, setSize] = useState({ width: 0, height: height ?? MIN_HEIGHT });
   const [hovered, setHovered] = useState<string | null>(null);
   const [dragging, setDragging] = useState<string | null>(null);
 
   // Measure the container so the simulation knows its bounds.
+  //
+  // Height tracks the viewport rather than sitting at a fixed 560px. A graph
+  // this dense needs vertical room as much as horizontal, and a short canvas on
+  // a tall screen wastes the space that would separate the labels.
   useEffect(() => {
     const el = containerRef.current;
     if (!el) {
       return;
     }
+
+    const measure = (width: number) => {
+      if (height != null) {
+        return { width, height };
+      }
+      const viewport = typeof window === "undefined" ? MIN_HEIGHT : window.innerHeight;
+      // Leave room for the page header and the caption below the graph.
+      const available = viewport - VIEWPORT_CHROME;
+      return {
+        width,
+        height: Math.min(Math.max(available, MIN_HEIGHT), MAX_HEIGHT),
+      };
+    };
+
     const observer = new ResizeObserver(([entry]) => {
-      setSize({ width: entry.contentRect.width, height });
+      setSize(measure(entry.contentRect.width));
     });
     observer.observe(el);
-    return () => observer.disconnect();
+
+    const onResize = () => setSize(measure(el.getBoundingClientRect().width));
+    window.addEventListener("resize", onResize);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", onResize);
+    };
   }, [height]);
 
   const { positions, startDrag, dragTo, endDrag } = useForceSimulation(nodes, edges, {
@@ -304,14 +341,19 @@ export function ForceGraph({
                   stroke={accent}
                   strokeWidth={onPath ? 3 : 1.5}
                 />
+                {/* The name, not the alias. Aliases are descriptive rather
+                    than identifying - "The Man Who Saved Tony Stark" is both
+                    unrecognisable at a glance and four times the width of
+                    "Ho Yinsen", which is what made the labels collide. */}
                 <text
                   y={radius + 16}
                   textAnchor="middle"
                   fontSize={11}
                   fill="currentColor"
-                  className="pointer-events-none fill-foreground/80 font-medium"
+                  className="pointer-events-none fill-foreground/90 font-medium"
+                  style={{ paintOrder: "stroke", stroke: "hsl(var(--background))", strokeWidth: 3 }}
                 >
-                  {node.alias || node.name}
+                  {truncateLabel(node.name)}
                 </text>
               </g>
             );

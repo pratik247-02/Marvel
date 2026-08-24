@@ -20,7 +20,6 @@
  */
 
 import Character from "../characters/character.model.js";
-import Movie from "../movies/movie.model.js";
 import Battle from "../battles/battle.model.js";
 import Team from "../teams/team.model.js";
 import Artifact from "../artifacts/artifact.model.js";
@@ -86,9 +85,10 @@ const addClique = (raw, ids, type, context) => {
 async function buildSnapshot() {
   const started = Date.now();
 
-  const [characters, movies, battles, teams, artifacts] = await Promise.all([
+  // Movies are not queried: co-appearance is not an edge type, so the cast
+  // lists are not needed to build the graph.
+  const [characters, battles, teams, artifacts] = await Promise.all([
     Character.find().select("_id name alias slug image theme affiliations").lean(),
-    Movie.find().select("_id title slug characters").lean(),
     Battle.find().select("_id name slug participants").lean(),
     Team.find().select("_id name slug members").lean(),
     Artifact.find().select("_id name slug holders").lean(),
@@ -126,9 +126,21 @@ async function buildSnapshot() {
   for (const a of artifacts) {
     addClique(raw, a.holders ?? [], "artifact", a.name);
   }
-  for (const m of movies) {
-    addClique(raw, m.characters ?? [], "appearance", m.title);
-  }
+  // Co-appearance is deliberately not an edge type.
+  //
+  // A film cast is a clique, so the 38 films generate ~580 pairs on the current
+  // dataset - more than three times every other edge type combined - and they
+  // say almost nothing: Endgame alone credits 27 characters, which is 351 pairs
+  // asserting that people who shared a crowded frame are "connected".
+  //
+  // The MAX_EDGE_WEIGHT cutoff was already discarding 568 of those 583, so the
+  // type was carrying 15 real edges at the cost of building and pruning the
+  // whole clique on every rebuild. Dropping it entirely leaves the graph fully
+  // connected - one component, every node reachable - because affiliations,
+  // teams and battles already carry the real relationships.
+  //
+  // Films remain on the character detail page; they are simply not a claim
+  // about who knows whom.
 
   // Collapse parallel edges into a single weighted edge per pair.
   const adjacency = new Map();

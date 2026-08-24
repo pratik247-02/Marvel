@@ -13,7 +13,8 @@ export interface GraphNode {
   depth?: number;
 }
 
-export type EdgeType = "affiliation" | "team" | "battle" | "artifact" | "appearance";
+/** Co-appearance was removed: a film cast is a clique and says little. */
+export type EdgeType = "affiliation" | "team" | "battle" | "artifact";
 
 export interface GraphEdge {
   from: string;
