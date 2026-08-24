@@ -2,18 +2,20 @@
  * Edge weights for the Connection Engine.
  *
  * The graph is a weighted one because the relation types are not equally
- * meaningful. Measured on the current dataset:
+ * meaningful. Measured on the 45-character dataset:
  *
- *   affiliations        43 endpoints
- *   co-appearance      239 pairs
- *   co-battle          170 pairs
- *   co-team             22 pairs
- *   shared artifact      4 pairs
+ *   affiliations        88 edges  (51%)
+ *   co-battle           59 edges  (34%)
+ *   co-team              8 edges   (4%)
+ *   shared artifact      2 edges   (1%)
  *
- * Left unweighted, co-appearance would swamp everything - almost any two
- * characters would sit one hop apart because they were in the same film, and
- * "shortest path" would degenerate into a near-meaningless answer. Weighting
- * makes the path prefer genuine relationships over incidental screen time.
+ * Co-appearance used to be a fifth type and was removed. Every film cast forms
+ * a clique, so 38 films produced ~583 pairs - more than three times every other
+ * type combined - while asserting only that two people shared a crowded frame.
+ * Weighting alone did not save it: the MAX_EDGE_WEIGHT cutoff was already
+ * discarding 568 of the 583, so the type survived as 15 edges whose only
+ * distinction was coming from small casts. The graph stays fully connected
+ * without it.
  *
  * Dijkstra minimizes total weight, so a *lower* number means a *stronger*
  * connection. A direct affiliation costs 1; sharing a crowded battlefield costs
@@ -22,7 +24,7 @@
 
 /**
  * Base cost per edge type. Tuned so that one strong link beats a chain of weak
- * ones: an affiliation (1) is preferred over two co-appearances (2 x 6 = 12).
+ * ones: an affiliation (1) is preferred over a chain of two battles (2 x 4 = 8).
  */
 export const EDGE_WEIGHTS = {
   /** Explicitly modelled ally/relative/nemesis link - the strongest signal. */
@@ -33,8 +35,6 @@ export const EDGE_WEIGHTS = {
   battle: 4,
   /** Both wielded the same artifact at some point. Narrative, not social. */
   artifact: 5,
-  /** Appeared in the same film. Weakest: an ensemble cast links everyone. */
-  appearance: 6,
 };
 
 /**
@@ -82,14 +82,14 @@ export const combineWeights = (weights) => {
 /**
  * Cost above which an edge is not worth keeping.
  *
- * A twelve-way battle or a full ensemble cast produces a clique linking almost
- * everyone to almost everyone. Those edges are technically true and analytically
- * useless: with them the graph is a near-complete mesh, every character sits one
- * hop from every other, and both hop-count and betweenness collapse to the same
- * value for the whole cast.
+ * A twelve-way battle produces a clique linking almost everyone to almost
+ * everyone. Those edges are technically true and analytically useless: with
+ * them the graph tends toward a mesh, every character sits one hop from every
+ * other, and both hop-count and betweenness collapse to the same value across
+ * the whole cast.
  *
  * Dropping edges above this threshold keeps affiliations, teams, small battles
- * and shared artifacts, while discarding "we were both on screen in a crowd".
+ * and shared artifacts, while discarding the crowd scenes.
  */
 export const MAX_EDGE_WEIGHT = 9;
 
@@ -104,8 +104,6 @@ export const describeEdge = (type, context) => {
       return `fought together at ${context ?? "the same battle"}`;
     case "artifact":
       return `both wielded ${context ?? "the same artifact"}`;
-    case "appearance":
-      return `appeared together in ${context ?? "the same film"}`;
     default:
       return "connected to";
   }
