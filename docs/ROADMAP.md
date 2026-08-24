@@ -330,6 +330,9 @@ scaffolding pretending to be architecture.
 
 ### Phase 7 — Polish and documentation
 
+- [x] `docs/GRAPH.md` — the Connection Engine: data model, edge weights, the
+      algorithms, the force layout and its tuning, and why the explore page is
+      split into three views
 - [ ] README rewrite with architecture diagram and live demo link
 - [ ] `docs/adr/` — five architecture decision records
 - [ ] OpenAPI spec + Swagger UI at `/api/docs`
