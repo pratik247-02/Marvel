@@ -76,5 +76,33 @@ export const tokenService = {
     };
   },
 
+  /**
+   * Options for the readable companion cookie.
+   *
+   * The refresh cookie is httpOnly by design, so the frontend cannot tell
+   * whether a session exists and would have to ask the server on every page
+   * load. For an anonymous visitor - the normal case on a public site - that
+   * is a guaranteed 401 per load, and enough navigation to trip the rate
+   * limiter.
+   *
+   * This carries no token and no user data: it is a flag whose presence means
+   * "a refresh cookie was issued, so attempting a restore is worthwhile". It is
+   * set and cleared in lockstep with the real one, and forging it grants
+   * nothing - the refresh still fails without the httpOnly token.
+   *
+   * Deliberately scoped to "/" rather than "/api/auth", because the page that
+   * needs to read it is served from the site root.
+   */
+  sessionHintCookieOptions() {
+    return {
+      httpOnly: false,
+      secure: config.nodeEnv === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: REFRESH_TTL_DAYS * 24 * 60 * 60 * 1000,
+    };
+  },
+
   REFRESH_COOKIE: "refresh_token",
+  SESSION_HINT_COOKIE: "has_session",
 };

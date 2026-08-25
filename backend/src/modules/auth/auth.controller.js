@@ -10,6 +10,16 @@ import { success } from "../../utils/response.js";
  */
 const setRefreshCookie = (res, token) => {
   res.cookie(tokenService.REFRESH_COOKIE, token, tokenService.refreshCookieOptions());
+  // Readable companion flag, so the frontend can tell whether attempting a
+  // restore is worthwhile instead of guaranteeing a 401 for every anonymous
+  // visitor. Carries no token - see tokenService.sessionHintCookieOptions.
+  res.cookie(tokenService.SESSION_HINT_COOKIE, "1", tokenService.sessionHintCookieOptions());
+};
+
+/** Both cookies always move together, so a stale hint cannot outlive the token. */
+const clearRefreshCookie = (res) => {
+  res.clearCookie(tokenService.REFRESH_COOKIE, tokenService.refreshCookieOptions());
+  res.clearCookie(tokenService.SESSION_HINT_COOKIE, tokenService.sessionHintCookieOptions());
 };
 
 export const authController = {
@@ -33,7 +43,7 @@ export const authController = {
     } catch (error) {
       // A failed refresh should clear the cookie, otherwise the client retries
       // with the same dead token forever.
-      res.clearCookie(tokenService.REFRESH_COOKIE, tokenService.refreshCookieOptions());
+      clearRefreshCookie(res);
       next(error);
     }
   },
@@ -41,7 +51,7 @@ export const authController = {
   async logout(req, res, next) {
     try {
       await authService.logout(req.cookies?.[tokenService.REFRESH_COOKIE]);
-      res.clearCookie(tokenService.REFRESH_COOKIE, tokenService.refreshCookieOptions());
+      clearRefreshCookie(res);
       return success(res, null, "Signed out");
     } catch (error) {
       next(error);

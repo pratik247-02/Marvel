@@ -69,6 +69,20 @@ const PAGE_TITLES = {
   groot: ["Groot"],
   "loki-laufeyson": ["Loki"],
   thanos: ["Thanos"],
+
+  // Added with the full character set. Each of these resolved to nothing under
+  // the character's own name; the titles below were confirmed by searching the
+  // wiki rather than guessed.
+  "high-evolutionary": ["High Evolutionary"],
+  kurt: ["Kurt Goreshter"],
+  "supreme-intelligence": ["Supreme Intelligence"],
+  "general-dreykov": ["Dreykov"],
+  "laura-kinney": ["X-23"],
+
+  // Spider-Man: Brand New Day (2026).
+  "frank-castle": ["The Punisher"],
+  "jean-grey": ["Jean Grey"],
+  tombstone: ["Tombstone"],
 };
 
 /**

@@ -62,12 +62,13 @@ scale. Redis earns its place only for the rate limiter under horizontal scaling.
 - [x] Add `apiGetPaginated`, normalizing `totalPages` → `pages`
 - [x] Fix unstable `initialParams` dep in all four list hooks
 - [x] Populate `next.config.ts` `images.remotePatterns`
-- [x] Delete dead stub directories and the `marvel` self-dependency
+- [x] Delete dead stub directories and the `marvel` self-dependency (it
+      survived in both lockfiles until the CI fix in `49eda12`)
 - [x] CI skeleton: lint + typecheck + build on Node 20 and 22
 
 ### Phase 1 — Data foundation
 
-- [x] Curated seed dataset (18 characters, 9 movies, 9 artifacts, 3 teams, 9 battles)
+- [x] Curated seed dataset (190 characters, 38 movies, 9 artifacts, 21 teams, 63 battles)
 - [x] Idempotent loader with two-pass FK resolution and batched `bulkWrite`
 - [x] `--dry-run`, `--purge` and `--uri` flags
 - [x] Seeded to MongoDB Atlas and verified end to end
@@ -76,7 +77,10 @@ scale. Redis earns its place only for the rate limiter under horizontal scaling.
 - [x] Compound indexes for real query patterns
 - [x] TMDB integration for movie metadata and character portraits
 - [x] Commit TMDB responses as fixtures so seeding needs no API key
-- [ ] Expand the curated relationship data to ~60 characters / ~50 battles
+- [x] Expand the curated relationship data to 190 characters across every
+      MCU cluster; graph is one connected component, 463 edges
+- [x] Expand battles and teams to match — 21 teams and 63 battles, taking the
+      graph from 463 to 709 edges (62% affiliation, 20% team, 16% battle)
 - [x] TMDB attribution in the footer (required by their terms)
 
 **Where the data comes from, and why it is split.**
@@ -111,11 +115,14 @@ A miss is loud; a wrong match is silent.
 
 So whenever characters are added or renamed:
 
-- [ ] Re-run `npm run portraits:dry` and read the output rather than the count
-- [ ] Add a `PAGE_TITLES` entry for anything reported as MISS
+- [x] Re-run `npm run portraits:dry` and read the output rather than the count
+- [x] Add a `PAGE_TITLES` entry for anything reported as MISS — five needed one
+      (High Evolutionary, Kurt Goreshter, Supreme Intelligence, Dreykov, X-23)
 - [ ] Open the resulting images and confirm each is the right character,
-      paying attention to any name another character has since inherited
-- [ ] Re-run `npm run tmdb:fetch` if the movie list changed
+      paying attention to any name another character has since inherited.
+      190/190 matched with zero duplicate files, and the known mantle traps were
+      checked by filename, but no one has eyeballed all 190 yet
+- [x] Re-run `npm run tmdb:fetch` if the movie list changed
 
 TMDB is deliberately never consulted for character images. Its cast records
 carry `profile_path`, which is a photo of the actor — using it put Vin Diesel's
@@ -245,7 +252,8 @@ win available.
 **Components**
 
 - [x] Card redesign — better image treatment, hover states, consistent aspect ratios
-- [x] `PowerStats` as a radar/hexagon chart rather than plain bars
+- [x] ~~`PowerStats` as a radar chart~~ — removed entirely instead. The six
+      stat values had no source and fed nothing; the graph runs on edges
 - [ ] `Timeline` as a real phase-by-phase visual, not a list
 - [ ] Empty states, error states and 404 that match the design language
 - [ ] Skeletons that mirror the shape of the content they replace

@@ -2,6 +2,24 @@ import { apiPost, apiGet } from "@/services/main";
 import { tokenStore } from "@/services/main/tokenStore";
 import type { ApiResponse, AuthUser, LoginInput, LoginResponse } from "@/types";
 
+/**
+ * Whether the server has issued a refresh cookie for this browser.
+ *
+ * Reads the non-httpOnly companion flag. Forging it grants nothing - the
+ * refresh call still fails without the real token - so this is only ever an
+ * optimisation that avoids a pointless request, never an authorisation check.
+ */
+const SESSION_HINT_COOKIE = "has_session";
+
+const hasSessionHint = (): boolean => {
+  if (typeof document === "undefined") {
+    return false;
+  }
+  return document.cookie
+    .split(";")
+    .some((part) => part.trim().startsWith(`${SESSION_HINT_COOKIE}=`));
+};
+
 export const authService = {
   /**
    * Exchange credentials for an access token.
@@ -24,6 +42,18 @@ export const authService = {
    * an anonymous visitor rather than an error.
    */
   async restore(): Promise<AuthUser | null> {
+    // Skip the call entirely when no session was ever issued.
+    //
+    // The refresh token is httpOnly, so this cannot check for it directly; the
+    // server sets a readable companion flag alongside it that carries no token.
+    // Without this guard every anonymous visitor - the normal case on a public
+    // site - fires a guaranteed 401 on every page load, and enough navigation
+    // trips the login rate limiter.
+    if (!hasSessionHint()) {
+      tokenStore.clear();
+      return null;
+    }
+
     try {
       const response = await apiPost<LoginResponse>("/auth/refresh");
       tokenStore.set(response.data.accessToken);
