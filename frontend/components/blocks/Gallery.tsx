@@ -48,6 +48,7 @@ export function Gallery({ images, title, className }: GalleryProps) {
               src={image}
               alt={`Gallery image ${index + 1}`}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-cover group-hover:scale-110 transition-transform duration-300"
             />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors" />
@@ -107,6 +108,7 @@ export function Gallery({ images, title, className }: GalleryProps) {
                 src={images[selectedIndex]}
                 alt={`Gallery image ${selectedIndex + 1}`}
                 fill
+                sizes="100vw"
                 className="object-contain"
               />
             </motion.div>

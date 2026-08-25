@@ -3286,7 +3286,7 @@ export const artifacts = [
 export const teams = [
   {
     key: "avengers",
-    name: "The Avengers",
+    name: "Avengers",
     description:
       "Earth's mightiest heroes, assembled by Nick Fury to fight the battles no single hero could win.",
     headquarters: "Avengers Compound, Upstate New York",
@@ -3318,21 +3318,8 @@ export const teams = [
     appearances: ["guardians-of-the-galaxy", "avengers-infinity-war"],
   },
   {
-    key: "wakandan-royal-family",
-    name: "Wakandan Royal Family",
-    description:
-      "The ruling line of Wakanda, guardians of the world's only vibranium deposit.",
-    headquarters: "Golden City, Wakanda",
-    founded: "Ancient",
-    status: "active",
-    theme: { colorPrimary: "#4c1d95", colorSecondary: "#0f766e" },
-    leaders: ["tchalla"],
-    members: ["tchalla", "shuri"],
-    appearances: ["black-panther", "avengers-infinity-war"],
-  },
-  {
     key: "asgardian-court",
-    name: "The Asgardian Court",
+    name: "Asgardian Court",
     description:
       "Odin's household and the warriors who served it, from the golden age through Ragnarok. Hela and Laufey are deliberately absent - they belong to Asgard's story but were never part of this circle.",
     members: [
@@ -3353,7 +3340,7 @@ export const teams = [
   },
   {
     key: "revengers",
-    name: "The Revengers",
+    name: "Revengers",
     description:
       "Thor's name for the group he assembled on Sakaar to escape the Grandmaster and take Asgard back from Hela.",
     members: ["thor-odinson", "bruce-banner", "valkyrie", "loki-laufeyson", "korg", "miek"],
@@ -3406,7 +3393,7 @@ export const teams = [
   },
   {
     key: "wakandan-court",
-    name: "The Wakandan Court",
+    name: "Wakandan Court",
     description:
       "The royal family, the Dora Milaje and the tribal leaders who decide what Wakanda owes the world.",
     members: [
@@ -3430,7 +3417,7 @@ export const teams = [
   },
   {
     key: "fantastic-four",
-    name: "The Fantastic Four",
+    name: "Fantastic Four",
     description:
       "Four explorers changed by cosmic radiation, who function as a family first and a team second.",
     members: ["reed-richards", "sue-storm", "johnny-storm", "ben-grimm"],
@@ -3443,7 +3430,7 @@ export const teams = [
   },
   {
     key: "ravagers",
-    name: "The Ravagers",
+    name: "Ravagers",
     description:
       "A hundred factions of thieves bound by a code Yondu broke, and who buried him as a captain anyway.",
     members: ["yondu-udonta", "kraglin", "stakar-ogord", "taserface", "peter-quill"],
@@ -3481,7 +3468,7 @@ export const teams = [
   },
   {
     key: "sinister-six",
-    name: "The Sinister Villains",
+    name: "Sinister Villains",
     description:
       "Five men pulled out of their own universes mid-death by a botched spell, and offered cures instead of a fight.",
     members: [
@@ -3571,7 +3558,7 @@ export const teams = [
   },
   {
     key: "eternals",
-    name: "The Eternals",
+    name: "Eternals",
     description:
       "Ten synthetic beings sent by Arishem to protect humanity from Deviants, and forbidden to interfere in anything else.",
     members: [
@@ -3595,7 +3582,7 @@ export const teams = [
   },
   {
     key: "red-room",
-    name: "The Red Room",
+    name: "Red Room",
     description:
       "Dreykov's programme, which took girls and returned Widows conditioned to obey chemistry rather than orders.",
     members: [
@@ -3615,7 +3602,7 @@ export const teams = [
   },
   {
     key: "thunderbolts",
-    name: "The Thunderbolts",
+    name: "Thunderbolts",
     description:
       "People Valentina recruited precisely because the world had already written them off, and who turned out to work better together than apart.",
     members: [
@@ -3637,7 +3624,7 @@ export const teams = [
   },
   {
     key: "pym-van-dyne-family",
-    name: "The Pym-Van Dyne Family",
+    name: "Pym-Van Dyne Family",
     description:
       "Two generations of size-shifting heroes, plus the ex-convict who married into it.",
     members: [
@@ -3656,7 +3643,7 @@ export const teams = [
   },
   {
     key: "ten-rings",
-    name: "The Ten Rings",
+    name: "Ten Rings",
     description:
       "Wenwu's thousand-year empire, inherited by the daughter he refused to train.",
     members: [

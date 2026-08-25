@@ -122,6 +122,7 @@ export default function TeamPage({ params }: TeamPageProps) {
                           src={leader.image}
                           alt={leader.name}
                           fill
+                          sizes="96px"
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
@@ -170,6 +171,7 @@ export default function TeamPage({ params }: TeamPageProps) {
                           src={member.image}
                           alt={member.name}
                           fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (

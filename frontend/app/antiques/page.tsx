@@ -1,18 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Search, Gem } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { Container } from "@/components/layout/Container";
-import { HeroBanner } from "@/components/blocks/HeroBanner";
 import { Input } from "@/components/ui/Input";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
-import { useArtifacts } from "@/modules/artifacts";
+import { artifactService } from "@/modules/artifacts";
+import { useInfiniteList } from "@/modules/shared/useInfiniteList";
+import { InfiniteSentinel } from "@/components/blocks/InfiniteSentinel";
 import type { ArtifactStatus } from "@/types";
 
 const statusOptions: { value: ArtifactStatus | ""; label: string }[] = [
@@ -23,20 +24,36 @@ const statusOptions: { value: ArtifactStatus | ""; label: string }[] = [
   { value: "unknown", label: "Unknown" },
 ];
 
+const PAGE_SIZE = 12;
+
 export default function AntiquesPage() {
   const [search, setSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState<ArtifactStatus | "">("");
-  const { artifacts, isLoading, pagination, refetch } = useArtifacts();
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    refetch({ search, status: selectedStatus || undefined, page: 1 });
-  };
+  // One request for the finished word rather than one per keystroke.
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(search.trim()), 300);
+    return () => clearTimeout(timer);
+  }, [search]);
 
-  const handleStatusFilter = (status: ArtifactStatus | "") => {
-    setSelectedStatus(status);
-    refetch({ search, status: status || undefined, page: 1 });
-  };
+  const {
+    items: artifacts,
+    total,
+    hasMore,
+    isLoading,
+    isLoadingMore,
+    error,
+    loadMore,
+  } = useInfiniteList(artifactService.getAll, {
+    pageSize: PAGE_SIZE,
+    sort: "name",
+    search: debouncedSearch || undefined,
+    filters: { status: selectedStatus || undefined },
+  });
+
+  // Changing the filter restarts the list; the hook watches this value.
+  const handleFilter = (value: string) => setSelectedStatus(value as never);
 
   const getStatusColor = (status: ArtifactStatus) => {
     switch (status) {
@@ -55,19 +72,12 @@ export default function AntiquesPage() {
 
   return (
     <PageWrapper>
-      <HeroBanner
-        title="Antiques"
-        subtitle="Powerful Items & Relics"
-        description="Discover the most powerful antiques in the Marvel Cinematic Universe"
-        theme={{ colorPrimary: "#e74c3c" }}
-      />
-
-      <Container className="py-16">
+      <Container className="py-10">
         {/* Search and Filters */}
-        <div className="flex flex-col md:flex-row gap-4 mb-12">
-          <form onSubmit={handleSearch} className="flex-1">
+        <div className="mb-12 flex flex-col gap-4 md:flex-row">
+          <div className="flex-1">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <Search className="text-muted-foreground absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2" />
               <Input
                 type="search"
                 placeholder="Search antiques..."
@@ -76,17 +86,17 @@ export default function AntiquesPage() {
                 className="pl-10"
               />
             </div>
-          </form>
+          </div>
 
           <div className="flex flex-wrap gap-2">
             {statusOptions.map((option) => (
               <button
                 key={option.value}
-                onClick={() => handleStatusFilter(option.value)}
-                className={`px-4 py-2 rounded-md text-sm transition-colors ${
+                onClick={() => handleFilter(option.value)}
+                className={`rounded-md px-4 py-2 text-sm transition-colors ${
                   selectedStatus === option.value
                     ? "bg-primary text-primary-foreground"
-                    : "bg-card border border-border hover:bg-accent"
+                    : "bg-card border-border hover:bg-accent border"
                 }`}
               >
                 {option.label}
@@ -96,81 +106,77 @@ export default function AntiquesPage() {
         </div>
 
         {/* Antiques Grid */}
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array.from({ length: 6 }).map((_, i) => (
+        {error ? (
+          <Card className="p-8 text-center">
+            <p className="text-muted-foreground">{error}</p>
+          </Card>
+        ) : isLoading ? (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 12 }).map((_, i) => (
               <Card key={i} className="overflow-hidden">
                 <Skeleton className="aspect-video" />
                 <div className="p-4">
-                  <Skeleton className="h-6 w-3/4 mb-2" />
+                  <Skeleton className="mb-2 h-6 w-3/4" />
                   <Skeleton className="h-4 w-1/2" />
                 </div>
               </Card>
             ))}
           </div>
         ) : artifacts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {artifacts.map((artifact, index) => (
-              <motion.div
-                key={artifact._id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-              >
-                <Link href={`/antiques/${artifact._id}`}>
-                  <Card interactive className="group h-full overflow-hidden">
-                    <div className="relative aspect-video overflow-hidden">
-                      {artifact.image ? (
-                        <Image
-                          src={artifact.image}
-                          alt={artifact.name}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-linear-to-br from-red-500/20 to-orange-500/20 flex items-center justify-center">
-                          <Gem className="w-16 h-16 text-red-400/50" />
+          <>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {artifacts.map((artifact, index) => (
+                <motion.div
+                  key={artifact._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: (index % PAGE_SIZE) * 0.04 }}
+                >
+                  <Link href={`/antiques/${artifact._id}`}>
+                    <Card interactive className="group h-full overflow-hidden">
+                      <div className="relative aspect-video overflow-hidden">
+                        {artifact.image ? (
+                          <Image
+                            src={artifact.image}
+                            alt={artifact.name}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            priority={index < 3}
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-red-500/20 to-orange-500/20">
+                            <Gem className="h-16 w-16 text-red-400/50" />
+                          </div>
+                        )}
+                        <div className="absolute top-2 right-2">
+                          <Badge className={getStatusColor(artifact.status)}>
+                            {artifact.status}
+                          </Badge>
                         </div>
-                      )}
-                      <div className="absolute top-2 right-2">
-                        <Badge className={getStatusColor(artifact.status)}>
-                          {artifact.status}
-                        </Badge>
                       </div>
-                    </div>
-                    <div className="p-4">
-                      <h3 className="text-lg font-semibold group-hover:text-primary transition-colors line-clamp-1">
-                        {artifact.name}
-                      </h3>
-                    </div>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <Gem className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-            <p className="text-muted-foreground">No antiques found.</p>
-          </div>
-        )}
+                      <div className="p-4">
+                        <h3 className="group-hover:text-primary line-clamp-1 text-lg font-semibold transition-colors">
+                          {artifact.name}
+                        </h3>
+                      </div>
+                    </Card>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
 
-        {/* Pagination */}
-        {pagination && pagination.pages > 1 && (
-          <div className="flex justify-center gap-2 mt-12">
-            {Array.from({ length: pagination.pages }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => refetch({ search, status: selectedStatus || undefined, page: i + 1 })}
-                className={`px-4 py-2 rounded-md transition-colors ${
-                  pagination.page === i + 1
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-card border border-border hover:bg-accent"
-                }`}
-              >
-                {i + 1}
-              </button>
-            ))}
+            <InfiniteSentinel
+              onVisible={loadMore}
+              enabled={hasMore}
+              isLoading={isLoadingMore}
+              endMessage={`All ${total} antiques`}
+            />
+          </>
+        ) : (
+          <div className="py-12 text-center">
+            <Gem className="text-muted-foreground mx-auto mb-4 h-16 w-16" />
+            <p className="text-muted-foreground">No antiques found.</p>
           </div>
         )}
       </Container>
