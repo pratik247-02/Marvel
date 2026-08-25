@@ -1,0 +1,1321 @@
+{
+  "generatedAt": "2026-08-25T10:42:16.058Z",
+  "source": "TMDB",
+  "actors": {
+    "tony-stark": {
+      "name": "Robert Downey Jr.",
+      "photo": "https://image.tmdb.org/t/p/w300/5qHNjhtjMD4YWH3UP0rm4tKwxCL.jpg",
+      "creditedAs": "Tony Stark",
+      "matchedIn": "Iron Man",
+      "confidence": 100
+    },
+    "steve-rogers": {
+      "name": "Chris Evans",
+      "photo": "https://image.tmdb.org/t/p/w300/3bOGNsHlrswhyW79uvIHH1V43JI.jpg",
+      "creditedAs": "Captain America / Steve Rogers",
+      "matchedIn": "Captain America: The First Avenger",
+      "confidence": 70
+    },
+    "thor-odinson": {
+      "name": "Chris Hemsworth",
+      "photo": "https://image.tmdb.org/t/p/w300/piQGdoIQOF3C1EI5cbYZLAW1gfj.jpg",
+      "creditedAs": "Thor",
+      "matchedIn": "Thor",
+      "confidence": 90
+    },
+    "bruce-banner": {
+      "name": "Edward Norton",
+      "photo": "https://image.tmdb.org/t/p/w300/8nytsqL59SFJTVYVrN72k6qkGgJ.jpg",
+      "creditedAs": "Bruce Banner",
+      "matchedIn": "The Incredible Hulk",
+      "confidence": 100
+    },
+    "natasha-romanoff": {
+      "name": "Scarlett Johansson",
+      "photo": "https://image.tmdb.org/t/p/w300/druW5adKddizHNSoPbI0q7Mvn0K.jpg",
+      "creditedAs": "Natalie Rushman / Natasha Romanoff",
+      "matchedIn": "Iron Man 2",
+      "confidence": 70
+    },
+    "clint-barton": {
+      "name": "Jeremy Renner",
+      "photo": "https://image.tmdb.org/t/p/w300/yB84D1neTYXfWBaV0QOE9RF2VCu.jpg",
+      "creditedAs": "Clint Barton / Hawkeye (uncredited)",
+      "matchedIn": "Thor",
+      "confidence": 70
+    },
+    "bucky-barnes": {
+      "name": "Sebastian Stan",
+      "photo": "https://image.tmdb.org/t/p/w300/mLqE91qUnE8fbfMvsXD7BcWJKNK.jpg",
+      "creditedAs": "Bucky Barnes",
+      "matchedIn": "Thunderbolts*",
+      "confidence": 100
+    },
+    "sam-wilson": {
+      "name": "Anthony Mackie",
+      "photo": "https://image.tmdb.org/t/p/w300/eZSIDrtTzhvabyjrmIITQLsjx8h.jpg",
+      "creditedAs": "Sam Wilson / Falcon",
+      "matchedIn": "Captain America: The Winter Soldier",
+      "confidence": 70
+    },
+    "peter-parker": {
+      "name": "Tom Holland",
+      "photo": "https://image.tmdb.org/t/p/w300/xKBAaPIa1c7tzZD3Y0MhBLv4hPE.jpg",
+      "creditedAs": "Peter Parker / Spider-Man",
+      "matchedIn": "Captain America: Civil War",
+      "confidence": 70
+    },
+    "stephen-strange": {
+      "name": "Benedict Cumberbatch",
+      "photo": "https://image.tmdb.org/t/p/w300/wz3MRiMmoz6b5X3oSzMRC9nLxY1.jpg",
+      "creditedAs": "Doctor Strange",
+      "matchedIn": "Thor: Ragnarok",
+      "confidence": 90
+    },
+    "tchalla": {
+      "name": "Chadwick Boseman",
+      "photo": "https://image.tmdb.org/t/p/w300/nL16SKfyP1b7Hk6LsuWiqMfbdb8.jpg",
+      "creditedAs": "T'Challa / Black Panther",
+      "matchedIn": "Captain America: Civil War",
+      "confidence": 70
+    },
+    "shuri": {
+      "name": "Letitia Wright",
+      "photo": "https://image.tmdb.org/t/p/w300/f7PevpEeBqwzACPhoZ8K3ktrKvE.jpg",
+      "creditedAs": "Shuri",
+      "matchedIn": "Black Panther",
+      "confidence": 100
+    },
+    "peter-quill": {
+      "name": "Chris Pratt",
+      "photo": "https://image.tmdb.org/t/p/w300/cRH6HPAQ98PlOwwEvhYO4CM9lwu.jpg",
+      "creditedAs": "Peter Quill",
+      "matchedIn": "Guardians of the Galaxy",
+      "confidence": 100
+    },
+    "gamora": {
+      "name": "Zoe Saldaña",
+      "photo": "https://image.tmdb.org/t/p/w300/vQBwmsSOAd0JDaEcZ5p43J9xzsY.jpg",
+      "creditedAs": "Gamora",
+      "matchedIn": "Guardians of the Galaxy",
+      "confidence": 100
+    },
+    "rocket-raccoon": {
+      "name": "Bradley Cooper",
+      "photo": "https://image.tmdb.org/t/p/w300/pLD2XvxqHueLWOuqXoFngJU3A5H.jpg",
+      "creditedAs": "Rocket (voice)",
+      "matchedIn": "Guardians of the Galaxy",
+      "confidence": 70
+    },
+    "groot": {
+      "name": "Vin Diesel",
+      "photo": "https://image.tmdb.org/t/p/w300/nZdVry7lnUkE24PnXakok9okvL4.jpg",
+      "creditedAs": "Groot (voice)",
+      "matchedIn": "Guardians of the Galaxy",
+      "confidence": 70
+    },
+    "loki-laufeyson": {
+      "name": "Tom Hiddleston",
+      "photo": "https://image.tmdb.org/t/p/w300/mclHxMm8aPlCPKptP67257F5GPo.jpg",
+      "creditedAs": "Loki",
+      "matchedIn": "Thor",
+      "confidence": 100
+    },
+    "thanos": {
+      "name": "Josh Brolin",
+      "photo": "https://image.tmdb.org/t/p/w300/sX2etBbIkxRaCsATyw5ZpOVMPTD.jpg",
+      "creditedAs": "Thanos",
+      "matchedIn": "Avengers: Infinity War",
+      "confidence": 100
+    },
+    "pepper-potts": {
+      "name": "Gwyneth Paltrow",
+      "photo": "https://image.tmdb.org/t/p/w300/x040uB0CDrHjVAUSONw8bbWMvDC.jpg",
+      "creditedAs": "Pepper Potts",
+      "matchedIn": "Iron Man",
+      "confidence": 100
+    },
+    "james-rhodes": {
+      "name": "Don Cheadle",
+      "photo": "https://image.tmdb.org/t/p/w300/umhTmcVF26qZKEpSfG1ZNpcbs9D.jpg",
+      "creditedAs": "Lt. Col. James 'Rhodey' Rhodes",
+      "matchedIn": "Iron Man 2",
+      "confidence": 70
+    },
+    "happy-hogan": {
+      "name": "Jon Favreau",
+      "photo": "https://image.tmdb.org/t/p/w300/8MtRRnEHaBSw8Ztdl8saXiw1egP.jpg",
+      "creditedAs": "Happy Hogan",
+      "matchedIn": "Iron Man 2",
+      "confidence": 100
+    },
+    "howard-stark": {
+      "name": "Dominic Cooper",
+      "photo": "https://image.tmdb.org/t/p/w300/wFPdARerxpaAaHucYGTSNqViWpn.jpg",
+      "creditedAs": "Howard Stark",
+      "matchedIn": "Captain America: The First Avenger",
+      "confidence": 100
+    },
+    "obadiah-stane": {
+      "name": "Jeff Bridges",
+      "photo": "https://image.tmdb.org/t/p/w300/xms1RAY6q7Lzp7wNeRCB0kzhucn.jpg",
+      "creditedAs": "Obadiah Stane",
+      "matchedIn": "Iron Man",
+      "confidence": 100
+    },
+    "ho-yinsen": {
+      "name": "Shaun Toub",
+      "photo": "https://image.tmdb.org/t/p/w300/6fuJ9D50bYuMAhrlEgVqzgqF0LU.jpg",
+      "creditedAs": "Yinsen",
+      "matchedIn": "Iron Man",
+      "confidence": 70
+    },
+    "ivan-vanko": {
+      "name": "Mickey Rourke",
+      "photo": "https://image.tmdb.org/t/p/w300/i6vXukUwRsJa7S9yhZgoKt9xLDv.jpg",
+      "creditedAs": "Ivan Vanko",
+      "matchedIn": "Iron Man 2",
+      "confidence": 100
+    },
+    "justin-hammer": {
+      "name": "Sam Rockwell",
+      "photo": "https://image.tmdb.org/t/p/w300/afYhNpLwpa65Yy0Q0g00FNFhzx5.jpg",
+      "creditedAs": "Justin Hammer",
+      "matchedIn": "Iron Man 2",
+      "confidence": 100
+    },
+    "aldrich-killian": {
+      "name": "Guy Pearce",
+      "photo": "https://image.tmdb.org/t/p/w300/vTqk6Nh3WgqPubkS23eOlMAwmwa.jpg",
+      "creditedAs": "Aldrich Killian",
+      "matchedIn": "Iron Man 3",
+      "confidence": 100
+    },
+    "trevor-slattery": {
+      "name": "Ben Kingsley",
+      "photo": "https://image.tmdb.org/t/p/w300/k3Dmu49B2akwDvgqy52MOxznI59.jpg",
+      "creditedAs": "Trevor Slattery",
+      "matchedIn": "Iron Man 3",
+      "confidence": 100
+    },
+    "harley-keener": {
+      "name": "Ty Simpkins",
+      "photo": "https://image.tmdb.org/t/p/w300/8FyJcMFmPdCSfz2Zc5ZcAKrIorj.jpg",
+      "creditedAs": "Harley Keener",
+      "matchedIn": "Iron Man 3",
+      "confidence": 100
+    },
+    "vision": {
+      "name": "Paul Bettany",
+      "photo": "https://image.tmdb.org/t/p/w300/vcAVrAOZrpqmi37qjFdztRAv1u9.jpg",
+      "creditedAs": "Vision",
+      "matchedIn": "Captain America: Civil War",
+      "confidence": 100
+    },
+    "wanda-maximoff": {
+      "name": "Elizabeth Olsen",
+      "photo": "https://image.tmdb.org/t/p/w300/wIU675y4dofIDVuhaNWPizJNtep.jpg",
+      "creditedAs": "Wanda Maximoff / Scarlet Witch",
+      "matchedIn": "Avengers: Age of Ultron",
+      "confidence": 70
+    },
+    "ultron": {
+      "name": "James Spader",
+      "photo": "https://image.tmdb.org/t/p/w300/3gurW3OgDOD4hcqDfgcqUnoNg34.jpg",
+      "creditedAs": "Ultron (voice)",
+      "matchedIn": "Avengers: Age of Ultron",
+      "confidence": 70
+    },
+    "peggy-carter": {
+      "name": "Hayley Atwell",
+      "photo": "https://image.tmdb.org/t/p/w300/x57wXHexIjD2ywly9cRA4rov7cu.jpg",
+      "creditedAs": "Peggy Carter",
+      "matchedIn": "Captain America: The First Avenger",
+      "confidence": 100
+    },
+    "nick-fury": {
+      "name": "Samuel L. Jackson",
+      "photo": "https://image.tmdb.org/t/p/w300/qdfRtvPCj51C9Uy5VEgjgj69JyV.jpg",
+      "creditedAs": "Nick Fury",
+      "matchedIn": "Iron Man 2",
+      "confidence": 100
+    },
+    "maria-hill": {
+      "name": "Cobie Smulders",
+      "photo": "https://image.tmdb.org/t/p/w300/1b0mYokcGsfFRge4bjXlS5ihtek.jpg",
+      "creditedAs": "Maria Hill",
+      "matchedIn": "Captain America: The Winter Soldier",
+      "confidence": 100
+    },
+    "phil-coulson": {
+      "name": "Clark Gregg",
+      "photo": "https://image.tmdb.org/t/p/w300/mq686D91XoZpqkzELn0888NOiZW.jpg",
+      "creditedAs": "Agent Coulson",
+      "matchedIn": "Iron Man",
+      "confidence": 90
+    },
+    "red-skull": {
+      "name": "Hugo Weaving",
+      "photo": "https://image.tmdb.org/t/p/w300/lSC8Et0PYi5zeQb3IpPkFje7hgR.jpg",
+      "creditedAs": "Johann Schmidt / Red Skull",
+      "matchedIn": "Captain America: The First Avenger",
+      "confidence": 70
+    },
+    "arnim-zola": {
+      "name": "Toby Jones",
+      "photo": "https://image.tmdb.org/t/p/w300/1qNisdp4f1KstdfvAgYXMdrhwfk.jpg",
+      "creditedAs": "Dr. Arnim Zola",
+      "matchedIn": "Captain America: The First Avenger",
+      "confidence": 70
+    },
+    "alexander-pierce": {
+      "name": "Robert Redford",
+      "photo": "https://image.tmdb.org/t/p/w300/14FuWhuwRLXCplIur2v39L5NZ1W.jpg",
+      "creditedAs": "Alexander Pierce",
+      "matchedIn": "Captain America: The Winter Soldier",
+      "confidence": 100
+    },
+    "brock-rumlow": {
+      "name": "Frank Grillo",
+      "photo": "https://image.tmdb.org/t/p/w300/kuEco4vo1xrsM8DyrNSZUEi593P.jpg",
+      "creditedAs": "Brock Rumlow",
+      "matchedIn": "Captain America: The Winter Soldier",
+      "confidence": 100
+    },
+    "sharon-carter": {
+      "name": "Emily VanCamp",
+      "photo": "https://image.tmdb.org/t/p/w300/zTl2KVglr7D7jnBLjbqe1BbbJiV.jpg",
+      "creditedAs": "Sharon Carter",
+      "matchedIn": "Captain America: Civil War",
+      "confidence": 100
+    },
+    "chester-phillips": {
+      "name": "Tommy Lee Jones",
+      "photo": "https://image.tmdb.org/t/p/w300/mCiZNRAzbnPojJEZwVZWLw9kzxR.jpg",
+      "creditedAs": "Colonel Chester Phillips",
+      "matchedIn": "Captain America: The First Avenger",
+      "confidence": 70
+    },
+    "abraham-erskine": {
+      "name": "Stanley Tucci",
+      "photo": "https://image.tmdb.org/t/p/w300/q4TanMDI5Rgsvw4SfyNbPBh4URr.jpg",
+      "creditedAs": "Dr. Abraham Erskine",
+      "matchedIn": "Captain America: The First Avenger",
+      "confidence": 70
+    },
+    "hank-pym": {
+      "name": "Michael Douglas",
+      "photo": "https://image.tmdb.org/t/p/w300/kVYGPIZowzXLEQfAGUNOqKjAbBb.jpg",
+      "creditedAs": "Hank Pym",
+      "matchedIn": "Avengers: Endgame",
+      "confidence": 100
+    },
+    "scott-lang": {
+      "name": "Paul Rudd",
+      "photo": "https://image.tmdb.org/t/p/w300/6jtwNOLKy0LdsRAKwZqgYMAfd5n.jpg",
+      "creditedAs": "Scott Lang / Ant-Man",
+      "matchedIn": "Ant-Man",
+      "confidence": 70
+    },
+    "odin": {
+      "name": "Anthony Hopkins",
+      "photo": "https://image.tmdb.org/t/p/w300/cbFWUHhk6pZKTEm48OKVM5awNNn.jpg",
+      "creditedAs": "Odin",
+      "matchedIn": "Thor",
+      "confidence": 100
+    },
+    "frigga": {
+      "name": "Rene Russo",
+      "photo": "https://image.tmdb.org/t/p/w300/yWPSqrv3nfPPKC6I2S0sRTWZ5Yi.jpg",
+      "creditedAs": "Frigga",
+      "matchedIn": "Thor",
+      "confidence": 100
+    },
+    "hela": {
+      "name": "Cate Blanchett",
+      "photo": "https://image.tmdb.org/t/p/w300/vUuEHiAR0eD3XEJhg2DWIjymUAA.jpg",
+      "creditedAs": "Hela",
+      "matchedIn": "Thor: Ragnarok",
+      "confidence": 100
+    },
+    "heimdall": {
+      "name": "Idris Elba",
+      "photo": "https://image.tmdb.org/t/p/w300/be1bVF7qGX91a6c5WeRPs5pKXln.jpg",
+      "creditedAs": "Heimdall",
+      "matchedIn": "Thor",
+      "confidence": 100
+    },
+    "valkyrie": {
+      "name": "Tessa Thompson",
+      "photo": "https://image.tmdb.org/t/p/w300/19ze60jXlb2j7dXc2UpA3MujXA8.jpg",
+      "creditedAs": "Valkyrie",
+      "matchedIn": "Thor: Ragnarok",
+      "confidence": 100
+    },
+    "jane-foster": {
+      "name": "Natalie Portman",
+      "photo": "https://image.tmdb.org/t/p/w300/edPU5HxncLWa1YkgRPNkSd68ONG.jpg",
+      "creditedAs": "Jane Foster",
+      "matchedIn": "Thor",
+      "confidence": 100
+    },
+    "erik-selvig": {
+      "name": "Stellan Skarsgård",
+      "photo": "https://image.tmdb.org/t/p/w300/mW7xmtGV4y79kQGn0zkKVGDMAmw.jpg",
+      "creditedAs": "Erik Selvig",
+      "matchedIn": "Thor",
+      "confidence": 100
+    },
+    "darcy-lewis": {
+      "name": "Kat Dennings",
+      "photo": "https://image.tmdb.org/t/p/w300/nJHGtedRCIeAdysg18oJngUZmL3.jpg",
+      "creditedAs": "Darcy Lewis",
+      "matchedIn": "Thor",
+      "confidence": 100
+    },
+    "sif": {
+      "name": "Jaimie Alexander",
+      "photo": "https://image.tmdb.org/t/p/w300/21IQHPAXNUHiqPrpIYr4X8h2wmf.jpg",
+      "creditedAs": "Sif",
+      "matchedIn": "Thor",
+      "confidence": 100
+    },
+    "korg": {
+      "name": "Taika Waititi",
+      "photo": "https://image.tmdb.org/t/p/w300/ww6L2ksfJNMbuiIdDuvVKndUHsv.jpg",
+      "creditedAs": "Korg (voice)",
+      "matchedIn": "Thor: Ragnarok",
+      "confidence": 70
+    },
+    "miek": {
+      "name": "Carly Rees",
+      "photo": "https://image.tmdb.org/t/p/w300/vpPeUJlAKMSVqw52JjVgDeejTcS.jpg",
+      "creditedAs": "Miek",
+      "matchedIn": "Thor: Love and Thunder",
+      "confidence": 100
+    },
+    "skurge": {
+      "name": "Karl Urban",
+      "photo": "https://image.tmdb.org/t/p/w300/7Y96dAfg0HcFrcLjlD5eD9N0uj4.jpg",
+      "creditedAs": "Skurge",
+      "matchedIn": "Thor: Ragnarok",
+      "confidence": 100
+    },
+    "grandmaster": {
+      "name": "Jeff Goldblum",
+      "photo": "https://image.tmdb.org/t/p/w300/kcyEPgYtBP5Pm6LLeLGfXKjYovL.jpg",
+      "creditedAs": "Grandmaster",
+      "matchedIn": "Thor: Ragnarok",
+      "confidence": 100
+    },
+    "malekith": {
+      "name": "Christopher Eccleston",
+      "photo": "https://image.tmdb.org/t/p/w300/v6ezjezzDo6xP2wlONO5ZzBciwl.jpg",
+      "creditedAs": "Malekith",
+      "matchedIn": "Thor: The Dark World",
+      "confidence": 100
+    },
+    "kurse": {
+      "name": "Adewale Akinnuoye-Agbaje",
+      "photo": "https://image.tmdb.org/t/p/w300/zdtwVtVmmm7VzYfu8xH7mbuTvrH.jpg",
+      "creditedAs": "Algrim / Kurse",
+      "matchedIn": "Thor: The Dark World",
+      "confidence": 70
+    },
+    "gorr": {
+      "name": "Christian Bale",
+      "photo": "https://image.tmdb.org/t/p/w300/7Pxez9J8fuPd2Mn9kex13YALrCQ.jpg",
+      "creditedAs": "Gorr",
+      "matchedIn": "Thor: Love and Thunder",
+      "confidence": 100
+    },
+    "zeus": {
+      "name": "Russell Crowe",
+      "photo": "https://image.tmdb.org/t/p/w300/uxiXuVH4vNWrKlJMVVPG1sxAJFe.jpg",
+      "creditedAs": "Zeus",
+      "matchedIn": "Thor: Love and Thunder",
+      "confidence": 100
+    },
+    "nebula": {
+      "name": "Karen Gillan",
+      "photo": "https://image.tmdb.org/t/p/w300/qYx8CflXVq48nGKX1IJsDrAj0sT.jpg",
+      "creditedAs": "Nebula",
+      "matchedIn": "Guardians of the Galaxy",
+      "confidence": 100
+    },
+    "drax": {
+      "name": "Dave Bautista",
+      "photo": "https://image.tmdb.org/t/p/w300/snk6JiXOOoRjPtHU5VMoy6qbd32.jpg",
+      "creditedAs": "Drax",
+      "matchedIn": "Guardians of the Galaxy",
+      "confidence": 100
+    },
+    "mantis": {
+      "name": "Pom Klementieff",
+      "photo": "https://image.tmdb.org/t/p/w300/hfUKAI2kXTMMWjno0i4sLPJud5N.jpg",
+      "creditedAs": "Mantis",
+      "matchedIn": "Guardians of the Galaxy Vol. 2",
+      "confidence": 100
+    },
+    "yondu-udonta": {
+      "name": "Michael Rooker",
+      "photo": "https://image.tmdb.org/t/p/w300/ngOuHNIAGrKyY1O7F0f9C5Q9ONg.jpg",
+      "creditedAs": "Yondu Udonta",
+      "matchedIn": "Guardians of the Galaxy",
+      "confidence": 100
+    },
+    "kraglin": {
+      "name": "Sean Gunn",
+      "photo": "https://image.tmdb.org/t/p/w300/tiolBlPytndQVGHO9vLnBKWWenq.jpg",
+      "creditedAs": "Kraglin / On Set Rocket",
+      "matchedIn": "Guardians of the Galaxy",
+      "confidence": 40
+    },
+    "cosmo": {
+      "name": "Maria Bakalova",
+      "photo": "https://image.tmdb.org/t/p/w300/vCz0ycZr1PgJVOAeS29fIiZE8pN.jpg",
+      "creditedAs": "Cosmo (voice)",
+      "matchedIn": "Guardians of the Galaxy Vol. 3",
+      "confidence": 70
+    },
+    "ego": {
+      "name": "Kurt Russell",
+      "photo": "https://image.tmdb.org/t/p/w300/6g1d98oH4miG4k0ZiZWmF3Dt0bO.jpg",
+      "creditedAs": "Ego",
+      "matchedIn": "Guardians of the Galaxy Vol. 2",
+      "confidence": 100
+    },
+    "meredith-quill": {
+      "name": "Laura Haddock",
+      "photo": "https://image.tmdb.org/t/p/w300/6kRUvA7N3pMzznG9PdiqCOvxhGQ.jpg",
+      "creditedAs": "Meredith Quill",
+      "matchedIn": "Guardians of the Galaxy",
+      "confidence": 100
+    },
+    "ronan": {
+      "name": "Lee Pace",
+      "photo": "https://image.tmdb.org/t/p/w300/eeTc0d2AX1vFYVxZ6Qw7qZpg4Tz.jpg",
+      "creditedAs": "Ronan",
+      "matchedIn": "Guardians of the Galaxy",
+      "confidence": 40
+    },
+    "korath": {
+      "name": "Djimon Hounsou",
+      "photo": "https://image.tmdb.org/t/p/w300/tpvtxxvCx2Mb5DV632hmuYlHoiY.jpg",
+      "creditedAs": "Korath",
+      "matchedIn": "Guardians of the Galaxy",
+      "confidence": 40
+    },
+    "the-collector": {
+      "name": "Benicio del Toro",
+      "photo": "https://image.tmdb.org/t/p/w300/aYomJWx0B2B8ra6Rmgt8lr0XCrw.jpg",
+      "creditedAs": "The Collector",
+      "matchedIn": "Guardians of the Galaxy",
+      "confidence": 90
+    },
+    "ayesha": {
+      "name": "Elizabeth Debicki",
+      "photo": "https://image.tmdb.org/t/p/w300/sJxj44aKdY0pjSIgnxBgMWLrQmw.jpg",
+      "creditedAs": "Ayesha",
+      "matchedIn": "Guardians of the Galaxy Vol. 2",
+      "confidence": 100
+    },
+    "adam-warlock": {
+      "name": "Will Poulter",
+      "photo": "https://image.tmdb.org/t/p/w300/9blYMaj79VGC6BHTLmJp3V5S8r3.jpg",
+      "creditedAs": "Adam Warlock",
+      "matchedIn": "Guardians of the Galaxy Vol. 3",
+      "confidence": 100
+    },
+    "high-evolutionary": {
+      "name": "Chukwudi Iwuji",
+      "photo": "https://image.tmdb.org/t/p/w300/5JILtFNmAmA8T4gRQrO5sn8krDv.jpg",
+      "creditedAs": "The High Evolutionary",
+      "matchedIn": "Guardians of the Galaxy Vol. 3",
+      "confidence": 100
+    },
+    "lylla": {
+      "name": "Linda Cardellini",
+      "photo": "https://image.tmdb.org/t/p/w300/bcycvynDprC1rrhBNrnBjn5uOUd.jpg",
+      "creditedAs": "Lylla",
+      "matchedIn": "Guardians of the Galaxy Vol. 3",
+      "confidence": 100
+    },
+    "stakar-ogord": {
+      "name": "Sylvester Stallone",
+      "photo": "https://image.tmdb.org/t/p/w300/gn3pDWthJqR0VDYGViGD3048og7.jpg",
+      "creditedAs": "Stakar Ogord",
+      "matchedIn": "Guardians of the Galaxy Vol. 2",
+      "confidence": 100
+    },
+    "taserface": {
+      "name": "Chris Sullivan",
+      "photo": "https://image.tmdb.org/t/p/w300/gKZ9xSFrDzUPv27iAkMpH6Qf0Sk.jpg",
+      "creditedAs": "Taserface",
+      "matchedIn": "Guardians of the Galaxy Vol. 2",
+      "confidence": 100
+    },
+    "nova-prime": {
+      "name": "Glenn Close",
+      "photo": "https://image.tmdb.org/t/p/w300/4VHZ1GfLwN7MUgApy0LCBzdDF9L.jpg",
+      "creditedAs": "Nova Prime",
+      "matchedIn": "Guardians of the Galaxy",
+      "confidence": 90
+    },
+    "rhomann-dey": {
+      "name": "John C. Reilly",
+      "photo": "https://image.tmdb.org/t/p/w300/iDQ8w4qcxU3le5ZWoCKpHs1QNok.jpg",
+      "creditedAs": "Corpsman Dey",
+      "matchedIn": "Guardians of the Galaxy",
+      "confidence": 100
+    },
+    "ramonda": {
+      "name": "Angela Bassett",
+      "photo": "https://image.tmdb.org/t/p/w300/tKnuviliyeKNGlo26IU5gIrJAtd.jpg",
+      "creditedAs": "Ramonda",
+      "matchedIn": "Black Panther",
+      "confidence": 100
+    },
+    "tchaka": {
+      "name": "John Kani",
+      "photo": "https://image.tmdb.org/t/p/w300/g7tqg3q128a5O2qXMCwVnXsow9I.jpg",
+      "creditedAs": "T'Chaka",
+      "matchedIn": "Black Panther",
+      "confidence": 100
+    },
+    "killmonger": {
+      "name": "Michael B. Jordan",
+      "photo": "https://image.tmdb.org/t/p/w300/sMBpav8cK7t7Nk0yf4tuNOqNUyW.jpg",
+      "creditedAs": "Erik Killmonger",
+      "matchedIn": "Black Panther",
+      "confidence": 100
+    },
+    "njobu": {
+      "name": "Sterling K. Brown",
+      "photo": "https://image.tmdb.org/t/p/w300/uq4kBHad6mOA4iXpX8f16PQJBEA.jpg",
+      "creditedAs": "N'Jobu",
+      "matchedIn": "Black Panther",
+      "confidence": 100
+    },
+    "okoye": {
+      "name": "Danai Gurira",
+      "photo": "https://image.tmdb.org/t/p/w300/z7H7QeQvr24vskGlANQhG43vozQ.jpg",
+      "creditedAs": "Okoye",
+      "matchedIn": "Black Panther",
+      "confidence": 100
+    },
+    "nakia": {
+      "name": "Lupita Nyong'o",
+      "photo": "https://image.tmdb.org/t/p/w300/y40Wu1T742kynOqtwXASc5Qgm49.jpg",
+      "creditedAs": "Nakia",
+      "matchedIn": "Black Panther",
+      "confidence": 100
+    },
+    "mbaku": {
+      "name": "Winston Duke",
+      "photo": "https://image.tmdb.org/t/p/w300/MhBiZbryibwuoEtPL9Ns8pYHC1.jpg",
+      "creditedAs": "M'Baku",
+      "matchedIn": "Black Panther",
+      "confidence": 100
+    },
+    "wkabi": {
+      "name": "Daniel Kaluuya",
+      "photo": "https://image.tmdb.org/t/p/w300/jj2kZqJobjom36wlhlYhc38nTwN.jpg",
+      "creditedAs": "W'Kabi",
+      "matchedIn": "Black Panther",
+      "confidence": 100
+    },
+    "ayo": {
+      "name": "Florence Kasumba",
+      "photo": "https://image.tmdb.org/t/p/w300/v7armAbV6haib0fTl6ZktTUMRmg.jpg",
+      "creditedAs": "Ayo",
+      "matchedIn": "Black Panther",
+      "confidence": 100
+    },
+    "zuri": {
+      "name": "Forest Whitaker",
+      "photo": "https://image.tmdb.org/t/p/w300/4w7l5JUwnwFNBy7J93ZwYN1nihm.jpg",
+      "creditedAs": "Zuri",
+      "matchedIn": "Black Panther",
+      "confidence": 100
+    },
+    "ulysses-klaue": {
+      "name": "Andy Serkis",
+      "photo": "https://image.tmdb.org/t/p/w300/eNGqhebQ4cDssjVeNFrKtUvweV5.jpg",
+      "creditedAs": "Ulysses Klaue",
+      "matchedIn": "Avengers: Age of Ultron",
+      "confidence": 100
+    },
+    "namor": {
+      "name": "Tenoch Huerta Mejía",
+      "photo": "https://image.tmdb.org/t/p/w300/x0Wy85CZu887ZQMWrjj4vVulczM.jpg",
+      "creditedAs": "Namor",
+      "matchedIn": "Black Panther: Wakanda Forever",
+      "confidence": 100
+    },
+    "namora": {
+      "name": "Mabel Cadena",
+      "photo": "https://image.tmdb.org/t/p/w300/z0kAf1LBESLPj4zUaXSngKH7cwg.jpg",
+      "creditedAs": "Namora",
+      "matchedIn": "Black Panther: Wakanda Forever",
+      "confidence": 100
+    },
+    "attuma": {
+      "name": "Alex Livinalli",
+      "photo": "https://image.tmdb.org/t/p/w300/kcPcUfbPMiuNfY3Ox48lXc50NHS.jpg",
+      "creditedAs": "Attuma",
+      "matchedIn": "Black Panther: Wakanda Forever",
+      "confidence": 100
+    },
+    "riri-williams": {
+      "name": "Dominique Thorne",
+      "photo": "https://image.tmdb.org/t/p/w300/tuLlp79SfYc4mLzzjdC2ekLI7qd.jpg",
+      "creditedAs": "Riri",
+      "matchedIn": "Black Panther: Wakanda Forever",
+      "confidence": 100
+    },
+    "wong": {
+      "name": "Benedict Wong",
+      "photo": "https://image.tmdb.org/t/p/w300/yYfLyrC2CE6vBWSJfkpuVKL2POM.jpg",
+      "creditedAs": "Wong",
+      "matchedIn": "Doctor Strange",
+      "confidence": 100
+    },
+    "the-ancient-one": {
+      "name": "Tilda Swinton",
+      "photo": "https://image.tmdb.org/t/p/w300/dzjT4LKgs7eOma84GsPy78DsGNH.jpg",
+      "creditedAs": "The Ancient One",
+      "matchedIn": "Doctor Strange",
+      "confidence": 100
+    },
+    "karl-mordo": {
+      "name": "Chiwetel Ejiofor",
+      "photo": "https://image.tmdb.org/t/p/w300/kq5DDnqqofoRI0t6ddtRlsJnNPT.jpg",
+      "creditedAs": "Mordo",
+      "matchedIn": "Doctor Strange",
+      "confidence": 40
+    },
+    "christine-palmer": {
+      "name": "Rachel McAdams",
+      "photo": "https://image.tmdb.org/t/p/w300/2DPh6KoNg0p57vvGc6N468zr3ct.jpg",
+      "creditedAs": "Dr. Christine Palmer",
+      "matchedIn": "Doctor Strange",
+      "confidence": 70
+    },
+    "kaecilius": {
+      "name": "Mads Mikkelsen",
+      "photo": "https://image.tmdb.org/t/p/w300/AsX4bdvZ8UCayWTmAf9lAqOA8V7.jpg",
+      "creditedAs": "Kaecilius",
+      "matchedIn": "Doctor Strange",
+      "confidence": 100
+    },
+    "america-chavez": {
+      "name": "Xochitl Gomez",
+      "photo": "https://image.tmdb.org/t/p/w300/q39DOx44YHrGF1h88R9HxRNZS3.jpg",
+      "creditedAs": "America Chavez",
+      "matchedIn": "Doctor Strange in the Multiverse of Madness",
+      "confidence": 100
+    },
+    "may-parker": {
+      "name": "Marisa Tomei",
+      "photo": "https://image.tmdb.org/t/p/w300/vAQ10fvGfVyuJdMNKVMA4ZkacWL.jpg",
+      "creditedAs": "May Parker",
+      "matchedIn": "Captain America: Civil War",
+      "confidence": 100
+    },
+    "michelle-jones": {
+      "name": "Zendaya",
+      "photo": "https://image.tmdb.org/t/p/w300/1qup8tSt95HLbcy2c2xrx4iJNxv.jpg",
+      "creditedAs": "MJ",
+      "matchedIn": "Spider-Man: Far From Home",
+      "confidence": 90
+    },
+    "ned-leeds": {
+      "name": "Jacob Batalon",
+      "photo": "https://image.tmdb.org/t/p/w300/53YhaL4xw4Sb1ssoHkeSSBaO29c.jpg",
+      "creditedAs": "Ned Leeds",
+      "matchedIn": "Spider-Man: Far From Home",
+      "confidence": 100
+    },
+    "adrian-toomes": {
+      "name": "Michael Keaton",
+      "photo": "https://image.tmdb.org/t/p/w300/tYSja1KByFnZ4Hkp3stPqkKHnNL.jpg",
+      "creditedAs": "Adrian Toomes / Vulture",
+      "matchedIn": "Spider-Man: Homecoming",
+      "confidence": 70
+    },
+    "quentin-beck": {
+      "name": "Jake Gyllenhaal",
+      "photo": "https://image.tmdb.org/t/p/w300/ct2Gh2sJSxd4yaMrSsqSt1HpIC3.jpg",
+      "creditedAs": "Quentin Beck / Mysterio",
+      "matchedIn": "Spider-Man: Far From Home",
+      "confidence": 70
+    },
+    "william-ginter-riva": {
+      "name": "Peter Billingsley",
+      "photo": "https://image.tmdb.org/t/p/w300/mgGquIo2diWHkRVbjRVULnMA46x.jpg",
+      "creditedAs": "William Ginter Riva",
+      "matchedIn": "Iron Man",
+      "confidence": 100
+    },
+    "flash-thompson": {
+      "name": "Tony Revolori",
+      "photo": "https://image.tmdb.org/t/p/w300/tSF6XmXDikrKZbFUeoDnafXxKjT.jpg",
+      "creditedAs": "Flash Thompson",
+      "matchedIn": "Spider-Man: Far From Home",
+      "confidence": 100
+    },
+    "mac-gargan": {
+      "name": "Michael Mando",
+      "photo": "https://image.tmdb.org/t/p/w300/gvM2wG66bjEpiirdeQdyG9EzUfv.jpg",
+      "creditedAs": "Mac Gargan",
+      "matchedIn": "Spider-Man: Homecoming",
+      "confidence": 100
+    },
+    "otto-octavius": {
+      "name": "Alfred Molina",
+      "photo": "https://image.tmdb.org/t/p/w300/nJo91Czesn6z0d0pkfbDoVZY3sg.jpg",
+      "creditedAs": "Dr. Otto Octavius / Doc Ock",
+      "matchedIn": "Spider-Man: No Way Home",
+      "confidence": 70
+    },
+    "norman-osborn": {
+      "name": "Willem Dafoe",
+      "photo": "https://image.tmdb.org/t/p/w300/ui8e4sgZAwMPi3hzEO53jyBJF9B.jpg",
+      "creditedAs": "Norman Osborn / Green Goblin",
+      "matchedIn": "Spider-Man: No Way Home",
+      "confidence": 70
+    },
+    "max-dillon": {
+      "name": "Jamie Foxx",
+      "photo": "https://image.tmdb.org/t/p/w300/zD8Nsy4Xrghp7WunwpCj5JKBPeU.jpg",
+      "creditedAs": "Max Dillon / Electro",
+      "matchedIn": "Spider-Man: No Way Home",
+      "confidence": 70
+    },
+    "flint-marko": {
+      "name": "Thomas Haden Church",
+      "photo": "https://image.tmdb.org/t/p/w300/74NK9HCYvNafMggSp1PAK5Nwkpe.jpg",
+      "creditedAs": "Flint Marko / Sandman",
+      "matchedIn": "Spider-Man: No Way Home",
+      "confidence": 70
+    },
+    "curt-connors": {
+      "name": "Rhys Ifans",
+      "photo": "https://image.tmdb.org/t/p/w300/5X8XcIqCDxsQYyHdx7mBwPVkSTs.jpg",
+      "creditedAs": "Dr. Curt Connors / The Lizard",
+      "matchedIn": "Spider-Man: No Way Home",
+      "confidence": 70
+    },
+    "eddie-brock": {
+      "name": "Tom Hardy",
+      "photo": "https://image.tmdb.org/t/p/w300/d81K0RH8UX7tZj49tZaQhZ9ewH.jpg",
+      "creditedAs": "Eddie Brock / Venom (uncredited)",
+      "matchedIn": "Spider-Man: No Way Home",
+      "confidence": 70
+    },
+    "j-jonah-jameson": {
+      "name": "J.K. Simmons",
+      "photo": "https://image.tmdb.org/t/p/w300/ScmKoJ9eiSUOthAt1PDNLi8Fkw.jpg",
+      "creditedAs": "J. Jonah Jameson",
+      "matchedIn": "Spider-Man: Far From Home",
+      "confidence": 100
+    },
+    "shang-chi": {
+      "name": "Simu Liu",
+      "photo": "https://image.tmdb.org/t/p/w300/cCx2OghLj9KN73oyRZe92i2p3Ih.jpg",
+      "creditedAs": "Shaun / Shang-Chi",
+      "matchedIn": "Shang-Chi and the Legend of the Ten Rings",
+      "confidence": 70
+    },
+    "wenwu": {
+      "name": "Tony Leung Chiu-wai",
+      "photo": "https://image.tmdb.org/t/p/w300/nQbSQAws5BdakPEB5MtiqWVeaMV.jpg",
+      "creditedAs": "Xu Wenwu",
+      "matchedIn": "Shang-Chi and the Legend of the Ten Rings",
+      "confidence": 100
+    },
+    "xu-xialing": {
+      "name": "Zhang Meng'er",
+      "photo": "https://image.tmdb.org/t/p/w300/lOJ0EIjNybCDT6J3ZLMDnqpoDXD.jpg",
+      "creditedAs": "Xialing",
+      "matchedIn": "Shang-Chi and the Legend of the Ten Rings",
+      "confidence": 70
+    },
+    "katy-chen": {
+      "name": "Awkwafina",
+      "photo": "https://image.tmdb.org/t/p/w300/l5AKkg3H1QhMuXmTTmq1EyjyiRb.jpg",
+      "creditedAs": "Katy",
+      "matchedIn": "Shang-Chi and the Legend of the Ten Rings",
+      "confidence": 100
+    },
+    "ying-li": {
+      "name": "Michelle Yeoh",
+      "photo": "https://image.tmdb.org/t/p/w300/i6fHvGt7Rb8oVyjjdQVV6vEHB94.jpg",
+      "creditedAs": "Ying Nan",
+      "matchedIn": "Shang-Chi and the Legend of the Ten Rings",
+      "confidence": 70
+    },
+    "ying-nan": {
+      "name": "Michelle Yeoh",
+      "photo": "https://image.tmdb.org/t/p/w300/i6fHvGt7Rb8oVyjjdQVV6vEHB94.jpg",
+      "creditedAs": "Ying Nan",
+      "matchedIn": "Shang-Chi and the Legend of the Ten Rings",
+      "confidence": 100
+    },
+    "razor-fist": {
+      "name": "Florian Munteanu",
+      "photo": "https://image.tmdb.org/t/p/w300/lE26A169mjuwW5x0zx2wW9Q9o2w.jpg",
+      "creditedAs": "Razor Fist",
+      "matchedIn": "Shang-Chi and the Legend of the Ten Rings",
+      "confidence": 100
+    },
+    "death-dealer": {
+      "name": "Andy Le",
+      "photo": "https://image.tmdb.org/t/p/w300/46hI8q3ufjUsYZ3rSTYP8AnOvRc.jpg",
+      "creditedAs": "Death Dealer",
+      "matchedIn": "Shang-Chi and the Legend of the Ten Rings",
+      "confidence": 100
+    },
+    "abomination": {
+      "name": "Tim Roth",
+      "photo": "https://image.tmdb.org/t/p/w300/qSizF2i9gz6c6DbAC5RoIq8sVqX.jpg",
+      "creditedAs": "Emil Blonsky",
+      "matchedIn": "The Incredible Hulk",
+      "confidence": 100
+    },
+    "thaddeus-ross": {
+      "name": "William Hurt",
+      "photo": "https://image.tmdb.org/t/p/w300/j3mjmuHLBW4XQSw53C8Sh0Lh3ZQ.jpg",
+      "creditedAs": "Secretary of State Thaddeus Ross",
+      "matchedIn": "Captain America: Civil War",
+      "confidence": 70
+    },
+    "betty-ross": {
+      "name": "Liv Tyler",
+      "photo": "https://image.tmdb.org/t/p/w300/aYlqS4wYuNCiN9wmvDwKRAE9BQ9.jpg",
+      "creditedAs": "Betty Ross",
+      "matchedIn": "The Incredible Hulk",
+      "confidence": 100
+    },
+    "samuel-sterns": {
+      "name": "Tim Blake Nelson",
+      "photo": "https://image.tmdb.org/t/p/w300/rWuTGiAMaaHIJ30eRkQS23LbRSW.jpg",
+      "creditedAs": "Samuel Sterns",
+      "matchedIn": "The Incredible Hulk",
+      "confidence": 100
+    },
+    "hope-van-dyne": {
+      "name": "Evangeline Lilly",
+      "photo": "https://image.tmdb.org/t/p/w300/zgztLIWTJZm3vjGU7ezhF8GXESJ.jpg",
+      "creditedAs": "Hope van Dyne",
+      "matchedIn": "Ant-Man",
+      "confidence": 100
+    },
+    "janet-van-dyne": {
+      "name": "Michelle Pfeiffer",
+      "photo": "https://image.tmdb.org/t/p/w300/8qwNMFzmM3BxGKIj1iIqiHHBpx3.jpg",
+      "creditedAs": "Janet Van Dyne",
+      "matchedIn": "Avengers: Endgame",
+      "confidence": 100
+    },
+    "cassie-lang": {
+      "name": "Abby Ryder Fortson",
+      "photo": "https://image.tmdb.org/t/p/w300/mNRZFVtAvj5P3HxM2PFM1YqXMAw.jpg",
+      "creditedAs": "Cassie Lang",
+      "matchedIn": "Ant-Man",
+      "confidence": 100
+    },
+    "luis": {
+      "name": "Michael Peña",
+      "photo": "https://image.tmdb.org/t/p/w300/afs4PCiwn8LR93a10drULLVeVLo.jpg",
+      "creditedAs": "Luis",
+      "matchedIn": "Ant-Man",
+      "confidence": 100
+    },
+    "kurt": {
+      "name": "David Dastmalchian",
+      "photo": "https://image.tmdb.org/t/p/w300/nER1Vzhk51pGHb60KBF1Ja5tEXA.jpg",
+      "creditedAs": "Kurt",
+      "matchedIn": "Ant-Man",
+      "confidence": 100
+    },
+    "dave": {
+      "name": "T.I.",
+      "photo": "https://image.tmdb.org/t/p/w300/dHnR4QavU2ILjvbr3SXBh4cJSdJ.jpg",
+      "creditedAs": "Dave",
+      "matchedIn": "Ant-Man",
+      "confidence": 100
+    },
+    "darren-cross": {
+      "name": "Corey Stoll",
+      "photo": "https://image.tmdb.org/t/p/w300/a5wxOBGmXVwcEqWvEizFk06SDSj.jpg",
+      "creditedAs": "Darren Cross / Yellowjacket",
+      "matchedIn": "Ant-Man",
+      "confidence": 70
+    },
+    "ava-starr": {
+      "name": "Hannah John-Kamen",
+      "photo": "https://image.tmdb.org/t/p/w300/V8P9EVelewGVXbuyEylqrzF6iG.jpg",
+      "creditedAs": "Ava / Ghost",
+      "matchedIn": "Ant-Man and the Wasp",
+      "confidence": 100
+    },
+    "bill-foster": {
+      "name": "Laurence Fishburne",
+      "photo": "https://image.tmdb.org/t/p/w300/2GbXERENPpl5MmlqOLlPVaVtifD.jpg",
+      "creditedAs": "Dr. Bill Foster",
+      "matchedIn": "Ant-Man and the Wasp",
+      "confidence": 70
+    },
+    "kang": {
+      "name": "Jonathan Majors",
+      "photo": "https://image.tmdb.org/t/p/w300/nsxnMbkl9Lpc12AmYwKi9SmsJ7e.jpg",
+      "creditedAs": "Kang the Conqueror",
+      "matchedIn": "Ant-Man and the Wasp: Quantumania",
+      "confidence": 100
+    },
+    "carol-danvers": {
+      "name": "Brie Larson",
+      "photo": "https://image.tmdb.org/t/p/w300/iqZ5uKJWbwSITCK4CqdlUHZTnXD.jpg",
+      "creditedAs": "Carol Danvers / Vers / Captain Marvel",
+      "matchedIn": "Captain Marvel",
+      "confidence": 70
+    },
+    "maria-rambeau": {
+      "name": "Lashana Lynch",
+      "photo": "https://image.tmdb.org/t/p/w300/ypNxRag9uJ5nzPAN2um3amQK340.jpg",
+      "creditedAs": "Maria Rambeau",
+      "matchedIn": "Captain Marvel",
+      "confidence": 100
+    },
+    "monica-rambeau": {
+      "name": "Teyonah Parris",
+      "photo": "https://image.tmdb.org/t/p/w300/iGvBTOi0y2fbBVwgnBRXgY0IXDY.jpg",
+      "creditedAs": "Monica Rambeau",
+      "matchedIn": "The Marvels",
+      "confidence": 100
+    },
+    "kamala-khan": {
+      "name": "Iman Vellani",
+      "photo": "https://image.tmdb.org/t/p/w300/oBpOjLAH8heYNNJZN1Z5jVQhAKC.jpg",
+      "creditedAs": "Kamala Khan / Ms. Marvel",
+      "matchedIn": "The Marvels",
+      "confidence": 70
+    },
+    "talos": {
+      "name": "Ben Mendelsohn",
+      "photo": "https://image.tmdb.org/t/p/w300/pA9mu9D2IolVA0v2Yo0tJm6uUyI.jpg",
+      "creditedAs": "Talos / Keller",
+      "matchedIn": "Captain Marvel",
+      "confidence": 70
+    },
+    "soren": {
+      "name": "Sharon Blynn",
+      "photo": "https://image.tmdb.org/t/p/w300/m3lzrdrNc0lleW9Tva64flZ8Fah.jpg",
+      "creditedAs": "Soren",
+      "matchedIn": "Captain Marvel",
+      "confidence": 100
+    },
+    "yon-rogg": {
+      "name": "Jude Law",
+      "photo": "https://image.tmdb.org/t/p/w300/6UadpSbfC39WMChAcdnNunzwDxv.jpg",
+      "creditedAs": "Yon-Rogg",
+      "matchedIn": "Captain Marvel",
+      "confidence": 100
+    },
+    "minn-erva": {
+      "name": "Gemma Chan",
+      "photo": "https://image.tmdb.org/t/p/w300/stTKj4iNauhqlVmZ6XAsFsvcMCY.jpg",
+      "creditedAs": "Minn-Erva",
+      "matchedIn": "Captain Marvel",
+      "confidence": 100
+    },
+    "supreme-intelligence": {
+      "name": "Annette Bening",
+      "photo": "https://image.tmdb.org/t/p/w300/kGslMAWcpv8MKzODhDRDkFE0uX7.jpg",
+      "creditedAs": "Supreme Intelligence / Dr. Wendy Lawson",
+      "matchedIn": "Captain Marvel",
+      "confidence": 70
+    },
+    "mar-vell": {
+      "name": "Annette Bening",
+      "photo": "https://image.tmdb.org/t/p/w300/kGslMAWcpv8MKzODhDRDkFE0uX7.jpg",
+      "creditedAs": "Supreme Intelligence / Dr. Wendy Lawson",
+      "matchedIn": "Captain Marvel",
+      "confidence": 100
+    },
+    "dar-benn": {
+      "name": "Zawe Ashton",
+      "photo": "https://image.tmdb.org/t/p/w300/zbxVfvhPhCfgpgmWTdtHWurNqYu.jpg",
+      "creditedAs": "Dar-Benn",
+      "matchedIn": "The Marvels",
+      "confidence": 100
+    },
+    "yelena-belova": {
+      "name": "Florence Pugh",
+      "photo": "https://image.tmdb.org/t/p/w300/1Uvfh7xL4U2evkhs0M3C7BbBYFf.jpg",
+      "creditedAs": "Yelena Belova",
+      "matchedIn": "Black Widow",
+      "confidence": 100
+    },
+    "alexei-shostakov": {
+      "name": "David Harbour",
+      "photo": "https://image.tmdb.org/t/p/w300/qMFtMWlYVtFVyBoBhX5IoA5sN5a.jpg",
+      "creditedAs": "Alexei Shostakov",
+      "matchedIn": "Thunderbolts*",
+      "confidence": 100
+    },
+    "melina-vostokoff": {
+      "name": "Rachel Weisz",
+      "photo": "https://image.tmdb.org/t/p/w300/9tfHL5tholha1YF6bSKt422ETPM.jpg",
+      "creditedAs": "Melina",
+      "matchedIn": "Black Widow",
+      "confidence": 40
+    },
+    "general-dreykov": {
+      "name": "Ray Winstone",
+      "photo": "https://image.tmdb.org/t/p/w300/eSRgAC98u5hQroeZzDeRf60XE21.jpg",
+      "creditedAs": "Dreykov",
+      "matchedIn": "Black Widow",
+      "confidence": 70
+    },
+    "taskmaster": {
+      "name": "Olga Kurylenko",
+      "photo": "https://image.tmdb.org/t/p/w300/ei6eYUhQFw2AaV6U5fyPptBaPF0.jpg",
+      "creditedAs": "Antonia Dreykov",
+      "matchedIn": "Thunderbolts*",
+      "confidence": 100
+    },
+    "laura-barton": {
+      "name": "Linda Cardellini",
+      "photo": "https://image.tmdb.org/t/p/w300/bcycvynDprC1rrhBNrnBjn5uOUd.jpg",
+      "creditedAs": "Laura Barton",
+      "matchedIn": "Avengers: Age of Ultron",
+      "confidence": 100
+    },
+    "john-walker": {
+      "name": "Wyatt Russell",
+      "photo": "https://image.tmdb.org/t/p/w300/zIldBzXdBWskPZB7x35G2hYEVDo.jpg",
+      "creditedAs": "John Walker",
+      "matchedIn": "Thunderbolts*",
+      "confidence": 100
+    },
+    "valentina-allegra-de-fontaine": {
+      "name": "Julia Louis-Dreyfus",
+      "photo": "https://image.tmdb.org/t/p/w300/iEfHQNrVbVFesDPjdySom9nqsFg.jpg",
+      "creditedAs": "Valentina Allegra de Fontaine",
+      "matchedIn": "Thunderbolts*",
+      "confidence": 100
+    },
+    "bob-reynolds": {
+      "name": "Lewis Pullman",
+      "photo": "https://image.tmdb.org/t/p/w300/i2wJQ2eaVuTPaA84jzxNtxs54mO.jpg",
+      "creditedAs": "Robert Reynolds",
+      "matchedIn": "Thunderbolts*",
+      "confidence": 40
+    },
+    "sersi": {
+      "name": "Gemma Chan",
+      "photo": "https://image.tmdb.org/t/p/w300/stTKj4iNauhqlVmZ6XAsFsvcMCY.jpg",
+      "creditedAs": "Sersi",
+      "matchedIn": "Eternals",
+      "confidence": 100
+    },
+    "ikaris": {
+      "name": "Richard Madden",
+      "photo": "https://image.tmdb.org/t/p/w300/9QQFfVZ6PLe3WVmOL56wGNOnbGL.jpg",
+      "creditedAs": "Ikaris",
+      "matchedIn": "Eternals",
+      "confidence": 100
+    },
+    "ajak": {
+      "name": "Salma Hayek Pinault",
+      "photo": "https://image.tmdb.org/t/p/w300/1qfYF7NGRObmeKR7IVXUFVIC0CN.jpg",
+      "creditedAs": "Ajak",
+      "matchedIn": "Eternals",
+      "confidence": 100
+    },
+    "thena": {
+      "name": "Angelina Jolie",
+      "photo": "https://image.tmdb.org/t/p/w300/bXNxIKcJ5cNNW8QFrBPWcfTSu9x.jpg",
+      "creditedAs": "Thena",
+      "matchedIn": "Eternals",
+      "confidence": 100
+    },
+    "gilgamesh": {
+      "name": "Don Lee",
+      "photo": "https://image.tmdb.org/t/p/w300/ckxoXz3l4mCcHEIRaqUc7oGoIFg.jpg",
+      "creditedAs": "Gilgamesh",
+      "matchedIn": "Eternals",
+      "confidence": 100
+    },
+    "kingo": {
+      "name": "Kumail Nanjiani",
+      "photo": "https://image.tmdb.org/t/p/w300/9EyrK1Cv7ey1h1GgmsVAOn45w6G.jpg",
+      "creditedAs": "Kingo",
+      "matchedIn": "Eternals",
+      "confidence": 100
+    },
+    "sprite": {
+      "name": "Lia McHugh",
+      "photo": "https://image.tmdb.org/t/p/w300/vPnN8xBLsm5vMZvMpRBNJ5WuAdl.jpg",
+      "creditedAs": "Sprite",
+      "matchedIn": "Eternals",
+      "confidence": 100
+    },
+    "phastos": {
+      "name": "Brian Tyree Henry",
+      "photo": "https://image.tmdb.org/t/p/w300/2MsJh0bpyzwvOUnXOltHp3j85Pb.jpg",
+      "creditedAs": "Phastos",
+      "matchedIn": "Eternals",
+      "confidence": 100
+    },
+    "makkari": {
+      "name": "Lauren Ridloff",
+      "photo": "https://image.tmdb.org/t/p/w300/eyMriacYFsWtdgzedVPfXmT0TFa.jpg",
+      "creditedAs": "Makkari",
+      "matchedIn": "Eternals",
+      "confidence": 100
+    },
+    "druig": {
+      "name": "Barry Keoghan",
+      "photo": "https://image.tmdb.org/t/p/w300/ngoitknM6hw8fffLywyvjzy6Iti.jpg",
+      "creditedAs": "Druig",
+      "matchedIn": "Eternals",
+      "confidence": 100
+    },
+    "dane-whitman": {
+      "name": "Kit Harington",
+      "photo": "https://image.tmdb.org/t/p/w300/iGXlJbExWwZmo9sUDsYuzf4Sv4y.jpg",
+      "creditedAs": "Dane Whitman",
+      "matchedIn": "Eternals",
+      "confidence": 100
+    },
+    "arishem": {
+      "name": "David Kaye",
+      "photo": "https://image.tmdb.org/t/p/w300/izxtFSio5twcVA1oJWPvobxpcZj.jpg",
+      "creditedAs": "Arishem (voice)",
+      "matchedIn": "Eternals",
+      "confidence": 70
+    },
+    "reed-richards": {
+      "name": "Pedro Pascal",
+      "photo": "https://image.tmdb.org/t/p/w300/oKcMbVn0NJTNzQt0ClKKvVXkm60.jpg",
+      "creditedAs": "Reed Richards / Mister Fantastic",
+      "matchedIn": "The Fantastic Four: First Steps",
+      "confidence": 70
+    },
+    "sue-storm": {
+      "name": "Vanessa Kirby",
+      "photo": "https://image.tmdb.org/t/p/w300/tViEEsjvbhrJxWsOipUqIYjdHEb.jpg",
+      "creditedAs": "Sue Storm / Invisible Woman",
+      "matchedIn": "The Fantastic Four: First Steps",
+      "confidence": 70
+    },
+    "johnny-storm": {
+      "name": "Joseph Quinn",
+      "photo": "https://image.tmdb.org/t/p/w300/zshhuioZaH8S5ZKdMcojzWi1ntl.jpg",
+      "creditedAs": "Johnny Storm / Human Torch",
+      "matchedIn": "The Fantastic Four: First Steps",
+      "confidence": 70
+    },
+    "ben-grimm": {
+      "name": "Ebon Moss-Bachrach",
+      "photo": "https://image.tmdb.org/t/p/w300/xD8GVNayMpiTZxLfahy2DseYcQq.jpg",
+      "creditedAs": "Ben Grimm / The Thing",
+      "matchedIn": "The Fantastic Four: First Steps",
+      "confidence": 70
+    },
+    "franklin-richards": {
+      "name": "Ada Scott",
+      "creditedAs": "Franklin Richards",
+      "matchedIn": "The Fantastic Four: First Steps",
+      "confidence": 100
+    },
+    "galactus": {
+      "name": "Ralph Ineson",
+      "photo": "https://image.tmdb.org/t/p/w300/sn3ONJw2pJxMHiCqPwvkaiWr5mc.jpg",
+      "creditedAs": "Galactus",
+      "matchedIn": "The Fantastic Four: First Steps",
+      "confidence": 100
+    },
+    "silver-surfer": {
+      "name": "Julia Garner",
+      "photo": "https://image.tmdb.org/t/p/w300/gpLpOBoHz5VF1IZhfWQNqJvDTWp.jpg",
+      "creditedAs": "Shalla-Bal / Silver Surfer",
+      "matchedIn": "The Fantastic Four: First Steps",
+      "confidence": 70
+    },
+    "wade-wilson": {
+      "name": "Ryan Reynolds",
+      "photo": "https://image.tmdb.org/t/p/w300/trzgptffGvAlAT6MEu01fz47cLW.jpg",
+      "creditedAs": "Wade Wilson / Deadpool / Nicepool",
+      "matchedIn": "Deadpool & Wolverine",
+      "confidence": 70
+    },
+    "logan": {
+      "name": "Hugh Jackman",
+      "photo": "https://image.tmdb.org/t/p/w300/4Xujtewxqt6aU0Y81tsS9gkjizk.jpg",
+      "creditedAs": "Logan / Wolverine",
+      "matchedIn": "Deadpool & Wolverine",
+      "confidence": 70
+    },
+    "laura-kinney": {
+      "name": "Dafne Keen",
+      "photo": "https://image.tmdb.org/t/p/w300/34BhddK5z2YHjfppOleezVrQ7Jt.jpg",
+      "creditedAs": "Laura / X-23",
+      "matchedIn": "Deadpool & Wolverine",
+      "confidence": 40
+    },
+    "cassandra-nova": {
+      "name": "Emma Corrin",
+      "photo": "https://image.tmdb.org/t/p/w300/miSbXJBlq6S3dVvOr7OoNL4axW6.jpg",
+      "creditedAs": "Cassandra Nova",
+      "matchedIn": "Deadpool & Wolverine",
+      "confidence": 100
+    },
+    "vanessa": {
+      "name": "Morena Baccarin",
+      "photo": "https://image.tmdb.org/t/p/w300/4gyHyg6FJ1oFczOm5pmMkdEEo2J.jpg",
+      "creditedAs": "Vanessa",
+      "matchedIn": "Deadpool & Wolverine",
+      "confidence": 40
+    },
+    "blind-al": {
+      "name": "Leslie Uggams",
+      "photo": "https://image.tmdb.org/t/p/w300/8zQO5GNWQwJG4we5AYfjopblRFe.jpg",
+      "creditedAs": "Blind Al",
+      "matchedIn": "Deadpool & Wolverine",
+      "confidence": 100
+    },
+    "dopinder": {
+      "name": "Karan Soni",
+      "photo": "https://image.tmdb.org/t/p/w300/t3eNrzRKy3wTVCUiEp002UXbjxX.jpg",
+      "creditedAs": "Dopinder",
+      "matchedIn": "Deadpool & Wolverine",
+      "confidence": 100
+    },
+    "frank-castle": {
+      "name": "Jon Bernthal",
+      "photo": "https://image.tmdb.org/t/p/w300/o0t6EVkJOrFAjESDilZUlf46IbQ.jpg",
+      "creditedAs": "Frank Castle / Punisher",
+      "matchedIn": "Spider-Man: Brand New Day",
+      "confidence": 70
+    },
+    "jean-grey": {
+      "name": "Sadie Sink",
+      "photo": "https://image.tmdb.org/t/p/w300/92FddzBfK50XOUbtwjqHPraoGHy.jpg",
+      "creditedAs": "Jean Grey",
+      "matchedIn": "Spider-Man: Brand New Day",
+      "confidence": 100
+    },
+    "tombstone": {
+      "name": "Marvin Jones III",
+      "photo": "https://image.tmdb.org/t/p/w300/nS4X8TP3idFsxDdV9UqTRbz585g.jpg",
+      "creditedAs": "Tombstone",
+      "matchedIn": "Spider-Man: Brand New Day",
+      "confidence": 90
+    }
+  }
+}

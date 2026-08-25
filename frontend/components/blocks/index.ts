@@ -9,3 +9,7 @@ export { ForceGraph } from "./ForceGraph";
 export { EntityPortrait } from "./EntityPortrait";
 export { AboutCta } from "./AboutCta";
 export { InfiniteSentinel } from "./InfiniteSentinel";
+export { CharacterHeader } from "./CharacterHeader";
+export { NotableMoments } from "./NotableMoments";
+export { Biography } from "./Biography";
+export { ArtifactCard } from "./ArtifactCard";

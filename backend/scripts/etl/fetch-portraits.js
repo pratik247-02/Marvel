@@ -23,6 +23,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { characters as seedCharacters } from "../seed-data.js";
+import { candidateTitles } from "./wiki.titles.js";
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const FIXTURE = path.join(DIR, "fixtures", "portraits.json");
@@ -34,56 +35,6 @@ const USER_AGENT = "MarvelMCUHub/1.0 (personal learning project)";
 /** Courtesy delay between requests - the wiki is free and unauthenticated. */
 const THROTTLE_MS = 250;
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-/**
- * Page titles to try per character, in order.
- *
- * The wiki titles pages by the name in current use, which often is not the
- * curated name. Several need explicit handling:
- *
- *   Bruce Banner  -> "Hulk"
- *   Bucky Barnes  -> "Winter Soldier"
- *   Sam Wilson    -> "Falcon"
- *   Shuri         -> "Princess Shuri"
- *
- * "Black Widow" is the important one. It resolves to Yelena Belova, who took
- * the mantle, so searching the alias returns the wrong character entirely.
- * Natasha has to be requested by her real name.
- */
-const PAGE_TITLES = {
-  "tony-stark": ["Iron Man"],
-  "steve-rogers": ["Captain America"],
-  "thor-odinson": ["Thor"],
-  "bruce-banner": ["Hulk"],
-  "natasha-romanoff": ["Natasha Romanoff"],
-  "clint-barton": ["Hawkeye"],
-  "bucky-barnes": ["Winter Soldier"],
-  "sam-wilson": ["Falcon"],
-  "peter-parker": ["Spider-Man"],
-  "stephen-strange": ["Doctor Strange"],
-  tchalla: ["Black Panther"],
-  shuri: ["Princess Shuri", "Shuri"],
-  "peter-quill": ["Star-Lord"],
-  gamora: ["Gamora"],
-  "rocket-raccoon": ["Rocket Raccoon"],
-  groot: ["Groot"],
-  "loki-laufeyson": ["Loki"],
-  thanos: ["Thanos"],
-
-  // Added with the full character set. Each of these resolved to nothing under
-  // the character's own name; the titles below were confirmed by searching the
-  // wiki rather than guessed.
-  "high-evolutionary": ["High Evolutionary"],
-  kurt: ["Kurt Goreshter"],
-  "supreme-intelligence": ["Supreme Intelligence"],
-  "general-dreykov": ["Dreykov"],
-  "laura-kinney": ["X-23"],
-
-  // Spider-Man: Brand New Day (2026).
-  "frank-castle": ["The Punisher"],
-  "jean-grey": ["Jean Grey"],
-  tombstone: ["Tombstone"],
-};
 
 /**
  * Strip the revision suffix from a wikia URL.
@@ -127,7 +78,7 @@ async function main() {
   const missing = [];
 
   for (const character of seedCharacters) {
-    const candidates = PAGE_TITLES[character.key] ?? [character.name];
+    const candidates = candidateTitles(character);
     let found = null;
 
     for (const title of candidates) {

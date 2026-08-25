@@ -1,19 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Search, Gem } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { Container } from "@/components/layout/Container";
 import { Input } from "@/components/ui/Input";
 import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { artifactService } from "@/modules/artifacts";
 import { useInfiniteList } from "@/modules/shared/useInfiniteList";
 import { InfiniteSentinel } from "@/components/blocks/InfiniteSentinel";
+import { ArtifactCard } from "@/components/blocks/ArtifactCard";
 import type { ArtifactStatus } from "@/types";
 
 const statusOptions: { value: ArtifactStatus | ""; label: string }[] = [
@@ -55,20 +53,6 @@ export default function AntiquesPage() {
   // Changing the filter restarts the list; the hook watches this value.
   const handleFilter = (value: string) => setSelectedStatus(value as never);
 
-  const getStatusColor = (status: ArtifactStatus) => {
-    switch (status) {
-      case "active":
-        return "bg-green-500/20 text-green-400";
-      case "destroyed":
-        return "bg-red-500/20 text-red-400";
-      case "lost":
-        return "bg-yellow-500/20 text-yellow-400";
-      case "unknown":
-        return "bg-gray-500/20 text-gray-400";
-      default:
-        return "";
-    }
-  };
 
   return (
     <PageWrapper>
@@ -132,36 +116,7 @@ export default function AntiquesPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: (index % PAGE_SIZE) * 0.04 }}
                 >
-                  <Link href={`/antiques/${artifact._id}`}>
-                    <Card interactive className="group h-full overflow-hidden">
-                      <div className="relative aspect-video overflow-hidden">
-                        {artifact.image ? (
-                          <Image
-                            src={artifact.image}
-                            alt={artifact.name}
-                            fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            priority={index < 3}
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          />
-                        ) : (
-                          <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-red-500/20 to-orange-500/20">
-                            <Gem className="h-16 w-16 text-red-400/50" />
-                          </div>
-                        )}
-                        <div className="absolute top-2 right-2">
-                          <Badge className={getStatusColor(artifact.status)}>
-                            {artifact.status}
-                          </Badge>
-                        </div>
-                      </div>
-                      <div className="p-4">
-                        <h3 className="group-hover:text-primary line-clamp-1 text-lg font-semibold transition-colors">
-                          {artifact.name}
-                        </h3>
-                      </div>
-                    </Card>
-                  </Link>
+                  <ArtifactCard artifact={artifact} priority={index < 3} />
                 </motion.div>
               ))}
             </div>

@@ -9,54 +9,27 @@ import type { CharacterListItem } from "@/types";
 interface RelationshipGraphProps {
   characters: CharacterListItem[];
   title?: string;
-  centerCharacter?: {
-    name: string;
-    image?: string;
-  };
   className?: string;
 }
 
 export function RelationshipGraph({
   characters,
   title = "Relationships",
-  centerCharacter,
   className,
 }: RelationshipGraphProps) {
   if (!characters.length) return null;
 
+  // Vertical rhythm is the caller's - the page already spaces its sections,
+  // and baking in py-12 doubled the gap above the explore action.
   return (
-    <section className={cn("py-12", className)}>
+    <section className={cn(className)}>
       <h2 className="text-2xl font-bold mb-8 text-center">{title}</h2>
 
-      <div className="relative max-w-4xl mx-auto">
-        {/* Center character */}
-        {centerCharacter && (
-          <div className="flex justify-center mb-12">
-            <div className="relative">
-              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary">
-                {centerCharacter.image ? (
-                  <Image
-                    src={centerCharacter.image}
-                    alt={centerCharacter.name}
-                    fill
-                    sizes="64px"
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full bg-muted flex items-center justify-center">
-                    <span className="text-2xl font-bold text-muted-foreground">
-                      {centerCharacter.name[0]}
-                    </span>
-                  </div>
-                )}
-              </div>
-              <p className="text-center mt-2 font-medium">{centerCharacter.name}</p>
-            </div>
-          </div>
-        )}
-
+      {/* Full width, content centred - the grid was capped at max-w-4xl,
+          which left the section indented inside a page that is not. */}
+      <div className="relative">
         {/* Related characters */}
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-6">
           {characters.map((character, index) => (
             <motion.div
               key={character._id}
@@ -67,7 +40,7 @@ export function RelationshipGraph({
             >
               <Link
                 href={`/characters/${character._id}`}
-                className="group flex flex-col items-center"
+                className="group flex w-20 flex-col items-center md:w-24"
               >
                 <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-border group-hover:border-primary transition-colors">
                   {character.image ? (
@@ -75,7 +48,7 @@ export function RelationshipGraph({
                       src={character.image}
                       alt={character.name}
                       fill
-                      sizes="48px"
+                      sizes="80px"
                       className="object-cover"
                     />
                   ) : (

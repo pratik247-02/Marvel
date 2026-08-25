@@ -70,6 +70,36 @@ const characterSchema = new mongoose.Schema(
         trim: true,
       },
     ],
+    /**
+     * The performer, from TMDB cast credits. Deliberately a separate field
+     * from `image`: TMDB has no character artwork, and using a headshot as the
+     * character's own picture is the bug that once put Vin Diesel on Groot's
+     * card. Shown beside the portrait, labelled as the actor.
+     */
+    actor: {
+      name: { type: String, trim: true },
+      photo: { type: String, trim: true },
+      creditedAs: { type: String, trim: true },
+    },
+    /**
+     * Long-form biography from the MCU wiki, kept separate from
+     * `description`.
+     *
+     * `description` is the curated one-liner - a median of 112 characters,
+     * which is what a card or a list row has room for. This is the several
+     * paragraphs a detail page needs. Two fields rather than one because each
+     * surface wants text sized for it, and overwriting the hand-written
+     * summary with a truncated wiki sentence would make every card worse.
+     *
+     * `source` carries the page the text came from: the wiki is CC-BY-SA, so
+     * attribution is a licence condition, not a nicety.
+     */
+    bio: {
+      lede: { type: String, trim: true },
+      paragraphs: [{ type: String, trim: true }],
+      source: { type: String, trim: true },
+      sourceTitle: { type: String, trim: true },
+    },
     sections: [sectionSchema],
     theme: {
       type: themeSchema,

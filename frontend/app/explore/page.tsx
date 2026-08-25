@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Route, Shuffle, X, Crosshair, Network } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
@@ -26,7 +27,7 @@ type View = "focus" | "path" | "all";
  */
 const READABLE_NODE_LIMIT = 60;
 
-export default function ExplorePage() {
+function ExploreView() {
   const { graph, isLoading: graphLoading, error: graphError } = useFullGraph();
   const { result, isLoading: pathLoading, error: pathError, findPath, reset } =
     useGraphPath();
@@ -37,6 +38,19 @@ export default function ExplorePage() {
   const [mode, setMode] = useState<Mode>("weighted");
   const [focus, setFocus] = useState("");
   const [depth, setDepth] = useState(1);
+
+  // A character page can hand off here pre-centred - /explore?focus=tony-stark.
+  // Read once on mount rather than kept in sync, so clicking a node to
+  // re-centre is not immediately undone by the stale URL.
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const requested = searchParams.get("focus");
+    if (requested) {
+      setFocus(requested);
+      setView("focus");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const {
     network,
@@ -454,5 +468,18 @@ export default function ExplorePage() {
         )}
       </Container>
     </PageWrapper>
+  );
+}
+
+/**
+ * `useSearchParams` forces client-side rendering for whatever reads it, so the
+ * page cannot be prerendered unless that component is inside a Suspense
+ * boundary. Without this the build fails on /explore rather than at runtime.
+ */
+export default function ExplorePage() {
+  return (
+    <Suspense>
+      <ExploreView />
+    </Suspense>
   );
 }
