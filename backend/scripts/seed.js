@@ -69,7 +69,38 @@ const loadPortraitFixture = () => {
   }
 };
 
+/**
+ * Actor credits from TMDB. Same fixture pattern as the portraits: absent means
+ * the seed still runs, characters simply have no performer attached.
+ */
+const loadActorFixture = () => {
+  try {
+    const here = dirname(fileURLToPath(import.meta.url));
+    const raw = readFileSync(join(here, "etl", "fixtures", "actors.json"), "utf8");
+    return JSON.parse(raw);
+  } catch {
+    return { actors: {} };
+  }
+};
+
+/**
+ * Long-form biographies from the MCU wiki. Loaded into `bio`, never into
+ * `description` - the curated one-liner stays the summary that cards and list
+ * rows render.
+ */
+const loadBioFixture = () => {
+  try {
+    const here = dirname(fileURLToPath(import.meta.url));
+    const raw = readFileSync(join(here, "etl", "fixtures", "bios.json"), "utf8");
+    return JSON.parse(raw);
+  } catch {
+    return { bios: {} };
+  }
+};
+
 const portraits = loadPortraitFixture();
+const actors = loadActorFixture();
+const bios = loadBioFixture();
 
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes("--dry-run");
@@ -184,13 +215,36 @@ async function main() {
     // Curated art wins; the wiki fills the gaps. TMDB is deliberately not
     // consulted here - its cast records are actor headshots, not characters.
     const portrait = c.image ?? portraits.characterImages?.[c.key];
+    const actor = actors.actors?.[c.key];
+    const bio = bios.bios?.[c.key];
     return {
       name: c.name,
       alias: c.alias,
+      // The curated one-liner stays the summary. The wiki text lands in `bio`
+      // below, so cards keep their hand-written description.
       description: c.description,
       powers: c.powers,
       theme: c.theme,
       ...(portrait ? { image: portrait } : {}),
+      ...(bio
+        ? {
+            bio: {
+              lede: bio.lede,
+              paragraphs: bio.paragraphs,
+              source: bio.source,
+              sourceTitle: bio.sourceTitle,
+            },
+          }
+        : {}),
+      ...(actor
+        ? {
+            actor: {
+              name: actor.name,
+              photo: actor.photo,
+              creditedAs: actor.creditedAs,
+            },
+          }
+        : {}),
     };
   });
   log(`  characters  ${charRes.created} created, ${charRes.updated} updated`);

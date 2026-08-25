@@ -20,6 +20,10 @@
     "tmdb:dry": "node scripts/etl/fetch-tmdb.js --dry-run",
     "portraits:fetch": "node scripts/etl/fetch-portraits.js",
     "portraits:dry": "node scripts/etl/fetch-portraits.js --dry-run",
+    "actors:fetch": "node scripts/etl/fetch-actors.js",
+    "actors:dry": "node scripts/etl/fetch-actors.js --dry-run",
+    "bios:fetch": "node scripts/etl/fetch-bios.js",
+    "bios:dry": "node scripts/etl/fetch-bios.js --dry-run",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

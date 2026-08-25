@@ -76,6 +76,11 @@ scale. Redis earns its place only for the rate limiter under horizontal scaling.
 - [x] Migration `001-backfill-slugs` for documents seeded before the field existed
 - [x] Compound indexes for real query patterns
 - [x] TMDB integration for movie metadata and character portraits
+- [x] Actor credits from TMDB — 188/193 matched. Credits read "Rhodey",
+      "Yinsen", "Agent Coulson", so exact matching missed a third of the cast;
+      the script scores candidates and reports every weak match by name, which
+      caught Ava Starr resolving to her *father* on a shared surname. Stored on
+      a separate `actor` field, never as the character image
 - [x] Commit TMDB responses as fixtures so seeding needs no API key
 - [x] Expand the curated relationship data to 190 characters across every
       MCU cluster; graph is one connected component, 463 edges
@@ -304,7 +309,53 @@ win available.
       same race conditions. Guards a stale response with a request id and a
       concurrent load with an in-flight ref
 - [ ] `/quiz`, `/contact` — not yet reworked
-- [ ] Character detail page — still has the gap where `PowerStats` was
+- [x] Character detail page — the banner stretched the portrait across the full
+      width at an opacity where it read as an empty band. Replaced by a real
+      header: the character portrait and the actor's at equal weight either side
+      of the written detail. The middle column cannot be `description` alone —
+      those run ~110 characters, so it also carries debut, active span and the
+      credited name, all derived from relations already on the page. Films and
+      allies were dropped as stats since the appearances grid and connections
+      section already show both; graph rank stayed, having no counterpart
+      elsewhere on the page. Powers render as the strings they are
+      rather than as invented scores, battles become a "notable moments" record
+      derived from existing data, and the connections block hands off to
+      `/explore?focus=<slug>` so the flagship is reachable from the page. The
+      connections block no longer repeats the character's own portrait above
+      their allies — it was redundant beside the header
+- [x] Character biographies — the curated descriptions are one sentence (median
+      112 chars), too little to carry a detail page. `fetch-bios.js` pulls the
+      MCU wiki lead section for 192/193, reusing the page-title mapping
+      fetch-portraits.js already verified (both now import `wiki.titles.js`
+      rather than keeping two copies). Stored in a new `bio` field, never in
+      `description`: the one-liner stays the summary cards and list rows show.
+      The lede renders in the header, the rest as a collapsible Biography
+      section with the CC-BY-SA attribution the licence requires
+- [x] Detail page layout pass — powers moved out of a full-width section (a
+      heading over one line of chips) into the empty space beside the character
+      name; biography and notable moments now share a two-column row rather
+      than each using half the width; the connections grid lost its
+      `max-w-4xl` cap and centres its content instead, sized for the 3.8
+      allies the average character actually has
+- [x] Artifacts on the character page use the antiques listing card, extracted
+      from app/antiques/page.tsx into `ArtifactCard` so the two cannot drift.
+      The character populate gained `status`, which the card badge needs and
+      the detail projection was not returning. Notable moments scrolls the full
+      list rather than showing six and a dead "and N more" line
+- [x] Explore-network handoff is a filled action in the character's own theme
+      colour. Needed a `text-on-entity` utility: theme colours are per
+      character and 13 are light, 3 near-white, where fixed white label text
+      vanishes. EntityTheme now computes the foreground from WCAG luminance and
+      publishes `--entity-foreground`; done in JS because `contrast-color()`
+      is not broadly supported yet
+- [ ] No artifact has an `image`, so every artifact card renders the Gem
+      fallback. Nine artifacts — worth a portrait fetch like the characters got
+- [ ] `chester-phillips` has no biography — his wiki lead section is one
+      sentence ending in "S.H.I.E.L.D.", which the prose filter rejects. 192/193
+      is fine to ship; fix the filter or hand-write the entry later
+- [ ] Per-character `sections` — the schema has a typed enum
+      (biography/timeline/gallery/quotes/trivia/relationships) and nothing
+      populates it. Needed for the extra blocks Strange, Bucky and others want
 - [ ] Battles sort on the movie ObjectId, which is chronological only because
       the films were seeded in release order. A `--purge` reseed or a film added
       out of order would silently break it. A denormalised `movieYear` on the

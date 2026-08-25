@@ -26,4 +26,6 @@ export interface BattleListItem {
   name: string;
   significance: BattleSignificance;
   movie?: MovieListItem;
+  /** Populated by the API; used to mark which fights a character won. */
+  winner?: { _id: string; name: string; alias?: string; image?: string };
 }

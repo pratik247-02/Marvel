@@ -46,7 +46,7 @@ export const characterService = {
     const character = await Character.findById(id)
       .populate("affiliations", "name alias image")
       .populate("appearances", "title releaseYear poster phase")
-      .populate("artifactsUsed", "name description image");
+      .populate("artifactsUsed", "name description image status");
 
     if (!character) {
       throw new AppError("Character not found", 404);

@@ -162,6 +162,23 @@
     background-color: var(--entity-primary, hsl(var(--primary)));
   }
 
+  /*
+   * Text on top of `bg-entity`.
+   *
+   * Not a fixed light colour: theme colours are per character and 13 of them
+   * are light, three near-white (#e2e8f0 - Taneleer Tivan, Cassandra Nova,
+   * Lonnie Lincoln). White label text on those is unreadable.
+   *
+   * EntityTheme computes the readable foreground from the theme's luminance
+   * and publishes it as `--entity-foreground`; this just consumes it. Doing
+   * the decision in JS rather than CSS because `contrast-color()` is not yet
+   * broadly supported, and a `color-mix` approximation cannot darken a
+   * near-white colour enough to be safe.
+   */
+  .text-on-entity {
+    color: var(--entity-foreground, hsl(var(--primary-foreground)));
+  }
+
   /* A soft glow in the entity colour, for hero art and active cards. */
   .glow-entity {
     box-shadow: 0 0 40px -8px var(--entity-primary, hsl(var(--primary) / 0.5));
