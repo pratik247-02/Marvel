@@ -302,6 +302,62 @@ underneath, so overlaps stay legible.
 
 ---
 
+## Tests
+
+`backend/tests/graph/` — 21 tests, run by `npm test` and in CI.
+
+They run against a **nine-node fixture whose answers were worked out on paper**,
+not against the real 193-character dataset. That is the whole point: a Dijkstra
+bug is silent, because a wrong path still looks like a path. Asserting against
+the real data would mean checking the code against its own output.
+
+```
+     1        1
+a ------- b ------ c
+|         |        |
+| 8       | 2      | 1
+|         |        |
+d ------- e ------ f
+     1        3
+
+g --- h     (separate component)
+i           (no edges at all)
+```
+
+The case that matters most is **a → d**. The direct edge costs 8; the detour
+a-b-e-d costs 1 + 2 + 1 = 4. A greedy walk that follows the first available
+edge gets this wrong, and it is also the pair where the two modes disagree —
+weighted takes three hops, `fewestHops` takes one. That single fixture pair
+justifies the whole weighted design.
+
+Also covered: unreachable pairs across components, a node with no edges,
+self-to-self, non-existent ids, cycles terminating, path symmetry, and ego
+networks not leaking across components.
+
+### The test seam
+
+Every algorithm reads through `getGraph()`, which hits MongoDB. Rather than
+standing up a database or mocking Mongoose — which would assert against the
+mock's behaviour and prove nothing about the traversal — the engine exports
+`__setSnapshotForTests(fixture)`. Tests install a prepared snapshot; teardown
+passes null to restore normal behaviour.
+
+### Verified by breaking them
+
+Passing tests prove nothing until you know they can fail. Three deliberate
+mutations were injected into the engine and the suite re-run:
+
+| Mutation | Result |
+|---|---|
+| Dijkstra ignores accumulated distance (`candidate = edge.weight`) | 3 tests fail |
+| Hop count off by one (`path.length` not `path.length - 1`) | 3 tests fail |
+| BFS stops marking nodes seen | suite hangs — the cycle never terminates |
+
+The third is the most useful: without a seen-set, BFS loops forever on a cycle,
+and the hang is the signal. The engine was restored after each.
+
+---
+
 ## Three views
 
 The full graph stops being readable well before the dataset stops growing. This

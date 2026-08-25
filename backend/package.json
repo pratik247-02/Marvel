@@ -9,6 +9,8 @@
     "start": "node src/index.js",
     "lint": "eslint src/ scripts/",
     "lint:fix": "eslint src/ scripts/ --fix",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "validate": "node scripts/validate-seed.js",
     "seed": "node scripts/validate-seed.js && node scripts/seed.js",
     "seed:dry": "node scripts/seed.js --dry-run",
@@ -41,7 +43,8 @@
   "devDependencies": {
     "eslint": "^8.57.1",
     "nodemon": "^3.1.7",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "vitest": "^4.1.11"
   },
   "engines": {
     "node": ">=20.0.0"

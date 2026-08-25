@@ -223,6 +223,24 @@ export function invalidateGraph() {
 }
 
 /**
+ * Install a prepared snapshot, bypassing the database.
+ *
+ * This exists for tests. Every algorithm below reads through `getGraph()`, so
+ * without a seam a unit test would need a live MongoDB - slow, flaky, and it
+ * would be exercising Mongoose rather than the traversal. Mocking the model
+ * layer instead would mean asserting against the mock's behaviour, which
+ * proves nothing about Dijkstra.
+ *
+ * Passing null restores normal database-backed behaviour, which is what the
+ * test teardown does so a stray fixture cannot leak into the running server.
+ *
+ * @param {{nodes: Map, adjacency: Map, stats: object} | null} fixture
+ */
+export function __setSnapshotForTests(fixture) {
+  snapshot = fixture ? { builtAt: Date.now(), ...fixture } : null;
+}
+
+/**
  * Weighted shortest path via Dijkstra.
  *
  * A binary heap would be the textbook choice, but at a few hundred nodes the

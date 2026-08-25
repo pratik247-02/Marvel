@@ -67,6 +67,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Test
+        run: npm test
+
       - name: Syntax check
         # Parse-only check across the source tree. This catches syntax errors,
         # not broken imports or runtime failures - the integration suite added
