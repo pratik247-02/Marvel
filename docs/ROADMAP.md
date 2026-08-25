@@ -308,7 +308,42 @@ win available.
 - [x] One `useInfiniteList` hook for all five, rather than five copies of the
       same race conditions. Guards a stale response with a request id and a
       concurrent load with an in-flight ref
-- [ ] `/quiz`, `/contact` — not yet reworked
+- [x] `/movies/[id]`, `/teams/[id]`, `/battles/[id]`, `/antiques/[id]` — all four
+      still used HeroBanner, which reserved `min-h-[58vh]` and rendered its
+      image at `opacity-40` behind a blur. Replaced by one shared
+      `DetailHeader`: art, title, prose and facts, generalised across the four
+      because they share a shape. The banners were also duplicating content —
+      movies printed the title three times and the poster twice (blurred, then
+      real), artifacts showed origin and status in both prose and FactList —
+      so the FactList blocks went with them. Battles have no art of their own
+      and now use the poster of the film they happened in
+- [x] `/explore` — the flagship opened with 58vh of banner above a canvas
+      already sized `viewport - chrome`, so the graph was competing with
+      decoration for height. Replaced with a compact header. ForceGraph now
+      *measures* the chrome above it rather than hardcoding 260px, which was
+      calibrated against the banner and silently wrong once it went
+- [x] `/contact` — banner replaced with a compact header. Its copy was also
+      first-person-plural ("we'd love to hear from you", "Send us a message")
+      on a personal portfolio whose /home about section is first person, and
+      its About card duplicated /home's description in the generic marketing
+      tone that copy had already been rewritten away from
+- [x] Contact form validation — name and email required, subject optional
+      (it was marked `required` in the markup), message required at 30+
+      characters with a live counter. Errors show on blur rather than while
+      typing, submit focuses the first invalid field, and each message is
+      wired to its input with `aria-describedby` + `role="alert"`
+- [x] Contact form actually sends. `handleSubmit` was a 1500ms `setTimeout`
+      reporting success, so every message was silently discarded while
+      thanking the sender. Now POSTs to Web3Forms (250/mo free, unlimited
+      forms — Getform's free tier is one form and was already spent), with a
+      honeypot read from the form rather than hardcoded, a 15s timeout, and
+      failure treated as failure: Web3Forms signals errors in the body, so a
+      200 carrying `success: false` is an error too. Falls back to a mailto
+      link in both the error and unconfigured states
+- [ ] `NEXT_PUBLIC_WEB3FORMS_KEY` must be set in the deploy host's environment
+      — `.env.local` is not deployed. Also needs adding to `frontend/.env.example`
+- [ ] `/quiz` — not yet reworked. The last HeroBanner consumer, using it four
+      times across the quiz's states, so it cannot be deleted until this is done
 - [x] Character detail page — the banner stretched the portrait across the full
       width at an opacity where it read as an empty band. Replaced by a real
       header: the character portrait and the actor's at equal weight either side
@@ -348,8 +383,24 @@ win available.
       vanishes. EntityTheme now computes the foreground from WCAG luminance and
       publishes `--entity-foreground`; done in JS because `contrast-color()`
       is not broadly supported yet
-- [ ] No artifact has an `image`, so every artifact card renders the Gem
-      fallback. Nine artifacts — worth a portrait fetch like the characters got
+- [x] Team, battle and artifact images — all 93 had none. `fetch-entity-images.js`
+      pulls them from the MCU wiki (90/93), batching `pageimages` 50 titles at
+      a time so 93 entities cost 3 requests rather than 93. Battles are the
+      awkward case: only 18 have art of their own, so the other 46 borrow the
+      poster of the film they happened in, with `imageOrigin` recording which —
+      the detail header picks its aspect ratio from it, since a wide film still
+      cropped to 2:3 is what makes these look broken
+- [x] Artifact catalogue expanded from 9 to 77. The six Infinity Stones are
+      separate entries from the containers that held them — a stone and its
+      housing change hands independently, so Loki carrying the Sceptre and the
+      Mind Stone ending up in Vision are different facts. All 77 have images
+      (25 needed title overrides), holders and appearances, which added 26
+      edges to the graph: 729 -> 755
+- [ ] Three teams have no image and no wiki page: `team-spider-man`,
+      `sinister-six`, `pym-van-dyne-family`. They are groupings this project
+      curates rather than articles Fandom carries — searched and confirmed
+      absent, not missed. Would need hand-picked art
+- [ ] ~~No artifact has an `image`~~ — resolved above, 9/9
 - [ ] `chester-phillips` has no biography — his wiki lead section is one
       sentence ending in "S.H.I.E.L.D.", which the prose filter rejects. 192/193
       is fine to ship; fix the filter or hand-write the entry later

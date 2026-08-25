@@ -56,3 +56,62 @@ export const PAGE_TITLES = {
 /** Titles to try for one character, in order. */
 export const candidateTitles = (character) =>
   PAGE_TITLES[character.key] ?? [character.name];
+
+/**
+ * Page titles for teams, battles and artifacts whose wiki page is not titled
+ * by the name we curate them under.
+ *
+ * Same purpose as PAGE_TITLES above, for the non-character entities. The wiki
+ * resolves near-misses itself through redirects - "Mjolnir" finds "Mjølnir"
+ * without help - so only genuine differences belong here. Every entry was
+ * confirmed by searching the wiki, not guessed.
+ *
+ * Keyed by entity kind, then by the seed key.
+ */
+export const ENTITY_PAGE_TITLES = {
+  teams: {
+    'asgardian-court': ['Asgardian Royal Family'],
+    'wakandan-court': ['Golden Tribe'],
+    'ten-rings': ['Ten Rings (Organization)'],
+    // The Civil War factions resolve to the event page rather than an
+    // organisation page, which is the closest the wiki has.
+    'team-iron-man': ['Avengers Civil War'],
+    'team-captain-america': ['Avengers Civil War'],
+    //
+    // Searched and genuinely absent from the wiki: `team-spider-man`,
+    // `sinister-six` and `pym-van-dyne-family` are groupings this project
+    // curates, not articles Fandom carries. Their members have pages; the
+    // groupings do not. Left without images deliberately - listed here so a
+    // future reader knows they were checked rather than missed.
+  },
+  battles: {},
+  artifacts: {
+    'vibranium-shield': ["Captain America's Shield"],
+    'vibranium-suit': ['Panther Habit'],
+    'lokis-sceptre': ['Scepter'],
+    'orb-of-morag': ['Orb'],
+    'helas-headpiece': ["Hela's Crown"],
+    'valkyrie-armour': ['Valkyrie'],
+    'winter-soldier-arm': ["Winter Soldier's Prosthetic Arm"],
+    'hawkeye-bow': ["Hawkeye's Bow and Quiver"],
+    'widows-bite': ["Black Widow's Bite"],
+    'ten-rings-artifact': ['Ten Rings (Weapons)'],
+    'taskmaster-gear': ['Taskmaster Suit'],
+    'falcon-harness': ['EXO-7 Falcon'],
+    'scarlet-witch-tiara': ['Scarlet Witch'],
+    'war-machine-armor': ['War Machine Armor: Mark I'],
+    'vulture-wingsuit': ["Vulture's Exo-Suit"],
+    'vibranium-arc-reactor': ['Arc Reactor'],
+    'kimoyo-beads': ['Kimoyo Bead'],
+    'dora-milaje-spear': ['Vibranium Spear'],
+    'quantum-realm-suits': ['Quantum Realm Exploration Suit'],
+    'walkman': ["Star-Lord's Walkman"],
+    'milano': ['Milano'],
+    'captain-marvel-suit': ['Starforce Uniform'],
+    'flerken-pocket-dimension': ['Flerken'],
+    'silver-surfer-board': ["Silver Surfer's Surfboard"],
+    'gamma-experiment': ['Gamma Radiation'],
+    'chitauri-salvage': ['Chitauri'],
+    'red-room-mind-control': ['Red Room'],
+  },
+};

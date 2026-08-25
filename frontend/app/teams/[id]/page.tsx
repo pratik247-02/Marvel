@@ -5,14 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { Container } from "@/components/layout/Container";
-import { HeroBanner } from "@/components/blocks/HeroBanner";
+import { DetailHeader } from "@/components/blocks/DetailHeader";
 import { Appearances } from "@/components/blocks/Appearances";
-import { FactList } from "@/components/blocks/FactList";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { useTeam } from "@/modules/teams";
-import { Users, Crown, MapPin, Calendar } from "lucide-react";
+import { Users, Crown } from "lucide-react";
 
 interface TeamPageProps {
   params: Promise<{ id: string }>;
@@ -25,9 +24,12 @@ export default function TeamPage({ params }: TeamPageProps) {
   if (isLoading) {
     return (
       <PageWrapper>
-        <div className="min-h-[60vh] flex items-center justify-center">
-          <Skeleton className="w-full h-[60vh]" />
-        </div>
+        <Container className="py-10">
+          <div className="space-y-3">
+            <Skeleton className="h-10 w-72" />
+            <Skeleton className="h-20 w-full" />
+          </div>
+        </Container>
         <Container className="py-16">
           <div className="grid md:grid-cols-2 gap-8">
             <Skeleton className="h-64" />
@@ -53,7 +55,6 @@ export default function TeamPage({ params }: TeamPageProps) {
   const facts = [
     team.headquarters && { label: "Headquarters", value: team.headquarters },
     team.founded && { label: "Founded", value: team.founded },
-    team.status && { label: "Status", value: team.status },
     team.members?.length && { label: "Members", value: team.members.length.toString() },
     team.appearances?.length && { label: "Movie Appearances", value: team.appearances.length.toString() },
   ].filter(Boolean) as { label: string; value: string }[];
@@ -73,41 +74,25 @@ export default function TeamPage({ params }: TeamPageProps) {
 
   return (
     <PageWrapper>
-      <HeroBanner
+      <DetailHeader
         title={team.name}
         description={team.description}
         image={team.image}
+        aspect="square"
         theme={team.theme || { colorPrimary: "#2ecc71" }}
-      />
+        facts={facts}
+      >
+        {team.status && (
+          <Badge className={`${getStatusColor(team.status)} text-sm`}>
+            {team.status}
+          </Badge>
+        )}
+      </DetailHeader>
 
-      <Container className="py-16">
-        {/* Status & Quick Info */}
-        <div className="flex flex-wrap items-center gap-4 mb-8">
-          {team.status && (
-            <Badge className={`${getStatusColor(team.status)} text-sm`}>
-              {team.status}
-            </Badge>
-          )}
-          {team.headquarters && (
-            <span className="flex items-center gap-2 text-muted-foreground">
-              <MapPin className="w-4 h-4" />
-              {team.headquarters}
-            </span>
-          )}
-          {team.founded && (
-            <span className="flex items-center gap-2 text-muted-foreground">
-              <Calendar className="w-4 h-4" />
-              Founded: {team.founded}
-            </span>
-          )}
-        </div>
-
-        {/* Facts */}
-        {facts.length > 0 && <FactList facts={facts} columns={4} />}
-
+      <Container className="space-y-12 py-10">
         {/* Leaders Section */}
         {team.leaders && team.leaders.length > 0 && (
-          <section className="mb-12">
+          <section>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <Crown className="w-6 h-6 text-yellow-500" />
               Leaders
@@ -156,7 +141,7 @@ export default function TeamPage({ params }: TeamPageProps) {
 
         {/* Members Section */}
         {team.members && team.members.length > 0 && (
-          <section className="mb-12">
+          <section>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <Users className="w-6 h-6 text-green-500" />
               Members

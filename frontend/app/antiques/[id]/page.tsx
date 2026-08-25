@@ -7,10 +7,8 @@ import { motion } from "framer-motion";
 import { Gem, Sparkles } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { Container } from "@/components/layout/Container";
-import { HeroBanner } from "@/components/blocks/HeroBanner";
+import { DetailHeader } from "@/components/blocks/DetailHeader";
 import { Appearances } from "@/components/blocks/Appearances";
-import { FactList } from "@/components/blocks/FactList";
-import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useArtifact } from "@/modules/artifacts";
@@ -26,9 +24,15 @@ export default function AntiquePage({ params }: AntiquePageProps) {
   if (isLoading) {
     return (
       <PageWrapper>
-        <div className="min-h-[60vh] flex items-center justify-center">
-          <Skeleton className="w-full h-[60vh]" />
-        </div>
+        <Container className="py-10">
+          <div className="flex flex-col gap-8 sm:flex-row sm:gap-10">
+            <Skeleton className="aspect-square w-full shrink-0 rounded-xl sm:w-56 lg:w-64" />
+            <div className="flex-1 space-y-3">
+              <Skeleton className="h-10 w-72" />
+              <Skeleton className="h-20 w-full" />
+            </div>
+          </div>
+        </Container>
         <Container className="py-16">
           <div className="grid md:grid-cols-2 gap-8">
             <Skeleton className="h-64" />
@@ -67,7 +71,6 @@ export default function AntiquePage({ params }: AntiquePageProps) {
   };
 
   const facts = [
-    { label: "Status", value: artifact.status },
     artifact.origin && { label: "Origin", value: artifact.origin },
     artifact.holders?.length && { label: "Known Holders", value: artifact.holders.length.toString() },
     artifact.appearances?.length && { label: "Movie Appearances", value: artifact.appearances.length.toString() },
@@ -75,73 +78,34 @@ export default function AntiquePage({ params }: AntiquePageProps) {
 
   return (
     <PageWrapper>
-      <HeroBanner
+      <DetailHeader
         title={artifact.name}
-        subtitle="MCU Antique"
+        eyebrow="MCU Antique"
         description={artifact.description}
         image={artifact.image}
+        aspect="square"
         theme={{ colorPrimary: "#e74c3c" }}
-      />
+        facts={facts}
+      >
+        <Badge
+          style={{
+            backgroundColor: `${getStatusColor()}20`,
+            color: getStatusColor(),
+          }}
+        >
+          {artifact.status}
+        </Badge>
+      </DetailHeader>
 
-      <Container className="py-16">
-        {/* Antique Details */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {/* Image */}
-          <div className="md:col-span-1">
-            <Card className="overflow-hidden">
-              <div className="relative aspect-square">
-                {artifact.image ? (
-                  <Image
-                    src={artifact.image}
-                    alt={artifact.name}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full bg-linear-to-br from-red-500/20 to-orange-500/20 flex items-center justify-center">
-                    <Gem className="w-24 h-24 text-red-400/50" />
-                  </div>
-                )}
-              </div>
-            </Card>
-          </div>
-
-          {/* Info */}
-          <div className="md:col-span-2">
-            <div className="mb-6">
-              <Badge
-                className="mb-4"
-                style={{
-                  backgroundColor: `${getStatusColor()}20`,
-                  color: getStatusColor(),
-                }}
-              >
-                {artifact.status}
-              </Badge>
-              <h1 className="text-4xl font-bold mb-4">{artifact.name}</h1>
-
-              {artifact.origin && (
-                <p className="text-muted-foreground mb-4">
-                  <span className="font-medium">Origin:</span> {artifact.origin}
-                </p>
-              )}
-
-              {artifact.description && (
-                <p className="text-muted-foreground leading-relaxed">
-                  {artifact.description}
-                </p>
-              )}
-            </div>
-
-            {/* Powers */}
-            {artifact.powers && artifact.powers.length > 0 && (
-              <div className="bg-card border border-border rounded-lg p-6">
-                <h3 className="font-semibold mb-4 flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-red-400" />
-                  Powers & Abilities
-                </h3>
-                <ul className="space-y-2">
+      <Container className="space-y-12 py-10">
+        {/* Powers */}
+        {artifact.powers && artifact.powers.length > 0 && (
+          <div className="bg-card border-border rounded-lg border p-6">
+            <h3 className="mb-4 flex items-center gap-2 font-semibold">
+              <Sparkles className="h-5 w-5 text-red-400" />
+              Powers &amp; abilities
+            </h3>
+            <ul className="space-y-2">
                   {artifact.powers.map((power, index) => (
                     <motion.li
                       key={index}
@@ -155,17 +119,12 @@ export default function AntiquePage({ params }: AntiquePageProps) {
                     </motion.li>
                   ))}
                 </ul>
-              </div>
-            )}
           </div>
-        </div>
-
-        {/* Facts */}
-        {facts.length > 0 && <FactList facts={facts} columns={4} title="Antique Details" />}
+        )}
 
         {/* Holders */}
         {artifact.holders && artifact.holders.length > 0 && (
-          <section className="mt-16">
+          <section>
             <h2 className="text-2xl font-bold mb-8 text-center">Known Holders</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
               {artifact.holders.map((holder, index) => (

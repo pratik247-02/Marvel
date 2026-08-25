@@ -39,8 +39,11 @@ const truncateLabel = (name: string) =>
 /** Canvas height bounds when sizing against the viewport. */
 const MIN_HEIGHT = 560;
 const MAX_HEIGHT = 900;
-/** Vertical space the page furniture around the graph needs. */
-const VIEWPORT_CHROME = 260;
+/**
+ * Space to leave below the canvas, for the caption and the page's bottom
+ * padding. What sits *above* is measured, not assumed - see `measure`.
+ */
+const BOTTOM_CHROME = 72;
 
 interface ForceGraphProps {
   nodes: GraphNode[];
@@ -83,8 +86,18 @@ export function ForceGraph({
         return { width, height };
       }
       const viewport = typeof window === "undefined" ? MIN_HEIGHT : window.innerHeight;
-      // Leave room for the page header and the caption below the graph.
-      const available = viewport - VIEWPORT_CHROME;
+
+      // Measure the chrome above the canvas rather than assuming it. The old
+      // fixed 260 was calibrated against a page that opened with a 58vh
+      // banner; once that went, the constant was wrong and would have gone on
+      // being wrong every time the header changed.
+      //
+      // `top` is viewport-relative and stays that way: adding scrollY would
+      // mix document coordinates into a calculation against innerHeight, so a
+      // resize after scrolling would shrink the canvas by the scroll distance.
+      const top = Math.max(el.getBoundingClientRect().top, 0);
+      const available = viewport - top - BOTTOM_CHROME;
+
       return {
         width,
         height: Math.min(Math.max(available, MIN_HEIGHT), MAX_HEIGHT),

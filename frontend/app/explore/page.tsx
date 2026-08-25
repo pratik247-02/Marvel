@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Route, Shuffle, X, Crosshair, Network } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { Container } from "@/components/layout/Container";
-import { HeroBanner } from "@/components/blocks/HeroBanner";
 import { ForceGraph } from "@/components/blocks/ForceGraph";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -163,14 +162,19 @@ function ExploreView() {
 
   return (
     <PageWrapper>
-      <HeroBanner
-        title="Explore"
-        subtitle="Six degrees of the MCU"
-        description="Pick any two characters and trace how the universe connects them."
-        theme={{ colorPrimary: "#e23636", colorSecondary: "#f0a500" }}
-      />
+      {/* A compact header, not the 58vh HeroBanner this used to carry. The
+          graph canvas is sized `calc(100vh - 260px)`, so every pixel spent
+          above it comes straight out of the thing people came to see. */}
+      <Container className="py-8">
+        <header className="mb-6">
+          <h1 className="text-3xl font-black tracking-tight sm:text-4xl">
+            Explore
+          </h1>
+          <p className="text-muted-foreground mt-1">
+            Pick any two characters and trace how the universe connects them.
+          </p>
+        </header>
 
-      <Container className="py-12">
         {/* View switcher */}
         <div className="mb-5 flex flex-wrap items-center gap-3">
           <div className="flex rounded-md border border-border p-0.5">
@@ -418,7 +422,7 @@ function ExploreView() {
 
         {/* Graph */}
         {busy ? (
-          <Skeleton className="h-[min(900px,max(560px,calc(100vh-260px)))] w-full rounded-xl" />
+          <Skeleton className="h-[min(900px,max(560px,calc(100vh-360px)))] w-full rounded-xl" />
         ) : problem ? (
           <Card className="p-8 text-center">
             <p className="text-muted-foreground">{problem}</p>
