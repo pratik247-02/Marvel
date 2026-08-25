@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Users, Film, UsersRound, Swords, HelpCircle, Gem, Mail, Route } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
+import { AboutCta } from "@/components/blocks/AboutCta";
 
 const categories = [
   {
@@ -72,26 +73,37 @@ const categories = [
   },
 ];
 
+/**
+ * The about-section images.
+ *
+ * Five photos of the same person, labelled as five different job titles. The
+ * labels carry the joke; the alt text says what is actually in the picture, so
+ * a screen reader user gets the gag rather than five unrelated job titles.
+ */
+const ABOUT_IMAGES = [
+  {
+    src: "/pratik1.jpeg",
+    title: "Frontend Developer: Pratik Raje",
+    alt: "Pratik Raje. The whole team is one person - this is the first of five photos of him.",
+  },
+  { src: "/pratik2.jpeg", title: "Backend Developer: Pratik Raje", alt: "Pratik Raje again." },
+  { src: "/pratik3.jpeg", title: "UI/UX Designer: Pratik Raje", alt: "Pratik Raje again." },
+  { src: "/pratik4.jpeg", title: "Product Manager: Pratik Raje", alt: "Pratik Raje again." },
+  {
+    src: "/pratik5.jpeg",
+    title: "Quality Assurance: Pratik Raje",
+    alt: "Pratik Raje again, for the fifth time.",
+  },
+];
+
 export default function HomePage() {
   return (
     <PageWrapper>
-      <div className="min-h-screen py-16">
+      <div className="py-10">
         <div className="container mx-auto px-4">
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h1 className="text-5xl md:text-7xl font-black mb-4">
-              <span className="text-[#e23636]">MARVEL</span>
-              <span className="text-white/80"> MCU</span>
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Your ultimate guide to the Marvel Cinematic Universe
-            </p>
-          </motion.div>
+          {/* No hero. The header already says MARVEL / MCU Hub, so a title
+              block restating it cost most of a viewport to add nothing - the
+              cards are the page, and they should be visible on load. */}
 
           {/* Category Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -148,6 +160,18 @@ export default function HomePage() {
               </motion.div>
             ))}
           </div>
+
+          {/* Image titles are still placeholders - each is also alt text. */}
+          <AboutCta
+            className="mt-12"
+            heading="About MCU Hub"
+            body="Ho Yinsen died in a cave in 2008. Galactus eats planets. This site will tell you they're four steps apart, and show you every one. It's a full catalogue of the Marvel Cinematic Universe — every film, character, team, battle and artifact — with a graph engine underneath that connects them all."
+            primaryAction={{ label: "Start exploring", href: "/explore" }}
+            peopleHeading="Meet the developer"
+            images={ABOUT_IMAGES}
+            prompt="To work with me, hire me, or just say hello."
+            contactAction={{ label: "Get in touch", href: "/contact" }}
+          />
         </div>
       </div>
     </PageWrapper>

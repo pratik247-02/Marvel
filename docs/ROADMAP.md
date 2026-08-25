@@ -66,7 +66,7 @@ scale. Redis earns its place only for the rate limiter under horizontal scaling.
       survived in both lockfiles until the CI fix in `49eda12`)
 - [x] CI skeleton: lint + typecheck + build on Node 20 and 22
 
-### Phase 1 — Data foundation
+### Phase 1 — Data foundation ✅
 
 - [x] Curated seed dataset (190 characters, 38 movies, 9 artifacts, 21 teams, 63 battles)
 - [x] Idempotent loader with two-pass FK resolution and batched `bulkWrite`
@@ -140,7 +140,7 @@ party is a real artifact, and a more interesting one than a hardcoded file.
 target size the whole dataset is 1-2 MB against Atlas M0's 512 MB, because text
 is small and images are stored as URLs rather than bytes.
 
-### Phase 2 — Connection Engine (flagship)
+### Phase 2 — Connection Engine (flagship) ✅
 
 - [x] Implement naive `$graphLookup` traversal and **benchmark it first**
 - [x] `modules/graph/`: adjacency snapshot, BFS shortest path, weighted Dijkstra
@@ -179,7 +179,7 @@ or a mock of Mongoose's chained query API. Extracting `dijkstra(graph, from, to)
 as a pure function over an adjacency map removes both. That refactor is part of
 the test task.
 
-### Phase 3 — Auth and hardening (admin only)
+### Phase 3 — Auth and hardening (admin only) ✅
 
 **Scope decision: admin-only for now.** No public registration and no
 user-facing account features in this phase. Admin is deliberately a single
@@ -277,6 +277,27 @@ win available.
 - [x] Accent gradients, borders and stat bars derive from that theme
 - [x] Fallback palette for entities with no theme set
 
+**Per-page work** — tracked here as each page is reworked, on `feat/ui-revamp`
+
+- [x] `/home` — hero removed (it restated the header and cost most of a
+      viewport), `AboutCta` added in its place. The section is two halves
+      separated by a rule: what the site is, with a route into `/explore`; then
+      who built it, with a contact action. Written as a server component with
+      CSS hover states rather than framer-motion, which is the pattern new
+      components should follow
+- [x] Footer reduced from a four-column link block to a single attribution
+      line. The TMDB "not endorsed or certified" wording and the MCU Wiki
+      CC BY-SA notice are both required, so they are carried on link `title`
+      attributes rather than dropped
+- [x] Removed forced heights from the layout chain. `PageWrapper` set
+      `min-h-screen` and `/home` set it again, so every page was at least two
+      viewports tall regardless of content, leaving an empty band above the
+      footer. Normal flow already places the footer after the content; nothing
+      needs to pin it
+- [ ] `/characters`, `/movies`, `/teams`, `/battles`, `/antiques`, `/quiz`,
+      `/contact` — not yet reworked
+- [ ] Character detail page — still has the gap where `PowerStats` was
+
 **Components**
 
 - [x] Card redesign — better image treatment, hover states, consistent aspect ratios
@@ -300,15 +321,23 @@ win available.
 - [ ] Real favicon, OG images and social preview cards
 - [ ] Focus-visible states and keyboard navigation
 - [ ] Landing page rework — the video-mask effect is a placeholder
+- [ ] The `/home` about copy hardcodes "four steps apart" for Ho Yinsen to
+      Galactus. That is live graph data and it has already gone stale once —
+      the pair was five steps, then three once Nebula was added. Either read it
+      from `/api/graph/path` or re-verify before deploying
 
 ### Phase 6 — Testing and CI/CD
 
-- [ ] Vitest, starting with the graph algorithm tests from Phase 2
+- [x] Vitest, starting with the graph algorithm tests from Phase 2 — 21 tests
+      against a hand-verified fixture, verified by injecting three deliberate
+      bugs to confirm they fail. See `docs/GRAPH.md`
 - [ ] Supertest on the route layer: non-happy paths first (400/401/403/404),
       since those are the ones that actually regress
 - [ ] `mongodb-memory-server` for service-layer tests, so they run against a
       real mongod rather than a mock of Mongoose's query API
-- [ ] Full CI pipeline with branch protection
+- [x] CI runs lint, tests, typecheck and build on Node 20 and 22
+- [ ] Branch protection on `prod`, so the green tick is required rather than
+      advisory
 - [ ] Multi-stage Dockerfile + `docker-compose.yml`
 - [ ] Deploy: Vercel + Render/Fly + Atlas
 

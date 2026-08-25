@@ -14,7 +14,10 @@ export function PageWrapper({ children, className }: PageWrapperProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className={cn("min-h-screen pt-16", className)}
+      // Just the header offset. No minimum height and no flex sizing: the
+      // footer follows the content in normal flow, so forcing main to a
+      // particular height only ever adds empty space.
+      className={cn("pt-16", className)}
     >
       {children}
     </motion.main>
