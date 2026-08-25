@@ -149,7 +149,9 @@ is small and images are stored as URLs rather than bytes.
 - [x] Re-benchmark and record the before/after
 - [x] Force-directed visualization (`ForceGraph.tsx`) — hand-rolled physics, SVG
 - [x] `/explore` page — pick two characters, animate the path
-- [ ] Focused unit tests on the graph algorithms (see note below)
+- [x] Focused unit tests on the graph algorithms — 21 tests against a
+      hand-verified nine-node fixture, wired into CI, and checked by injecting
+      three deliberate bugs to confirm they actually fail
 
 **Sequencing note — visualization before tests.**
 
@@ -213,8 +215,34 @@ keep this phase small enough to finish and defend.
 - [ ] `lru-cache` on list endpoints with tag-based invalidation
 - [ ] `ETag` + `Cache-Control` on detail endpoints
 - [ ] `AsyncLocalStorage` request IDs through every log line
-- [ ] `prom-client` `/metrics` with cache hit/miss counters
+- [ ] `prom-client` `/metrics` with cache hit/miss counters. Note that Atlas M0
+      blocks `serverStatus`, so database-level gauges are not available — the
+      metrics have to come from the application layer
 - [ ] Benchmark harness with documented methodology
+- [ ] **Explicit Mongoose connection options.** `src/index.js` currently calls
+      `mongoose.connect(config.mongoUri)` with no options at all, which takes
+      Mongoose's default pool of 100 against M0's hard limit of 500 concurrent
+      connections. One instance is fine; two instances, an overlapping deploy,
+      or a restart that does not drain will exhaust it. This is not a
+      user-count problem — it can bite at five users — so it is worth fixing
+      before user accounts land:
+
+      ```js
+      await mongoose.connect(config.mongoUri, {
+        maxPoolSize: 10,
+        minPoolSize: 2,
+        serverSelectionTimeoutMS: 10000,
+        socketTimeoutMS: 45000,
+      });
+      ```
+
+      **Measured 2026-08-25, so the sizing argument is not guesswork:** the
+      whole content dataset is 1.86 MB of the 512 MB free tier. Projecting 500
+      users with profiles, ~25 favourites, ~40 quiz results and ~15 saved graph
+      queries each — including index overhead — comes to roughly 23 MB, about
+      4.5%. Around 9,500 users would reach 80%. Storage is not what breaks on
+      M0; connections and shared CPU are, which is why the fix is pool
+      configuration rather than a migration.
 
 ### Phase 5 — Frontend architecture
 
