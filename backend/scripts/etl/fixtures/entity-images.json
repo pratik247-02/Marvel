@@ -1,0 +1,913 @@
+{
+  "generatedAt": "2026-08-25T18:52:39.264Z",
+  "source": "Marvel Cinematic Universe Wiki (Fandom)",
+  "licence": "CC-BY-SA 3.0 - attribute the MCU Wiki when displaying these images",
+  "teams": {
+    "avengers": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/d/de/Avengers_Endgame_International.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Avengers",
+      "sourceTitle": "Avengers",
+      "origin": "wiki"
+    },
+    "guardians-of-the-galaxy-team": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/8/88/New_Guardians_of_the_Galaxy.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Guardians_of_the_Galaxy",
+      "sourceTitle": "Guardians of the Galaxy",
+      "origin": "wiki"
+    },
+    "asgardian-court": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/b/b6/Asgardian_royal_family.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Asgardian_Royal_Family",
+      "sourceTitle": "Asgardian Royal Family",
+      "origin": "wiki"
+    },
+    "revengers": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/5/52/Thor_Ragnarok_80.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Revengers",
+      "sourceTitle": "Revengers",
+      "origin": "wiki"
+    },
+    "team-iron-man": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/8/8e/Civil_War_TV_Spot_55_with_Spider-Man.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Avengers_Civil_War",
+      "sourceTitle": "Avengers Civil War",
+      "origin": "wiki"
+    },
+    "team-captain-america": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/8/8e/Civil_War_TV_Spot_55_with_Spider-Man.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Avengers_Civil_War",
+      "sourceTitle": "Avengers Civil War",
+      "origin": "wiki"
+    },
+    "wakandan-court": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/c/c7/Wakandan_Royal_Family_BP_Promo.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Golden_Tribe",
+      "sourceTitle": "Golden Tribe",
+      "origin": "wiki"
+    },
+    "fantastic-four": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/5/57/The_Fantastic_Four_Infobox.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Fantastic_Four",
+      "sourceTitle": "Fantastic Four",
+      "origin": "wiki"
+    },
+    "ravagers": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/25/Ravagers-Logo.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Ravagers",
+      "sourceTitle": "Ravagers",
+      "origin": "wiki"
+    },
+    "shield": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/9/9b/S.H.I.E.L.D._logo_NEW.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/S.H.I.E.L.D.",
+      "sourceTitle": "S.H.I.E.L.D.",
+      "origin": "wiki"
+    },
+    "hydra": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/4/4b/H_alternate_3.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Hydra",
+      "sourceTitle": "Hydra",
+      "origin": "wiki"
+    },
+    "masters-of-the-mystic-arts": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/5/58/Masters_of_the_Mystic_Arts_%28Multiverse_of_Madness%29.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Masters_of_the_Mystic_Arts",
+      "sourceTitle": "Masters of the Mystic Arts",
+      "origin": "wiki"
+    },
+    "eternals": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/2f/Eternals_profile_pic.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Eternals",
+      "sourceTitle": "Eternals",
+      "origin": "wiki"
+    },
+    "red-room": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/a/a6/Red_Room_-_Dream.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Red_Room",
+      "sourceTitle": "Red Room",
+      "origin": "wiki"
+    },
+    "thunderbolts": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/8/88/Thunderbolts_profile.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/New_Avengers",
+      "sourceTitle": "New Avengers",
+      "origin": "wiki"
+    },
+    "ten-rings": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/6/6c/Ten_Rings_Chinese_Logo.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Ten_Rings_(Organization)",
+      "sourceTitle": "Ten Rings (Organization)",
+      "origin": "wiki"
+    },
+    "starforce": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/0/0c/Captain_Marvel_VFX_11.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Starforce",
+      "sourceTitle": "Starforce",
+      "origin": "wiki"
+    }
+  },
+  "battles": {
+    "battle-of-new-york": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/0/0b/New_York_Battle.PNG",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Battle_of_New_York",
+      "sourceTitle": "Battle of New York",
+      "origin": "wiki"
+    },
+    "battle-of-xandar": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/8/87/FBB4593_comp_v078.1044.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Battle_of_Xandar",
+      "sourceTitle": "Battle of Xandar",
+      "origin": "wiki"
+    },
+    "contest-of-champions": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/c/c9/Thor_vs._Hulk.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Contest_of_Champions",
+      "sourceTitle": "Contest of Champions",
+      "origin": "wiki"
+    },
+    "battle-of-titan": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/c/c2/Battle_of_Titan.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Battle_of_Titan",
+      "sourceTitle": "Battle of Titan",
+      "origin": "wiki"
+    },
+    "battle-of-wakanda": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/9/9c/Battle_of_Wakanda.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Battle_of_Wakanda",
+      "sourceTitle": "Battle of Wakanda",
+      "origin": "wiki"
+    },
+    "battle-of-earth": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/6/6b/Battle_of_Earth.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Battle_of_Earth",
+      "sourceTitle": "Battle of Earth",
+      "origin": "wiki"
+    },
+    "battle-of-new-mexico": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/5/51/Sif-W3_vs_Destroyer.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Battle_of_Puente_Antiguo",
+      "sourceTitle": "Battle of Puente Antiguo",
+      "origin": "wiki"
+    },
+    "siege-of-asgard-dark-elves": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/f/f7/Thor_Ragnarok_Teaser_17.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Siege_of_Asgard",
+      "sourceTitle": "Siege of Asgard",
+      "origin": "wiki"
+    },
+    "battle-of-greenwich": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/c/c7/Capture.PNG",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Battle_of_Greenwich",
+      "sourceTitle": "Battle of Greenwich",
+      "origin": "wiki"
+    },
+    "battle-for-asgard-hela": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/f/fb/A_Prophecy_Fulfilled.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Ragnar%C3%B6k",
+      "sourceTitle": "Ragnarök",
+      "origin": "wiki"
+    },
+    "attack-on-the-statesman": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/0/06/Sanctuary_II_Stateman_AIW.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Attack_on_the_Statesman",
+      "sourceTitle": "Attack on the Statesman",
+      "origin": "wiki"
+    },
+    "siege-of-new-asgard": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/b/ba/Thor_%26_Mjolnir.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Attack_on_New_Asgard",
+      "sourceTitle": "Attack on New Asgard",
+      "origin": "wiki"
+    },
+    "battle-of-sokovia": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/24/Battle_of_Sokovia.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Battle_of_Sokovia",
+      "sourceTitle": "Battle of Sokovia",
+      "origin": "wiki"
+    },
+    "battle-in-london-mysterio": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/5/5a/Spider-ManTrapsDronesSuccessfullyStill.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Battle_of_London",
+      "sourceTitle": "Battle of London",
+      "origin": "wiki"
+    },
+    "siege-of-kamar-taj": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/0/08/Attack_on_Kamar-Taj.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Siege_of_Kamar-Taj",
+      "sourceTitle": "Siege of Kamar-Taj",
+      "origin": "wiki"
+    },
+    "battle-at-ta-lo": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/c/c1/Mandarin_vs_Shang-Chi.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Battle_of_Ta_Lo",
+      "sourceTitle": "Battle of Ta Lo",
+      "origin": "wiki"
+    },
+    "sacrifice-at-vormir": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/c/ca/Vormir.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Vormir",
+      "sourceTitle": "Vormir",
+      "origin": "wiki"
+    },
+    "the-snap": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/c/ce/Documentaries.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/The_Snap",
+      "sourceTitle": "The Snap",
+      "origin": "wiki"
+    },
+    "highway-ambush": {
+      "image": "https://image.tmdb.org/t/p/w500/tVFRpFw3xTedgPGqxW0AOI8Qhh0.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Captain America: The Winter Soldier"
+    },
+    "duel-at-the-hong-kong-sanctum": {
+      "image": "https://image.tmdb.org/t/p/w500/uGBVj3bEbCoZbDjjl9wTxcygko1.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Doctor Strange"
+    },
+    "challenge-at-warrior-falls": {
+      "image": "https://image.tmdb.org/t/p/w500/uxzzxijgPIY7slzFvMotPv8wjKA.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Black Panther"
+    },
+    "escape-from-the-ten-rings": {
+      "image": "https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Iron Man"
+    },
+    "duel-at-stark-industries": {
+      "image": "https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Iron Man"
+    },
+    "monaco-grand-prix-attack": {
+      "image": "https://image.tmdb.org/t/p/w500/6WBeq4fCfn7AN0o21W9qNcRF2l9.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Iron Man 2"
+    },
+    "battle-at-the-stark-expo": {
+      "image": "https://image.tmdb.org/t/p/w500/6WBeq4fCfn7AN0o21W9qNcRF2l9.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Iron Man 2"
+    },
+    "attack-on-the-rescue-helicarrier": {
+      "image": "https://image.tmdb.org/t/p/w500/qhPtAc1TKbMPqNvcdXSOn9Bn7hZ.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Iron Man 3"
+    },
+    "battle-at-the-norco": {
+      "image": "https://image.tmdb.org/t/p/w500/qhPtAc1TKbMPqNvcdXSOn9Bn7hZ.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Iron Man 3"
+    },
+    "battle-of-the-bifrost": {
+      "image": "https://image.tmdb.org/t/p/w500/prSfAi1xGrhLQNxVSUFh61xQ4Qy.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Thor"
+    },
+    "battle-at-the-shadow-realm": {
+      "image": "https://image.tmdb.org/t/p/w500/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Thor: Love and Thunder"
+    },
+    "harlem-brawl": {
+      "image": "https://image.tmdb.org/t/p/w500/gKzYx79y0AQTL4UAk1cBQJ3nvrm.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "The Incredible Hulk"
+    },
+    "raid-on-the-hydra-base": {
+      "image": "https://image.tmdb.org/t/p/w500/4ssDuvEDkSArWEdyBl2X5EHvYKU.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Avengers: Age of Ultron"
+    },
+    "johannesburg-rampage": {
+      "image": "https://image.tmdb.org/t/p/w500/4ssDuvEDkSArWEdyBl2X5EHvYKU.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Avengers: Age of Ultron"
+    },
+    "clash-at-the-triskelion": {
+      "image": "https://image.tmdb.org/t/p/w500/tVFRpFw3xTedgPGqxW0AOI8Qhh0.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Captain America: The Winter Soldier"
+    },
+    "clash-at-leipzig": {
+      "image": "https://image.tmdb.org/t/p/w500/rAGiXaUfPzY7CDEyNKUofk3Kw2e.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Captain America: Civil War"
+    },
+    "duel-in-siberia": {
+      "image": "https://image.tmdb.org/t/p/w500/rAGiXaUfPzY7CDEyNKUofk3Kw2e.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Captain America: Civil War"
+    },
+    "battle-at-the-ferry": {
+      "image": "https://image.tmdb.org/t/p/w500/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Spider-Man: Homecoming"
+    },
+    "duel-on-coney-island": {
+      "image": "https://image.tmdb.org/t/p/w500/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Spider-Man: Homecoming"
+    },
+    "battle-at-the-statue-of-liberty": {
+      "image": "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Spider-Man: No Way Home"
+    },
+    "attack-on-the-sanctum": {
+      "image": "https://image.tmdb.org/t/p/w500/uGBVj3bEbCoZbDjjl9wTxcygko1.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Doctor Strange"
+    },
+    "bargain-with-dormammu": {
+      "image": "https://image.tmdb.org/t/p/w500/uGBVj3bEbCoZbDjjl9wTxcygko1.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Doctor Strange"
+    },
+    "attack-on-the-un-vienna": {
+      "image": "https://image.tmdb.org/t/p/w500/rAGiXaUfPzY7CDEyNKUofk3Kw2e.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Captain America: Civil War"
+    },
+    "casino-heist-busan": {
+      "image": "https://image.tmdb.org/t/p/w500/uxzzxijgPIY7slzFvMotPv8wjKA.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Black Panther"
+    },
+    "battle-for-wakanda-throne": {
+      "image": "https://image.tmdb.org/t/p/w500/uxzzxijgPIY7slzFvMotPv8wjKA.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Black Panther"
+    },
+    "battle-of-talokan": {
+      "image": "https://image.tmdb.org/t/p/w500/sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Black Panther: Wakanda Forever"
+    },
+    "duel-at-the-pym-lab": {
+      "image": "https://image.tmdb.org/t/p/w500/rQRnQfUl3kfp78nCWq8Ks04vnq1.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Ant-Man"
+    },
+    "chase-for-the-lab": {
+      "image": "https://image.tmdb.org/t/p/w500/cFQEO687n1K6umXbInzocxcnAQz.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Ant-Man and the Wasp"
+    },
+    "quantum-realm-uprising": {
+      "image": "https://image.tmdb.org/t/p/w500/qnqGbB22YJ7dSs4o6M7exTpNxPz.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Ant-Man and the Wasp: Quantumania"
+    },
+    "battle-on-the-kree-cruiser": {
+      "image": "https://image.tmdb.org/t/p/w500/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Captain Marvel"
+    },
+    "battle-for-the-quantum-bands": {
+      "image": "https://image.tmdb.org/t/p/w500/9GBhzXMFjgcZ3FdR9w3bUMMTps5.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "The Marvels"
+    },
+    "assault-on-the-red-room": {
+      "image": "https://image.tmdb.org/t/p/w500/qAZ0pzat24kLdO3o8ejmbLxyOac.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Black Widow"
+    },
+    "the-emergence": {
+      "image": "https://image.tmdb.org/t/p/w500/lFByFSLV5WDJEv3KabbdAF959F2.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Eternals"
+    },
+    "battle-at-knowhere": {
+      "image": "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Avengers: Infinity War"
+    },
+    "orgoscope-heist": {
+      "image": "https://image.tmdb.org/t/p/w500/r2J02Z2OpNTctfOSN1Ydgii51I3.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Guardians of the Galaxy Vol. 3"
+    },
+    "battle-at-counter-earth": {
+      "image": "https://image.tmdb.org/t/p/w500/r2J02Z2OpNTctfOSN1Ydgii51I3.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Guardians of the Galaxy Vol. 3"
+    },
+    "battle-on-ego-planet": {
+      "image": "https://image.tmdb.org/t/p/w500/y4MBh0EjBlMuOzv9axM4qJlmhzz.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Guardians of the Galaxy Vol. 2"
+    },
+    "the-sovereign-pursuit": {
+      "image": "https://image.tmdb.org/t/p/w500/y4MBh0EjBlMuOzv9axM4qJlmhzz.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Guardians of the Galaxy Vol. 2"
+    },
+    "raid-on-the-garden": {
+      "image": "https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Avengers: Endgame"
+    },
+    "the-blip": {
+      "image": "https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Avengers: Endgame"
+    },
+    "sacrifice-at-vormir-endgame": {
+      "image": "https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Avengers: Endgame"
+    },
+    "the-new-avengers-assemble": {
+      "image": "https://image.tmdb.org/t/p/w500/hqcexYHbiTBfDIdDWxrxPtVndBX.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Thunderbolts*"
+    },
+    "the-void-confrontation": {
+      "image": "https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Deadpool & Wolverine"
+    },
+    "arrival-of-galactus": {
+      "image": "https://image.tmdb.org/t/p/w500/nf5qaSEvyYSNeFH0YhSs5EsBLX9.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "The Fantastic Four: First Steps"
+    },
+    "confrontation-at-the-white-house": {
+      "image": "https://image.tmdb.org/t/p/w500/pzIddUEMWhWzfvLI3TwxUG2wGoi.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Captain America: Brave New World"
+    },
+    "the-invisible-threat": {
+      "image": "https://image.tmdb.org/t/p/w500/iPOn6DinuVyLY17YM9mKuPofV08.jpg",
+      "origin": "movie-poster",
+      "sourceTitle": "Spider-Man: Brand New Day"
+    }
+  },
+  "artifacts": {
+    "infinity-gauntlet": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/0/00/InfinityGauntletProfilePicture.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Infinity_Gauntlet",
+      "sourceTitle": "Infinity Gauntlet",
+      "origin": "wiki"
+    },
+    "mjolnir": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/c/c9/Reformed_Mjolnir.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Mj%C3%B8lnir",
+      "sourceTitle": "Mjølnir",
+      "origin": "wiki"
+    },
+    "stormbreaker": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/f/f8/Stormbreaker_png.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Stormbreaker",
+      "sourceTitle": "Stormbreaker",
+      "origin": "wiki"
+    },
+    "vibranium-shield": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/3/36/Captain_America_Shield.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Captain_America's_Shield",
+      "sourceTitle": "Captain America's Shield",
+      "origin": "wiki"
+    },
+    "tesseract": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/0/06/Avengers_Tesseract2012.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Tesseract",
+      "sourceTitle": "Tesseract",
+      "origin": "wiki"
+    },
+    "eye-of-agamotto": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/f/f7/Closed_Eye_of_Agamotto.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Eye_of_Agamotto",
+      "sourceTitle": "Eye of Agamotto",
+      "origin": "wiki"
+    },
+    "cloak-of-levitation": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/4/49/Cloak_of_Levitation_Featurette_2.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Cloak_of_Levitation",
+      "sourceTitle": "Cloak of Levitation",
+      "origin": "wiki"
+    },
+    "arc-reactor": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/5/52/Arc_Reactor_from_Iron_Man_2_29_001.webp",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Arc_Reactor",
+      "sourceTitle": "Arc Reactor",
+      "origin": "wiki"
+    },
+    "vibranium-suit": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/d/d8/Black_Panther_OCT17_Trailer_28.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Panther_Habit",
+      "sourceTitle": "Panther Habit",
+      "origin": "wiki"
+    },
+    "space-stone": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/0/0a/Space_Stone_VFX.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Space_Stone",
+      "sourceTitle": "Space Stone",
+      "origin": "wiki"
+    },
+    "mind-stone": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/e/e4/Mind_Stone_VFX.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Mind_Stone",
+      "sourceTitle": "Mind Stone",
+      "origin": "wiki"
+    },
+    "reality-stone": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/9/9b/Reality_Stone_VFX.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Reality_Stone",
+      "sourceTitle": "Reality Stone",
+      "origin": "wiki"
+    },
+    "power-stone": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/d/d7/Power_Stone_VFX.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Power_Stone",
+      "sourceTitle": "Power Stone",
+      "origin": "wiki"
+    },
+    "time-stone": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/f/f0/Time_Stone_VFX.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Time_Stone",
+      "sourceTitle": "Time Stone",
+      "origin": "wiki"
+    },
+    "soul-stone": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/1/17/Soul_Stone_VFX.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Soul_Stone",
+      "sourceTitle": "Soul Stone",
+      "origin": "wiki"
+    },
+    "lokis-sceptre": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/1/17/Scepter_Main.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Scepter",
+      "sourceTitle": "Scepter",
+      "origin": "wiki"
+    },
+    "orb-of-morag": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/3/3d/Orb_AAoU.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Orb",
+      "sourceTitle": "Orb",
+      "origin": "wiki"
+    },
+    "nano-gauntlet": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/a/ae/NanoGauntlet.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Nano_Gauntlet",
+      "sourceTitle": "Nano Gauntlet",
+      "origin": "wiki"
+    },
+    "eternal-flame": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/0/0d/Eternal_Flame.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Eternal_Flame",
+      "sourceTitle": "Eternal Flame",
+      "origin": "wiki"
+    },
+    "helas-headpiece": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/3/3f/Hela%27s_helmet_profile.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Hela's_Crown",
+      "sourceTitle": "Hela's Crown",
+      "origin": "wiki"
+    },
+    "gungnir": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/b/b1/T_Guidebook_Gungnir.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Gungnir",
+      "sourceTitle": "Gungnir",
+      "origin": "wiki"
+    },
+    "necrosword": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/f/ff/Thor_Ragnarok_Teaser_19.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Necrosword",
+      "sourceTitle": "Necrosword",
+      "origin": "wiki"
+    },
+    "thunderbolt": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/26/Zeus%27_Lightning_Bolt.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Thunderbolt",
+      "sourceTitle": "Thunderbolt",
+      "origin": "wiki"
+    },
+    "hofund": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/d/d4/Heimdall_Hofund.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Hofund",
+      "sourceTitle": "Hofund",
+      "origin": "wiki"
+    },
+    "dragonfang": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/a/a6/Thor-Love-and-Thunder-King-Valkyrie-Sword-2.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Dragonfang",
+      "sourceTitle": "Dragonfang",
+      "origin": "wiki"
+    },
+    "valkyrie-armour": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/d/d8/Valkyrie_in_LoveAndThunder_Poster.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Valkyrie",
+      "sourceTitle": "Valkyrie",
+      "origin": "wiki"
+    },
+    "winter-soldier-arm": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/e/ea/Winter_Soldier%27s_Prosthetic_Vibranium_Arm.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Winter_Soldier's_Prosthetic_Arm",
+      "sourceTitle": "Winter Soldier's Prosthetic Arm",
+      "origin": "wiki"
+    },
+    "hawkeye-bow": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/f/f1/Hawkeye%27s_Arsenal.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Hawkeye's_Bow_and_Quiver",
+      "sourceTitle": "Hawkeye's Bow and Quiver",
+      "origin": "wiki"
+    },
+    "yaka-arrow": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/1/16/Yaka_Arrow_2.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Yaka_Arrow",
+      "sourceTitle": "Yaka Arrow",
+      "origin": "wiki"
+    },
+    "widows-bite": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/20/Widowsbite.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Black_Widow's_Bite",
+      "sourceTitle": "Black Widow's Bite",
+      "origin": "wiki"
+    },
+    "ten-rings-artifact": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/0/06/TenRingsProfilePic.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Ten_Rings_(Weapons)",
+      "sourceTitle": "Ten Rings (Weapons)",
+      "origin": "wiki"
+    },
+    "ebony-blade": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/d/d0/Ebony_Blade_%28Eternals%29.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Ebony_Blade",
+      "sourceTitle": "Ebony Blade",
+      "origin": "wiki"
+    },
+    "walkers-shield": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/5/54/JohnWalkersShield.jpeg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/John_Walker's_Shield",
+      "sourceTitle": "John Walker's Shield",
+      "origin": "wiki"
+    },
+    "taskmaster-gear": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/8/89/Taskmaster_%28Thunderbolts%2A%29.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Taskmaster_Suit",
+      "sourceTitle": "Taskmaster Suit",
+      "origin": "wiki"
+    },
+    "redwing": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/d/d0/Redwing_Promotional.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Redwing",
+      "sourceTitle": "Redwing",
+      "origin": "wiki"
+    },
+    "falcon-harness": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/3/32/New_Falcon_Wings.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/EXO-7_Falcon",
+      "sourceTitle": "EXO-7 Falcon",
+      "origin": "wiki"
+    },
+    "scarlet-witch-tiara": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/6/60/Scarlet_Witch_Infobox.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Scarlet_Witch",
+      "sourceTitle": "Scarlet Witch",
+      "origin": "wiki"
+    },
+    "darkhold": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/4/48/Darkhold_Marvel_Studios.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Darkhold",
+      "sourceTitle": "Darkhold",
+      "origin": "wiki"
+    },
+    "book-of-vishanti": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/9/9a/Book_of_Vishanti_Infobox.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Book_of_Vishanti",
+      "sourceTitle": "Book of Vishanti",
+      "origin": "wiki"
+    },
+    "sling-ring": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/7/71/Sling_Ring.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Sling_Ring",
+      "sourceTitle": "Sling Ring",
+      "origin": "wiki"
+    },
+    "crimson-bands": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/d/d4/DS_Guidebook_CBoC.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Crimson_Bands_of_Cyttorak",
+      "sourceTitle": "Crimson Bands of Cyttorak",
+      "origin": "wiki"
+    },
+    "wand-of-watoomb": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/4/4c/Wand_of_Watoomb_2.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Wand_of_Watoomb",
+      "sourceTitle": "Wand of Watoomb",
+      "origin": "wiki"
+    },
+    "iron-man-mark-i": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/f/fb/Iron_Man_Armor_-_Mark_I.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Iron_Man_Armor%3A_Mark_I",
+      "sourceTitle": "Iron Man Armor: Mark I",
+      "origin": "wiki"
+    },
+    "iron-man-mark-l": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/a/a0/Iron_Man_Armor_-_Mark_L.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Iron_Man_Armor%3A_Mark_L",
+      "sourceTitle": "Iron Man Armor: Mark L",
+      "origin": "wiki"
+    },
+    "war-machine-armor": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/7/78/War_Machine_Armor_-_Mark_I.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/War_Machine_Armor%3A_Mark_I",
+      "sourceTitle": "War Machine Armor: Mark I",
+      "origin": "wiki"
+    },
+    "rescue-armor": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/7/7a/Iron_Man_Armor_-_Mark_XLIX.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Iron_Man_Armor%3A_Mark_XLIX",
+      "sourceTitle": "Iron Man Armor: Mark XLIX",
+      "origin": "wiki"
+    },
+    "iron-spider-suit": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/6/61/Spiderman_iron_spider_avengers_infinity_war.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Iron_Spider_Armor",
+      "sourceTitle": "Iron Spider Armor",
+      "origin": "wiki"
+    },
+    "edith": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/b/b4/Stark_Glasses_HUD.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/E.D.I.T.H.",
+      "sourceTitle": "E.D.I.T.H.",
+      "origin": "wiki"
+    },
+    "web-shooters": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/5/54/Right_Web-Shooter_%28HoCo%29.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Web-Shooters",
+      "sourceTitle": "Web-Shooters",
+      "origin": "wiki"
+    },
+    "vulture-wingsuit": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/27/SMH_Trailer2_47.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Vulture's_Exo-Suit",
+      "sourceTitle": "Vulture's Exo-Suit",
+      "origin": "wiki"
+    },
+    "vibranium-arc-reactor": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/5/52/Arc_Reactor_from_Iron_Man_2_29_001.webp",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Arc_Reactor",
+      "sourceTitle": "Arc Reactor",
+      "origin": "wiki"
+    },
+    "extremis": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/f/f0/ExtremisProfilePicture.jpeg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Extremis",
+      "sourceTitle": "Extremis",
+      "origin": "wiki"
+    },
+    "heart-shaped-herb": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/7/7b/BP_-_Heart-Shaped_Herb_%28At_Hand%29.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Heart-Shaped_Herb",
+      "sourceTitle": "Heart-Shaped Herb",
+      "origin": "wiki"
+    },
+    "kimoyo-beads": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/8/8e/20F8F2AB-5DCA-4FD7-A5B9-AA5669D73B4D.jpeg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Kimoyo_Bead",
+      "sourceTitle": "Kimoyo Bead",
+      "origin": "wiki"
+    },
+    "dora-milaje-spear": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/3/35/VibraniumSpearProfilePic.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Vibranium_Spear",
+      "sourceTitle": "Vibranium Spear",
+      "origin": "wiki"
+    },
+    "midnight-angel-armor": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/4/49/Midnight_Angel_Armor.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Midnight_Angel_Armor",
+      "sourceTitle": "Midnight Angel Armor",
+      "origin": "wiki"
+    },
+    "pym-particles": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/0/03/Pym_Particles.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Pym_Particles",
+      "sourceTitle": "Pym Particles",
+      "origin": "wiki"
+    },
+    "ant-man-suit": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/b/bf/AMQM_SUIT.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Ant-Man_Suit",
+      "sourceTitle": "Ant-Man Suit",
+      "origin": "wiki"
+    },
+    "wasp-suit": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/9/9d/Wasp.PNG",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Wasp_Suit",
+      "sourceTitle": "Wasp Suit",
+      "origin": "wiki"
+    },
+    "quantum-tunnel": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/6/66/Quantum_Tunnel.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Quantum_Tunnel",
+      "sourceTitle": "Quantum Tunnel",
+      "origin": "wiki"
+    },
+    "quantum-realm-suits": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/6/6a/Hank_in_the_Quantum_Realm.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Quantum_Realm_Exploration_Suit",
+      "sourceTitle": "Quantum Realm Exploration Suit",
+      "origin": "wiki"
+    },
+    "awesome-mix": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/27/Awesome_Mix_Vol._1.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Guardians_of_the_Galaxy%3A_Awesome_Mix_Vol._1",
+      "sourceTitle": "Guardians of the Galaxy: Awesome Mix Vol. 1",
+      "origin": "wiki"
+    },
+    "walkman": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/c/c0/AMV2.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Star-Lord's_Walkman",
+      "sourceTitle": "Star-Lord's Walkman",
+      "origin": "wiki"
+    },
+    "milano": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/7/79/Milano_Infobox.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Milano",
+      "sourceTitle": "Milano",
+      "origin": "wiki"
+    },
+    "quad-blasters": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/f/f9/Quad_Blaster_GotGV2_Promo.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Quad_Blasters",
+      "sourceTitle": "Quad Blasters",
+      "origin": "wiki"
+    },
+    "godslayer": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/7/72/Gamora_Sword.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Godslayer",
+      "sourceTitle": "Godslayer",
+      "origin": "wiki"
+    },
+    "quantum-bands": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/f/f4/Kamala_wearing_Aisha%27s_bangle.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Quantum_Bands",
+      "sourceTitle": "Quantum Bands",
+      "origin": "wiki"
+    },
+    "uni-mind": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/e/e4/Eternals_%28film%29_42.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Uni-Mind",
+      "sourceTitle": "Uni-Mind",
+      "origin": "wiki"
+    },
+    "captain-marvel-suit": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/8/8f/Captain_Marvel_%28film%29_61.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Starforce_Uniform",
+      "sourceTitle": "Starforce Uniform",
+      "origin": "wiki"
+    },
+    "flerken-pocket-dimension": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/e/e0/TotalFilm_Flerken_Profile.jpg",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Flerken",
+      "sourceTitle": "Flerken",
+      "origin": "wiki"
+    },
+    "fantasticar": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/7/77/Fantasticar_Infobox.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Fantasticar",
+      "sourceTitle": "Fantasticar",
+      "origin": "wiki"
+    },
+    "silver-surfer-board": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/b/ba/Silver_Surfer%27s_Surfboard.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Silver_Surfer's_Surfboard",
+      "sourceTitle": "Silver Surfer's Surfboard",
+      "origin": "wiki"
+    },
+    "super-soldier-serum": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/d/d0/Super_Soldier_Serum.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Super_Soldier_Serum",
+      "sourceTitle": "Super Soldier Serum",
+      "origin": "wiki"
+    },
+    "gamma-experiment": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/e/e1/Gamma_Radiation.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Gamma_Radiation",
+      "sourceTitle": "Gamma Radiation",
+      "origin": "wiki"
+    },
+    "chitauri-salvage": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/6/6c/Chitauri.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Chitauri",
+      "sourceTitle": "Chitauri",
+      "origin": "wiki"
+    },
+    "sokovia-accords": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/2b/Captain_America_Civil_War_26.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Sokovia_Accords",
+      "sourceTitle": "Sokovia Accords",
+      "origin": "wiki"
+    },
+    "red-room-mind-control": {
+      "image": "https://static.wikia.nocookie.net/marvelcinematicuniverse/images/a/a6/Red_Room_-_Dream.png",
+      "source": "https://marvelcinematicuniverse.fandom.com/wiki/Red_Room",
+      "sourceTitle": "Red Room",
+      "origin": "wiki"
+    }
+  }
+}

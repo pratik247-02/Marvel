@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Search, Swords } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { Container } from "@/components/layout/Container";
@@ -131,9 +132,20 @@ export default function BattlesPage() {
               >
                 <Link href={`/battles/${battle._id}`}>
                   <Card interactive className="group h-full overflow-hidden">
-                    <div className="relative h-48 bg-linear-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center">
-                      <Swords className="w-16 h-16 text-orange-400/50" />
-                      <div className="absolute top-2 right-2">
+                    <div className="relative flex h-48 items-center justify-center overflow-hidden bg-linear-to-br from-orange-500/20 to-red-500/20">
+                      {battle.image ? (
+                        <Image
+                          src={battle.image}
+                          alt=""
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                          priority={index < 4}
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      ) : (
+                        <Swords className="h-16 w-16 text-orange-400/50" />
+                      )}
+                      <div className="absolute top-2 right-2 z-10">
                         <Badge className={getSignificanceColor(battle.significance)}>
                           {battle.significance}
                         </Badge>

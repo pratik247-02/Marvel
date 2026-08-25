@@ -29,6 +29,26 @@ const battleSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Movie",
     },
+    /**
+     * The card image for this battle.
+     *
+     * Separate from `images` below, which is a gallery. A card needs one
+     * primary image, and picking `images[0]` would make the UI guess at an
+     * ordering the data does not promise.
+     *
+     * `imageOrigin` says where it came from: most battles have no art of
+     * their own on the wiki, so they fall back to the poster of the film they
+     * happened in. Worth recording rather than inferring - a borrowed poster
+     * is shared by every battle in that film.
+     */
+    image: {
+      type: String,
+      trim: true,
+    },
+    imageOrigin: {
+      type: String,
+      enum: ["wiki", "movie-poster"],
+    },
     images: [
       {
         type: String,

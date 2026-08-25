@@ -3281,6 +3281,811 @@ export const artifacts = [
     holders: ["tchalla"],
     appearances: ["black-panther", "avengers-infinity-war"],
   },
+  // ---- Infinity Stones --------------------------------------------------
+  //
+  // Each stone is its own artifact rather than one "Infinity Stones" entry.
+  // The containers that held them - the Tesseract, the Sceptre, the Eye of
+  // Agamotto, the Orb - stay separate, because a stone and its housing change
+  // hands independently: Loki carried the Sceptre, but the Mind Stone ended up
+  // in Vision's forehead.
+  {
+    key: "space-stone",
+    name: "Space Stone",
+    description:
+      "The blue Infinity Stone, able to open a door between any two points in the universe. Housed inside the Tesseract for most of its known history.",
+    origin: "One of six singularities predating the universe",
+    powers: ["Teleportation", "Portal Creation", "Energy Projection"],
+    status: "destroyed",
+    holders: ["red-skull", "loki-laufeyson", "thanos", "tony-stark"],
+    appearances: [
+      "captain-america-the-first-avenger",
+      "the-avengers",
+      "avengers-infinity-war",
+      "avengers-endgame",
+    ],
+  },
+  {
+    key: "mind-stone",
+    name: "Mind Stone",
+    description:
+      "The yellow Infinity Stone, able to control and enhance minds. Hidden inside Loki's sceptre before Ultron set it in Vision's forehead.",
+    origin: "One of six singularities predating the universe",
+    powers: ["Mind Control", "Intellect Enhancement", "Energy Blasts"],
+    status: "destroyed",
+    holders: ["loki-laufeyson", "ultron", "vision", "thanos"],
+    appearances: ["the-avengers", "avengers-age-of-ultron", "avengers-infinity-war"],
+  },
+  {
+    key: "reality-stone",
+    name: "Reality Stone",
+    description:
+      "The red Infinity Stone, which rewrites matter itself. Kept in liquid form as the Aether until Thanos forced it back into a solid.",
+    origin: "One of six singularities predating the universe",
+    powers: ["Reality Warping", "Matter Transmutation", "Illusion"],
+    status: "destroyed",
+    holders: ["malekith", "jane-foster", "the-collector", "thanos"],
+    appearances: ["thor-the-dark-world", "avengers-infinity-war", "avengers-endgame"],
+  },
+  {
+    key: "power-stone",
+    name: "Power Stone",
+    description:
+      "The purple Infinity Stone, holding enough raw energy to destroy a planet. Anything short of the strongest beings is incinerated on contact.",
+    origin: "One of six singularities predating the universe",
+    powers: ["Energy Amplification", "Planetary Destruction", "Durability"],
+    status: "destroyed",
+    holders: ["ronan", "peter-quill", "nova-prime", "thanos"],
+    appearances: ["guardians-of-the-galaxy", "avengers-infinity-war"],
+  },
+  {
+    key: "time-stone",
+    name: "Time Stone",
+    description:
+      "The green Infinity Stone, allowing its wielder to rewind, accelerate or loop time. Set inside the Eye of Agamotto by the Masters of the Mystic Arts.",
+    origin: "One of six singularities predating the universe",
+    powers: ["Time Manipulation", "Temporal Loops", "Restoration"],
+    status: "destroyed",
+    holders: ["the-ancient-one", "stephen-strange", "thanos"],
+    appearances: ["doctor-strange", "avengers-infinity-war", "avengers-endgame"],
+  },
+  {
+    key: "soul-stone",
+    name: "Soul Stone",
+    description:
+      "The orange Infinity Stone, guarded on Vormir and bought only with the life of someone the seeker loves.",
+    origin: "One of six singularities predating the universe",
+    powers: ["Soul Manipulation", "Soulworld", "Life Exchange"],
+    status: "destroyed",
+    holders: ["red-skull", "thanos"],
+    appearances: ["avengers-infinity-war", "avengers-endgame"],
+  },
+
+  // ---- Containers and gauntlets ------------------------------------------
+  {
+    key: "lokis-sceptre",
+    name: "Loki's Sceptre",
+    description:
+      "The weapon Thanos gave Loki for the invasion of Earth, concealing the Mind Stone in its tip and bending the will of anyone it touched.",
+    origin: "Given to Loki by Thanos",
+    powers: ["Mind Control", "Energy Blasts", "Mind Stone Housing"],
+    status: "destroyed",
+    holders: ["loki-laufeyson", "clint-barton", "ultron"],
+    appearances: ["the-avengers", "avengers-age-of-ultron"],
+  },
+  {
+    key: "orb-of-morag",
+    name: "Orb of Morag",
+    description:
+      "A metal sphere built to contain the Power Stone, lifted from a vault on Morag by a thief who had no idea what was inside.",
+    origin: "Recovered from the temple vault on Morag",
+    powers: ["Power Stone Containment"],
+    status: "destroyed",
+    holders: ["peter-quill", "ronan"],
+    appearances: ["guardians-of-the-galaxy"],
+  },
+  {
+    key: "nano-gauntlet",
+    name: "Nano Gauntlet",
+    description:
+      "Stark's answer to Thanos: a nanotech gauntlet built to hold all six stones, used once to undo the Snap and once to end the war.",
+    origin: "Built by Tony Stark, Bruce Banner and Rocket",
+    powers: ["Infinity Stone Channeling", "Reality Alteration"],
+    status: "destroyed",
+    holders: ["bruce-banner", "tony-stark", "thanos"],
+    appearances: ["avengers-endgame"],
+  },
+
+  // ---- Asgardian ----------------------------------------------------------
+  {
+    key: "eternal-flame",
+    name: "Eternal Flame",
+    description:
+      "An undying Asgardian fire kept in Odin's vault, able to raise the dead. Hela used it to resurrect her army; Surtur consumed it to bring Ragnarok.",
+    origin: "Taken from Surtur, kept in Odin's vault",
+    powers: ["Resurrection", "Infernal Energy", "Ragnarok Catalyst"],
+    status: "destroyed",
+    holders: ["hela", "odin"],
+    appearances: ["thor-ragnarok"],
+  },
+  {
+    key: "helas-headpiece",
+    name: "Hela's Headpiece",
+    description:
+      "The antlered crown of the Goddess of Death, manifested at will and the visible sign of the power Odin spent centuries hiding.",
+    origin: "Manifested by Hela herself",
+    powers: ["Necrosword Manifestation", "Intimidation"],
+    status: "destroyed",
+    holders: ["hela"],
+    appearances: ["thor-ragnarok"],
+  },
+  {
+    key: "gungnir",
+    name: "Gungnir",
+    description:
+      "The spear of the King of Asgard, carried by Odin as both the symbol and the instrument of the throne.",
+    origin: "Forged in Asgard",
+    powers: ["Energy Projection", "Royal Authority", "Bifrost Activation"],
+    status: "destroyed",
+    holders: ["odin", "loki-laufeyson", "hela"],
+    appearances: ["thor", "thor-the-dark-world", "thor-ragnarok"],
+  },
+  {
+    key: "necrosword",
+    name: "Necrosword",
+    description:
+      "A cursed blade that poisons whoever wields it, granting the power to kill gods at the cost of the wielder's own life.",
+    origin: "Ancient weapon that found Gorr in the desert",
+    powers: ["God-Slaying", "Shadow Monsters", "Corruption"],
+    status: "destroyed",
+    holders: ["gorr"],
+    appearances: ["thor-love-and-thunder"],
+  },
+  {
+    key: "thunderbolt",
+    name: "Thunderbolt",
+    description:
+      "Zeus's weapon, taken from him in Omnipotence City and turned on the god who forged it.",
+    origin: "Forged by Zeus in Omnipotence City",
+    powers: ["Lightning Projection", "Divine Energy"],
+    status: "active",
+    holders: ["zeus", "thor-odinson"],
+    appearances: ["thor-love-and-thunder"],
+  },
+  {
+    key: "hofund",
+    name: "Hofund",
+    description:
+      "The sword Heimdall uses to open the Bifrost, and the only key to Asgard's bridge between the Nine Realms.",
+    origin: "Asgardian royal armoury",
+    powers: ["Bifrost Control", "Interdimensional Travel"],
+    status: "active",
+    holders: ["heimdall", "skurge"],
+    appearances: ["thor", "thor-the-dark-world", "thor-ragnarok"],
+  },
+  {
+    key: "dragonfang",
+    name: "Dragonfang",
+    description:
+      "Sif's Asgardian blade, carried through centuries of service to the throne.",
+    origin: "Asgardian craftsmanship",
+    powers: ["Enhanced Durability", "Enchanted Edge"],
+    status: "active",
+    holders: ["sif"],
+    appearances: ["thor", "thor-the-dark-world"],
+  },
+  {
+    key: "valkyrie-armour",
+    name: "Valkyrie Armour",
+    description:
+      "The armour of Asgard's elite winged cavalry, worn by the last Valkyrie to survive Hela's slaughter of the order.",
+    origin: "Issued to the Valkyrior of Asgard",
+    powers: ["Enhanced Protection", "Valkyrie Insignia"],
+    status: "active",
+    holders: ["valkyrie"],
+    appearances: ["thor-ragnarok", "avengers-endgame"],
+  },
+  // ---- Weapons and personal gear ------------------------------------------
+  {
+    key: "winter-soldier-arm",
+    name: "Winter Soldier's Arm",
+    description:
+      "The metal arm Hydra grafted onto Bucky Barnes after the fall, later replaced with a vibranium one built for him in Wakanda.",
+    origin: "Built by Hydra, replaced by Wakandan engineers",
+    powers: ["Superhuman Strength", "Impact Resistance", "Weapon Mounting"],
+    status: "active",
+    holders: ["bucky-barnes"],
+    appearances: [
+      "captain-america-the-winter-soldier",
+      "captain-america-civil-war",
+      "avengers-infinity-war",
+    ],
+  },
+  {
+    key: "hawkeye-bow",
+    name: "Hawkeye's Bow",
+    description:
+      "A collapsible recurve bow with a quiver of specialised arrowheads, in the hands of a man who does not miss.",
+    origin: "S.H.I.E.L.D. ordnance, modified by Barton",
+    powers: ["Trick Arrows", "Collapsible Frame", "Precision"],
+    status: "active",
+    holders: ["clint-barton", "kate-bishop"],
+    appearances: ["the-avengers", "avengers-age-of-ultron", "avengers-endgame"],
+  },
+  {
+    key: "yaka-arrow",
+    name: "Yaka Arrow",
+    description:
+      "A Centaurian arrow steered by whistle, which clears a room of men before anyone understands what is happening.",
+    origin: "Centaurian make, carried by Yondu Udonta",
+    powers: ["Sonic Control", "Guided Flight", "Lethal Precision"],
+    status: "active",
+    holders: ["yondu-udonta", "kraglin"],
+    appearances: [
+      "guardians-of-the-galaxy",
+      "guardians-of-the-galaxy-vol-2",
+      "guardians-of-the-galaxy-vol-3",
+    ],
+  },
+  {
+    key: "widows-bite",
+    name: "Widow's Bite",
+    description:
+      "Black Widow's wrist gauntlets, firing electrified discharges and grappling lines at close quarters.",
+    origin: "S.H.I.E.L.D. issue, refined over years of field use",
+    powers: ["Electric Discharge", "Grapple Line"],
+    status: "active",
+    holders: ["natasha-romanoff", "yelena-belova"],
+    appearances: ["the-avengers", "black-widow", "avengers-infinity-war"],
+  },
+  {
+    key: "ten-rings-artifact",
+    name: "Ten Rings",
+    description:
+      "Ten alien bands of unknown make that gave Xu Wenwu a thousand years of life and power, passed to his son in the fight that killed him.",
+    origin: "Unknown, older than recorded history",
+    powers: ["Immortality", "Energy Projection", "Concussive Force"],
+    status: "active",
+    holders: ["wenwu", "shang-chi"],
+    appearances: ["shang-chi-and-the-legend-of-the-ten-rings"],
+  },
+  {
+    key: "ebony-blade",
+    name: "Ebony Blade",
+    description:
+      "A cursed sword bound to the Whitman bloodline, offering power to whoever draws it and taking something back every time.",
+    origin: "Whitman family heirloom",
+    powers: ["Enchanted Edge", "Bloodline Curse", "Energy Absorption"],
+    status: "active",
+    holders: ["dane-whitman"],
+    appearances: ["eternals"],
+  },
+  {
+    key: "walkers-shield",
+    name: "John Walker's Shield",
+    description:
+      "The replacement shield issued to a government-appointed Captain America, and shown on television covered in blood.",
+    origin: "Issued by the United States government",
+    powers: ["Impact Absorption", "Aerodynamic Return"],
+    status: "active",
+    holders: ["john-walker"],
+    appearances: ["thunderbolts"],
+  },
+  {
+    key: "taskmaster-gear",
+    name: "Taskmaster's Gear",
+    description:
+      "An arsenal mirrored from the Avengers themselves, carried by a fighter who copies any technique on sight.",
+    origin: "Red Room armoury",
+    powers: ["Photographic Reflexes", "Adaptive Combat"],
+    status: "active",
+    holders: ["taskmaster"],
+    appearances: ["black-widow"],
+  },
+  {
+    key: "redwing",
+    name: "Redwing",
+    description:
+      "Falcon's reconnaissance drone, flying ahead of him to map a room before he walks into it.",
+    origin: "Military prototype, retained by Sam Wilson",
+    powers: ["Aerial Reconnaissance", "Combat Support", "Surveillance"],
+    status: "active",
+    holders: ["sam-wilson"],
+    appearances: ["captain-america-civil-war", "avengers-infinity-war"],
+  },
+  {
+    key: "falcon-harness",
+    name: "EXO-7 Falcon Harness",
+    description:
+      "A military flight harness with steerable wings, and the reason a pararescue airman can keep pace with super soldiers.",
+    origin: "Experimental United States Air Force programme",
+    powers: ["Powered Flight", "Aerial Manoeuvring", "Wing Shields"],
+    status: "active",
+    holders: ["sam-wilson"],
+    appearances: [
+      "captain-america-the-winter-soldier",
+      "captain-america-civil-war",
+      "captain-america-brave-new-world",
+    ],
+  },
+
+  // ---- Mystic -------------------------------------------------------------
+  {
+    key: "scarlet-witch-tiara",
+    name: "Crown of the Scarlet Witch",
+    description:
+      "The headpiece Wanda Maximoff manifests when she stops holding back, and the mark of the witch the Darkhold names.",
+    origin: "Manifested by Wanda Maximoff",
+    powers: ["Chaos Magic Focus", "Reality Alteration"],
+    status: "active",
+    holders: ["wanda-maximoff"],
+    appearances: ["doctor-strange-in-the-multiverse-of-madness"],
+  },
+  {
+    key: "darkhold",
+    name: "Darkhold",
+    description:
+      "The Book of the Damned, which teaches dreamwalking and corrupts whoever reads it. Every copy across the multiverse was destroyed.",
+    origin: "Written by Chthon on a mountain of blood-red rock",
+    powers: ["Dreamwalking", "Forbidden Spells", "Corruption"],
+    status: "destroyed",
+    holders: ["wanda-maximoff"],
+    appearances: ["doctor-strange-in-the-multiverse-of-madness"],
+  },
+  {
+    key: "book-of-vishanti",
+    name: "Book of Vishanti",
+    description:
+      "The Darkhold's opposite, holding only spells that protect. Destroyed the moment it was finally reached.",
+    origin: "Left by the Vishanti in the space between universes",
+    powers: ["Protective Spells", "Counter-Magic"],
+    status: "destroyed",
+    holders: ["stephen-strange", "america-chavez"],
+    appearances: ["doctor-strange-in-the-multiverse-of-madness"],
+  },
+  {
+    key: "sling-ring",
+    name: "Sling Ring",
+    description:
+      "The ring every Master of the Mystic Arts carries, opening a doorway to anywhere they can picture clearly enough.",
+    origin: "Kamar-Taj",
+    powers: ["Portal Creation", "Interdimensional Travel"],
+    status: "active",
+    holders: ["stephen-strange", "wong", "karl-mordo", "the-ancient-one"],
+    appearances: ["doctor-strange", "avengers-infinity-war", "spider-man-no-way-home"],
+  },
+  {
+    key: "crimson-bands",
+    name: "Crimson Bands of Cyttorak",
+    description:
+      "Binding rings of red energy, the standard restraint of the Mystic Arts against something stronger than you.",
+    origin: "Invoked from the dimension of Cyttorak",
+    powers: ["Binding", "Energy Restraint"],
+    status: "active",
+    holders: ["stephen-strange", "wong"],
+    appearances: ["doctor-strange", "spider-man-no-way-home"],
+  },
+  {
+    key: "wand-of-watoomb",
+    name: "Wand of Watoomb",
+    description:
+      "A mystic staff of considerable power, kept in the New York Sanctum and stolen more than once.",
+    origin: "Relic of the Masters of the Mystic Arts",
+    powers: ["Energy Channeling", "Spell Amplification"],
+    status: "active",
+    holders: ["wong"],
+    appearances: ["doctor-strange", "spider-man-no-way-home"],
+  },
+  // ---- Stark and Parker tech ----------------------------------------------
+  {
+    key: "iron-man-mark-i",
+    name: "Iron Man Armor: Mark I",
+    description:
+      "The suit built from scrap in a cave in Afghanistan, by two men with one working set of hands between them.",
+    origin: "Built by Tony Stark and Ho Yinsen in captivity",
+    powers: ["Flamethrowers", "Enhanced Strength", "Rudimentary Flight"],
+    status: "destroyed",
+    holders: ["tony-stark", "ho-yinsen"],
+    appearances: ["iron-man"],
+  },
+  {
+    key: "iron-man-mark-l",
+    name: "Iron Man Armor: Mark L",
+    description:
+      "The nanotech armour Stark wore on Titan, forming any weapon he could think of fast enough to need.",
+    origin: "Built by Tony Stark",
+    powers: ["Nanotech Reconfiguration", "Weapon Generation", "Self-Repair"],
+    status: "destroyed",
+    holders: ["tony-stark"],
+    appearances: ["avengers-infinity-war", "avengers-endgame"],
+  },
+  {
+    key: "war-machine-armor",
+    name: "War Machine Armor",
+    description:
+      "The militarised Iron Man suit, flown by an Air Force colonel who kept all the guns Stark left off.",
+    origin: "United States Air Force, from Stark designs",
+    powers: ["Heavy Weaponry", "Flight", "Reinforced Plating"],
+    status: "active",
+    holders: ["james-rhodes"],
+    appearances: ["iron-man-2", "captain-america-civil-war", "avengers-endgame"],
+  },
+  {
+    key: "rescue-armor",
+    name: "Rescue Armor",
+    description:
+      "The suit Tony built for Pepper and never quite got round to mentioning, flown into the final battle against Thanos.",
+    origin: "Built by Tony Stark",
+    powers: ["Flight", "Repulsors", "Enhanced Strength"],
+    status: "active",
+    holders: ["pepper-potts"],
+    appearances: ["avengers-endgame"],
+  },
+  {
+    key: "iron-spider-suit",
+    name: "Iron Spider Armor",
+    description:
+      "The nanotech suit Stark built for a teenager, with four mechanical legs and an override he hoped would never be needed.",
+    origin: "Built by Tony Stark",
+    powers: ["Waldoes", "Nanotech Repair", "Enhanced Durability"],
+    status: "active",
+    holders: ["peter-parker"],
+    appearances: ["avengers-infinity-war", "avengers-endgame", "spider-man-no-way-home"],
+  },
+  {
+    key: "edith",
+    name: "E.D.I.T.H.",
+    description:
+      "Stark's inheritance to Peter Parker: a pair of glasses with command of a defence satellite network, handed to the wrong person almost immediately.",
+    origin: "Built by Tony Stark, bequeathed to Peter Parker",
+    powers: ["Satellite Command", "Augmented Reality", "Drone Control"],
+    status: "active",
+    holders: ["peter-parker", "quentin-beck"],
+    appearances: ["spider-man-far-from-home"],
+  },
+  {
+    key: "web-shooters",
+    name: "Web-Shooters",
+    description:
+      "Wrist devices firing a synthetic adhesive of Parker's own design, built at a desk in Queens.",
+    origin: "Designed and built by Peter Parker",
+    powers: ["Web Fluid Projection", "Swing Lines", "Restraint"],
+    status: "active",
+    holders: ["peter-parker"],
+    appearances: [
+      "spider-man-homecoming",
+      "avengers-infinity-war",
+      "spider-man-no-way-home",
+      "spider-man-brand-new-day",
+    ],
+  },
+  {
+    key: "vulture-wingsuit",
+    name: "Vulture Wingsuit",
+    description:
+      "A flight rig assembled from salvaged Chitauri technology by a contractor the cleanup put out of business.",
+    origin: "Built by Adrian Toomes from Chitauri salvage",
+    powers: ["Powered Flight", "Talon Blades", "Salvaged Alien Tech"],
+    status: "active",
+    holders: ["adrian-toomes"],
+    appearances: ["spider-man-homecoming"],
+  },
+  {
+    key: "vibranium-arc-reactor",
+    name: "Vibranium Arc Reactor",
+    description:
+      "The replacement reactor Tony synthesised from a new element, using a map his father had left him decades earlier.",
+    origin: "Synthesised by Tony Stark from Howard Stark's research",
+    powers: ["Clean Energy", "Palladium-Free Operation"],
+    status: "active",
+    holders: ["tony-stark"],
+    appearances: ["iron-man-2"],
+  },
+  {
+    key: "extremis",
+    name: "Extremis",
+    description:
+      "A regenerative treatment that rewrites the body and burns hot enough to melt steel, or to make a person detonate.",
+    origin: "Developed by Aldrich Killian at A.I.M.",
+    powers: ["Regeneration", "Superheating", "Enhanced Strength"],
+    status: "destroyed",
+    holders: ["aldrich-killian"],
+    appearances: ["iron-man-3"],
+  },
+
+  // ---- Wakandan -----------------------------------------------------------
+  {
+    key: "heart-shaped-herb",
+    name: "Heart-Shaped Herb",
+    description:
+      "The vibranium-touched plant that grants the strength of the Black Panther, burned to ash during a challenge for the throne.",
+    origin: "Grown in Wakanda, mutated by the vibranium meteorite",
+    powers: ["Enhanced Strength", "Enhanced Senses", "Ancestral Plane Access"],
+    status: "active",
+    holders: ["tchalla", "killmonger", "shuri"],
+    appearances: ["black-panther", "black-panther-wakanda-forever"],
+  },
+  {
+    key: "kimoyo-beads",
+    name: "Kimoyo Beads",
+    description:
+      "Wakandan vibranium beads worn at the wrist, serving as communicator, medical scanner and remote control at once.",
+    origin: "Wakandan design",
+    powers: ["Communication", "Holographic Display", "Medical Diagnostics"],
+    status: "active",
+    holders: ["tchalla", "shuri", "okoye", "nakia"],
+    appearances: ["black-panther", "avengers-infinity-war"],
+  },
+  {
+    key: "dora-milaje-spear",
+    name: "Dora Milaje Spear",
+    description:
+      "The vibranium spear of Wakanda's royal guard: an energy weapon that looks like a traditional one.",
+    origin: "Forged in Wakanda",
+    powers: ["Vibranium Edge", "Energy Discharge"],
+    status: "active",
+    holders: ["okoye", "ayo"],
+    appearances: [
+      "black-panther",
+      "avengers-infinity-war",
+      "black-panther-wakanda-forever",
+    ],
+  },
+  {
+    key: "midnight-angel-armor",
+    name: "Midnight Angel Armor",
+    description:
+      "Powered vibranium armour built for the Dora Milaje, flown into battle over Talokan.",
+    origin: "Designed by Shuri",
+    powers: ["Powered Flight", "Vibranium Plating", "Energy Weapons"],
+    status: "active",
+    holders: ["okoye", "ayo"],
+    appearances: ["black-panther-wakanda-forever"],
+  },
+
+  // ---- Quantum realm and Pym tech -----------------------------------------
+  {
+    key: "pym-particles",
+    name: "Pym Particles",
+    description:
+      "The subatomic particles that change the distance between atoms, and the reason a heist could undo the Snap.",
+    origin: "Discovered by Hank Pym",
+    powers: ["Size Alteration", "Mass Manipulation"],
+    status: "active",
+    holders: ["hank-pym", "scott-lang", "hope-van-dyne"],
+    appearances: [
+      "ant-man",
+      "ant-man-and-the-wasp",
+      "avengers-endgame",
+      "ant-man-and-the-wasp-quantumania",
+    ],
+  },
+  {
+    key: "ant-man-suit",
+    name: "Ant-Man Suit",
+    description:
+      "The regulator suit that survives what shrinking does to a body, handed from one thief to another.",
+    origin: "Built by Hank Pym",
+    powers: ["Size Alteration", "Ant Communication", "Impact Regulation"],
+    status: "active",
+    holders: ["scott-lang", "hank-pym"],
+    appearances: ["ant-man", "captain-america-civil-war", "avengers-endgame"],
+  },
+  {
+    key: "wasp-suit",
+    name: "Wasp Suit",
+    description:
+      "The suit Hank never finished for Janet, completed years later for their daughter with wings and blasters.",
+    origin: "Built by Hank Pym for Hope van Dyne",
+    powers: ["Size Alteration", "Powered Flight", "Blasters"],
+    status: "active",
+    holders: ["hope-van-dyne", "janet-van-dyne"],
+    appearances: ["ant-man-and-the-wasp", "avengers-endgame"],
+  },
+  {
+    key: "quantum-tunnel",
+    name: "Quantum Tunnel",
+    description:
+      "The machine built to reach a woman lost in the Quantum Realm, later repurposed to steal time itself.",
+    origin: "Built by Hank Pym, rebuilt by the Avengers",
+    powers: ["Quantum Realm Access", "Time Travel"],
+    status: "destroyed",
+    holders: ["hank-pym", "scott-lang", "tony-stark"],
+    appearances: ["ant-man-and-the-wasp", "avengers-endgame"],
+  },
+  {
+    key: "quantum-realm-suits",
+    name: "Quantum Realm Suits",
+    description:
+      "The white and red suits built for the Time Heist, carrying five years of hope on a wrist-mounted timer.",
+    origin: "Built by Tony Stark and Bruce Banner",
+    powers: ["Quantum Navigation", "Pym Particle Dispensing"],
+    status: "active",
+    holders: ["steve-rogers", "tony-stark", "natasha-romanoff", "clint-barton"],
+    appearances: ["avengers-endgame"],
+  },
+  // ---- Cosmic and Guardians -----------------------------------------------
+  {
+    key: "awesome-mix",
+    name: "Awesome Mix Vol. 1",
+    description:
+      "A cassette of songs recorded by a dying mother for her son, and the only thing he had on him the night he was taken.",
+    origin: "Recorded by Meredith Quill for Peter",
+    powers: ["Sentimental Value"],
+    status: "active",
+    holders: ["peter-quill", "meredith-quill"],
+    appearances: ["guardians-of-the-galaxy", "avengers-infinity-war"],
+  },
+  {
+    key: "walkman",
+    name: "Sony Walkman",
+    description:
+      "The cassette player that carried Earth to the other side of the galaxy, smashed by the Ravagers and replaced with a Zune.",
+    origin: "Earth, 1988",
+    powers: ["Music Playback"],
+    status: "destroyed",
+    holders: ["peter-quill"],
+    appearances: ["guardians-of-the-galaxy", "guardians-of-the-galaxy-vol-2"],
+  },
+  {
+    key: "milano",
+    name: "The Milano",
+    description:
+      "Peter Quill's ship, named after a television actress he loved as a boy on Earth.",
+    origin: "Ravager vessel, claimed by Peter Quill",
+    powers: ["Interstellar Travel", "Combat Manoeuvring"],
+    status: "destroyed",
+    holders: ["peter-quill", "rocket-raccoon"],
+    appearances: ["guardians-of-the-galaxy", "avengers-infinity-war"],
+  },
+  {
+    key: "quad-blasters",
+    name: "Quad Blasters",
+    description:
+      "Star-Lord's paired sidearms, switching between kinetic rounds and an electric charge.",
+    origin: "Ravager armoury",
+    powers: ["Kinetic Rounds", "Electric Discharge"],
+    status: "active",
+    holders: ["peter-quill"],
+    appearances: ["guardians-of-the-galaxy", "guardians-of-the-galaxy-vol-2"],
+  },
+  {
+    key: "godslayer",
+    name: "Godslayer",
+    description:
+      "Gamora's blade, built for exactly the purpose its name states.",
+    origin: "Forged for Gamora",
+    powers: ["Enhanced Edge", "Retractable Frame"],
+    status: "active",
+    holders: ["gamora"],
+    appearances: ["guardians-of-the-galaxy", "avengers-infinity-war"],
+  },
+  {
+    key: "quantum-bands",
+    name: "Quantum Bands",
+    description:
+      "A pair of ancient bracelets that entangle whoever wears them, throwing two heroes and a teenager into each other's places.",
+    origin: "Ancient Kree artefacts",
+    powers: ["Energy Manipulation", "Quantum Entanglement", "Hard-Light Constructs"],
+    status: "active",
+    holders: ["kamala-khan", "dar-benn", "carol-danvers"],
+    appearances: ["the-marvels"],
+  },
+  {
+    key: "uni-mind",
+    name: "Uni-Mind",
+    description:
+      "The joined consciousness of the Eternals, pooling ten immortals' power through a single one of them.",
+    origin: "Celestial design, latent in every Eternal",
+    powers: ["Power Amplification", "Shared Consciousness"],
+    status: "active",
+    holders: ["sersi", "ikaris", "ajak"],
+    appearances: ["eternals"],
+  },
+  {
+    key: "captain-marvel-suit",
+    name: "Captain Marvel's Suit",
+    description:
+      "A Kree Starforce uniform, recoloured by a woman who finally worked out whose side she had been on.",
+    origin: "Kree Starforce issue",
+    powers: ["Energy Channeling", "Vacuum Protection", "Binary Mode"],
+    status: "active",
+    holders: ["carol-danvers"],
+    appearances: ["captain-marvel", "avengers-endgame", "the-marvels"],
+  },
+  {
+    key: "flerken-pocket-dimension",
+    name: "Flerken Pocket Dimension",
+    description:
+      "The tentacled maw of a Flerken, which swallowed the Tesseract and several people who underestimated a cat.",
+    origin: "Native to the Flerken species",
+    powers: ["Pocket Dimension Storage", "Tentacles"],
+    status: "active",
+    holders: ["goose"],
+    appearances: ["captain-marvel", "avengers-endgame", "the-marvels"],
+  },
+  {
+    key: "fantasticar",
+    name: "Fantasticar",
+    description:
+      "The Fantastic Four's flying vehicle, built by Reed Richards for a family that keeps needing to leave somewhere quickly.",
+    origin: "Designed by Reed Richards",
+    powers: ["Powered Flight", "Modular Separation"],
+    status: "active",
+    holders: ["reed-richards", "sue-storm", "johnny-storm", "ben-grimm"],
+    appearances: ["the-fantastic-four-first-steps"],
+  },
+  {
+    key: "silver-surfer-board",
+    name: "Silver Surfer's Board",
+    description:
+      "The cosmic board that carries Galactus's herald between star systems, faster than anything else in the sky.",
+    origin: "Granted with the Power Cosmic",
+    powers: ["Faster-Than-Light Travel", "Cosmic Energy Channeling"],
+    status: "active",
+    holders: ["silver-surfer"],
+    appearances: ["the-fantastic-four-first-steps"],
+  },
+
+  // ---- Serums, programmes and documents ------------------------------------
+  {
+    key: "super-soldier-serum",
+    name: "Super Soldier Serum",
+    description:
+      "Erskine's formula, which amplifies whatever a man already is. Every attempt to recreate it has produced something worse.",
+    origin: "Developed by Abraham Erskine",
+    powers: ["Peak Human Physiology", "Accelerated Healing", "Enhanced Endurance"],
+    status: "lost",
+    holders: ["steve-rogers", "bucky-barnes", "john-walker"],
+    appearances: [
+      "captain-america-the-first-avenger",
+      "thunderbolts",
+      "captain-america-brave-new-world",
+    ],
+  },
+  {
+    key: "gamma-experiment",
+    name: "Gamma Radiation Experiment",
+    description:
+      "Banner's attempt to rebuild the super soldier programme with gamma rays, which worked and then would not stop working.",
+    origin: "Bruce Banner's research at Culver University",
+    powers: ["Gamma Transformation", "Uncontrolled Strength"],
+    status: "unknown",
+    holders: ["bruce-banner", "abomination", "samuel-sterns"],
+    appearances: ["the-incredible-hulk", "captain-america-brave-new-world"],
+  },
+  {
+    key: "chitauri-salvage",
+    name: "Chitauri Salvage",
+    description:
+      "The energy weapons and gliders left scattered across New York after the invasion, and the scrap that armed a generation of criminals.",
+    origin: "Wreckage of the Chitauri invasion force",
+    powers: ["Energy Projection", "Alien Alloys"],
+    status: "lost",
+    holders: ["adrian-toomes", "max-dillon"],
+    appearances: ["the-avengers", "spider-man-homecoming"],
+  },
+  {
+    key: "sokovia-accords",
+    name: "Sokovia Accords",
+    description:
+      "A hundred and seventeen countries' answer to enhanced people acting without oversight, and the document that split the Avengers in half.",
+    origin: "Ratified by the United Nations in Vienna",
+    powers: ["Legal Oversight", "Registration Requirement"],
+    status: "lost",
+    holders: ["thaddeus-ross", "tony-stark"],
+    appearances: ["captain-america-civil-war", "black-widow"],
+  },
+  {
+    key: "red-room-mind-control",
+    name: "Red Room Chemical Subjugation",
+    description:
+      "The compound that made the Widows obedient, and the antidote that freed every one of them at once.",
+    origin: "Developed by Melina Vostokoff for General Dreykov",
+    powers: ["Mind Control", "Chemical Conditioning"],
+    status: "destroyed",
+    holders: ["general-dreykov", "melina-vostokoff", "yelena-belova"],
+    appearances: ["black-widow"],
+  },
 ];
 
 export const teams = [

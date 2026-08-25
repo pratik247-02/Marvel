@@ -11,6 +11,15 @@ export interface Battle {
   participants?: CharacterListItem[];
   outcome?: string;
   movie?: MovieListItem;
+  /**
+   * Card image. Distinct from `images`, which is a gallery.
+   *
+   * `imageOrigin` says where it came from: most battles have no art of their
+   * own on the wiki and borrow the poster of the film they happened in, which
+   * every battle in that film then shares.
+   */
+  image?: string;
+  imageOrigin?: "wiki" | "movie-poster";
   images?: string[];
   location?: string;
   winner?: CharacterListItem;
@@ -26,6 +35,8 @@ export interface BattleListItem {
   name: string;
   significance: BattleSignificance;
   movie?: MovieListItem;
+  image?: string;
+  imageOrigin?: "wiki" | "movie-poster";
   /** Populated by the API; used to mark which fights a character won. */
   winner?: { _id: string; name: string; alias?: string; image?: string };
 }

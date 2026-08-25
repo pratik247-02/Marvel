@@ -98,9 +98,24 @@ const loadBioFixture = () => {
   }
 };
 
+/**
+ * Team, battle and artifact images from the wiki. Same fixture pattern again;
+ * absent means those entities render their themed placeholder.
+ */
+const loadEntityImageFixture = () => {
+  try {
+    const here = dirname(fileURLToPath(import.meta.url));
+    const raw = readFileSync(join(here, "etl", "fixtures", "entity-images.json"), "utf8");
+    return JSON.parse(raw);
+  } catch {
+    return { teams: {}, battles: {}, artifacts: {} };
+  }
+};
+
 const portraits = loadPortraitFixture();
 const actors = loadActorFixture();
 const bios = loadBioFixture();
+const entityImages = loadEntityImageFixture();
 
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes("--dry-run");
@@ -249,33 +264,49 @@ async function main() {
   });
   log(`  characters  ${charRes.created} created, ${charRes.updated} updated`);
 
-  const artRes = await upsertBase(Artifact, artifacts, (a) => ({
-    name: a.name,
-    description: a.description,
-    origin: a.origin,
-    powers: a.powers,
-    status: a.status,
-  }));
+  const artRes = await upsertBase(Artifact, artifacts, (a) => {
+    // Curated art wins; the wiki fills the gaps.
+    const image = a.image ?? entityImages.artifacts?.[a.key]?.image;
+    return {
+      name: a.name,
+      description: a.description,
+      origin: a.origin,
+      powers: a.powers,
+      status: a.status,
+      ...(image ? { image } : {}),
+    };
+  });
   log(`  artifacts   ${artRes.created} created, ${artRes.updated} updated`);
 
-  const teamRes = await upsertBase(Team, teams, (t) => ({
-    name: t.name,
-    description: t.description,
-    headquarters: t.headquarters,
-    founded: t.founded,
-    status: t.status,
-    theme: t.theme,
-  }));
+  const teamRes = await upsertBase(Team, teams, (t) => {
+    const image = t.image ?? entityImages.teams?.[t.key]?.image;
+    return {
+      name: t.name,
+      description: t.description,
+      headquarters: t.headquarters,
+      founded: t.founded,
+      status: t.status,
+      theme: t.theme,
+      ...(image ? { image } : {}),
+    };
+  });
   log(`  teams       ${teamRes.created} created, ${teamRes.updated} updated`);
 
-  const battleRes = await upsertBase(Battle, battles, (b) => ({
-    name: b.name,
-    description: b.description,
-    location: b.location,
-    significance: b.significance,
-    outcome: b.outcome,
-    casualties: b.casualties,
-  }));
+  const battleRes = await upsertBase(Battle, battles, (b) => {
+    // Most battles have no art of their own and borrow their film's poster;
+    // `imageOrigin` records which, so the UI is not left inferring it.
+    const art = entityImages.battles?.[b.key];
+    const image = b.image ?? art?.image;
+    return {
+      name: b.name,
+      description: b.description,
+      location: b.location,
+      significance: b.significance,
+      outcome: b.outcome,
+      casualties: b.casualties,
+      ...(image ? { image, imageOrigin: art?.origin ?? "wiki" } : {}),
+    };
+  });
   log(`  battles     ${battleRes.created} created, ${battleRes.updated} updated`);
 
   if (DRY_RUN) {

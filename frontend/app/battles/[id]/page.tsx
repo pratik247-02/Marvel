@@ -4,13 +4,11 @@ import { use } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { MapPin, Users, Trophy } from "lucide-react";
+import { Users, Trophy } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { Container } from "@/components/layout/Container";
-import { HeroBanner } from "@/components/blocks/HeroBanner";
+import { DetailHeader } from "@/components/blocks/DetailHeader";
 import { Gallery } from "@/components/blocks/Gallery";
-import { FactList } from "@/components/blocks/FactList";
-import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useBattle } from "@/modules/battles";
@@ -26,9 +24,15 @@ export default function BattlePage({ params }: Readonly<BattlePageProps>) {
   if (isLoading) {
     return (
       <PageWrapper>
-        <div className="min-h-[60vh] flex items-center justify-center">
-          <Skeleton className="w-full h-[60vh]" />
-        </div>
+        <Container className="py-10">
+          <div className="flex flex-col gap-8 sm:flex-row sm:gap-10">
+            <Skeleton className="aspect-2/3 w-full shrink-0 rounded-xl sm:w-56 lg:w-64" />
+            <div className="flex-1 space-y-3">
+              <Skeleton className="h-10 w-72" />
+              <Skeleton className="h-20 w-full" />
+            </div>
+          </div>
+        </Container>
         <Container className="py-16">
           <div className="grid md:grid-cols-2 gap-8">
             <Skeleton className="h-64" />
@@ -66,40 +70,46 @@ export default function BattlePage({ params }: Readonly<BattlePageProps>) {
   const facts = [
     battle.location && { label: "Location", value: battle.location },
     battle.casualties !== undefined && { label: "Casualties", value: battle.casualties.toString() },
-    battle.significance && { label: "Significance", value: battle.significance },
-    battle.movie && { label: "Movie", value: battle.movie.title },
   ].filter(Boolean) as { label: string; value: string }[];
 
   return (
     <PageWrapper>
-      <HeroBanner
+      {/* Most battles have no art of their own and borrow the poster of the
+          film they happened in - which was previously buried in a side card
+          below. The frame follows the source: a wiki battle image is a wide
+          film still, a poster is 2:3, and cropping either to the other's
+          shape is what makes these look broken. */}
+      <DetailHeader
         title={battle.name}
-        subtitle={battle.movie?.title}
+        eyebrow={battle.movie?.title}
         description={battle.description}
+        image={battle.image ?? battle.movie?.poster}
+        imageAlt={
+          battle.imageOrigin === "wiki"
+            ? battle.name
+            : battle.movie
+              ? `${battle.movie.title} poster`
+              : undefined
+        }
+        aspect={battle.imageOrigin === "wiki" ? "square" : "poster"}
         theme={{ colorPrimary: getSignificanceColor() }}
-      />
+        facts={facts}
+      >
+        {battle.significance && (
+          <Badge
+            style={{
+              backgroundColor: `${getSignificanceColor()}20`,
+              color: getSignificanceColor(),
+            }}
+          >
+            {battle.significance.replace("-", " ")}
+          </Badge>
+        )}
+      </DetailHeader>
 
-      <Container className="py-16">
-        {/* Battle Info */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          <div>
-            <Badge
-              className="mb-4"
-              style={{
-                backgroundColor: `${getSignificanceColor()}20`,
-                color: getSignificanceColor(),
-              }}
-            >
-              {battle.significance}
-            </Badge>
-
-            {battle.location && (
-              <div className="flex items-center gap-2 text-muted-foreground mb-4">
-                <MapPin className="w-5 h-5" />
-                <span>{battle.location}</span>
-              </div>
-            )}
-
+      <Container className="space-y-12 py-10">
+        <div className="grid gap-8 md:grid-cols-2">
+          <div className="space-y-4">
             {battle.outcome && (
               <div className="bg-card border border-border rounded-lg p-4 mb-4">
                 <h3 className="font-semibold mb-2 flex items-center gap-2">
@@ -144,46 +154,25 @@ export default function BattlePage({ params }: Readonly<BattlePageProps>) {
 
           {battle.movie && (
             <div>
-              <h3 className="font-semibold mb-4">Featured In</h3>
-              <Link href={`/movies/${battle.movie._id}`}>
-                <Card className="group overflow-hidden hover:border-primary/50 transition-colors">
-                  <div className="relative aspect-video">
-                    {battle.movie.poster ? (
-                      <Image
-                        src={battle.movie.poster}
-                        alt={battle.movie.title}
-                        fill
-                        sizes="64px"
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-muted flex items-center justify-center">
-                        <span className="text-lg font-bold text-muted-foreground">
-                          {battle.movie.title}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-4">
-                    <h4 className="font-semibold group-hover:text-primary transition-colors">
-                      {battle.movie.title}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {battle.movie.releaseYear}
-                    </p>
-                  </div>
-                </Card>
+              <h3 className="mb-3 font-semibold">Featured in</h3>
+              <Link
+                href={`/movies/${battle.movie._id}`}
+                className="border-border hover:border-primary/50 hover:bg-accent/40 flex items-center justify-between gap-4 rounded-lg border px-4 py-3 transition-colors"
+              >
+                <span>
+                  <span className="block font-medium">{battle.movie.title}</span>
+                  <span className="text-muted-foreground text-sm">
+                    {battle.movie.releaseYear}
+                  </span>
+                </span>
               </Link>
             </div>
           )}
         </div>
 
-        {/* Facts */}
-        {facts.length > 0 && <FactList facts={facts} columns={4} title="Battle Details" />}
-
         {/* Participants */}
         {battle.participants && battle.participants.length > 0 && (
-          <section className="mt-16">
+          <section>
             <h2 className="text-2xl font-bold mb-8 text-center flex items-center justify-center gap-2">
               <Users className="w-6 h-6" />
               Participants

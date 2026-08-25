@@ -24,6 +24,8 @@
     "actors:dry": "node scripts/etl/fetch-actors.js --dry-run",
     "bios:fetch": "node scripts/etl/fetch-bios.js",
     "bios:dry": "node scripts/etl/fetch-bios.js --dry-run",
+    "entity-images:fetch": "node scripts/etl/fetch-entity-images.js",
+    "entity-images:dry": "node scripts/etl/fetch-entity-images.js --dry-run",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
