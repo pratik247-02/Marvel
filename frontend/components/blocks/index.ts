@@ -8,3 +8,4 @@ export { RelationshipGraph } from "./RelationshipGraph";
 export { ForceGraph } from "./ForceGraph";
 export { EntityPortrait } from "./EntityPortrait";
 export { AboutCta } from "./AboutCta";
+export { InfiniteSentinel } from "./InfiniteSentinel";

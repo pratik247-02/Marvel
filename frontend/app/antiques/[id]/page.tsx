@@ -95,6 +95,7 @@ export default function AntiquePage({ params }: AntiquePageProps) {
                     src={artifact.image}
                     alt={artifact.name}
                     fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
                   />
                 ) : (
@@ -181,6 +182,7 @@ export default function AntiquePage({ params }: AntiquePageProps) {
                           src={holder.image}
                           alt={holder.name}
                           fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           className="object-cover"
                         />
                       ) : (

@@ -39,6 +39,7 @@ export function RelationshipGraph({
                     src={centerCharacter.image}
                     alt={centerCharacter.name}
                     fill
+                    sizes="64px"
                     className="object-cover"
                   />
                 ) : (
@@ -74,6 +75,7 @@ export function RelationshipGraph({
                       src={character.image}
                       alt={character.name}
                       fill
+                      sizes="48px"
                       className="object-cover"
                     />
                   ) : (

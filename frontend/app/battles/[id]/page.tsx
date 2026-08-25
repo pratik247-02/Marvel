@@ -123,6 +123,7 @@ export default function BattlePage({ params }: Readonly<BattlePageProps>) {
                         src={battle.winner.image}
                         alt={battle.winner.name}
                         fill
+                        sizes="64px"
                         className="object-cover"
                       />
                     ) : (
@@ -152,6 +153,7 @@ export default function BattlePage({ params }: Readonly<BattlePageProps>) {
                         src={battle.movie.poster}
                         alt={battle.movie.title}
                         fill
+                        sizes="64px"
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     ) : (
@@ -201,6 +203,7 @@ export default function BattlePage({ params }: Readonly<BattlePageProps>) {
                           src={character.image}
                           alt={character.name}
                           fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           className="object-cover"
                         />
                       ) : (

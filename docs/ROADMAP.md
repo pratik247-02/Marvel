@@ -68,7 +68,7 @@ scale. Redis earns its place only for the rate limiter under horizontal scaling.
 
 ### Phase 1 — Data foundation ✅
 
-- [x] Curated seed dataset (190 characters, 38 movies, 9 artifacts, 21 teams, 63 battles)
+- [x] Curated seed dataset (193 characters, 38 movies, 9 artifacts, 20 teams, 64 battles)
 - [x] Idempotent loader with two-pass FK resolution and batched `bulkWrite`
 - [x] `--dry-run`, `--purge` and `--uri` flags
 - [x] Seeded to MongoDB Atlas and verified end to end
@@ -294,9 +294,24 @@ win available.
       viewports tall regardless of content, leaving an empty band above the
       footer. Normal flow already places the footer after the content; nothing
       needs to pin it
-- [ ] `/characters`, `/movies`, `/teams`, `/battles`, `/antiques`, `/quiz`,
-      `/contact` — not yet reworked
+- [x] `/characters`, `/movies`, `/teams`, `/battles`, `/antiques` — banner
+      removed, numbered pagination replaced with infinite scroll, search
+      debounced instead of submit-only, grids widened to four columns. Sorting
+      is server-side: alphabetical for characters, teams and artifacts, release
+      year for movies, and film order for battles, since a saga read
+      alphabetically starts at Ant-Man
+- [x] One `useInfiniteList` hook for all five, rather than five copies of the
+      same race conditions. Guards a stale response with a request id and a
+      concurrent load with an in-flight ref
+- [ ] `/quiz`, `/contact` — not yet reworked
 - [ ] Character detail page — still has the gap where `PowerStats` was
+- [ ] Battles sort on the movie ObjectId, which is chronological only because
+      the films were seeded in release order. A `--purge` reseed or a film added
+      out of order would silently break it. A denormalised `movieYear` on the
+      battle, or an aggregation with `$lookup`, would make it real
+- [ ] `npm run seed` upserts but never deletes, so an entry removed from
+      seed-data.js survives in Atlas until removed by hand — as the duplicate
+      Wakandan team was
 
 **Components**
 

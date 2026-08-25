@@ -35,6 +35,7 @@ export function Appearances({ movies, title = "Appearances", className }: Appear
                     src={movie.poster}
                     alt={movie.title}
                     fill
+                    sizes="96px"
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 ) : (

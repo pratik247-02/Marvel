@@ -80,6 +80,7 @@ export default function MoviePage({ params }: MoviePageProps) {
                     src={movie.poster}
                     alt={movie.title}
                     fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
                   />
                 ) : (
@@ -164,6 +165,7 @@ export default function MoviePage({ params }: MoviePageProps) {
                           src={character.image}
                           alt={character.name}
                           fill
+                          sizes="96px"
                           className="object-cover"
                         />
                       ) : (

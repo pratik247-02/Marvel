@@ -113,6 +113,7 @@ export default function QuizPage() {
                         src={result.hero.image}
                         alt={result.hero.name}
                         fill
+                        sizes="(max-width: 1024px) 100vw, 50vw"
                         className="object-cover"
                       />
                     ) : (
@@ -207,6 +208,7 @@ export default function QuizPage() {
                       src={currentQ.image}
                       alt="Question image"
                       fill
+                      sizes="96px"
                       className="object-cover"
                     />
                   </div>
