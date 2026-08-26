@@ -17,6 +17,10 @@ services:
     name: marvel-api
     runtime: node
     plan: free
+    # The Atlas cluster is in AWS ap-south-1 (Mumbai), so the API wants to be
+    # as close to it as Render offers - a database on another continent adds a
+    # round trip to every query. Singapore is the nearest option used here;
+    # switch this if Render exposes an ap-south region on the free plan.
     region: singapore
     rootDir: backend
     buildCommand: npm ci

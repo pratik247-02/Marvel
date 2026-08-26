@@ -36,11 +36,22 @@ const connectDB = async () => {
     });
     logger.info("MongoDB connected successfully");
   } catch (error) {
-    logger.error("MongoDB connection error:", error);
-    process.exit(1);
+    // Deliberately not `process.exit` here.
+    //
+    // Exiting on a failed first connect turns a recoverable condition into a
+    // crash loop: the platform restarts the process, it cannot reach Mongo
+    // again, and it dies before the health check ever answers - so the
+    // service reads as "deploying forever" with no error anywhere.
+    //
+    // Staying up means `/health` can report `degraded`, which is a diagnosis
+    // rather than a silence, and Mongoose keeps retrying in the background.
+    logger.error(`MongoDB connection error: ${error.message}`);
   }
 };
 
+// Not awaited: the HTTP server should bind its port whether or not the
+// database is reachable, so the platform sees a live service and the health
+// check can explain what is wrong.
 connectDB();
 
 // Drop the graph snapshot whenever content changes.
@@ -90,7 +101,12 @@ if (config.nodeEnv === "development") {
 app.get("/health", (req, res) => {
   // 1 is "connected"; 2 is "connecting", which is not ready to serve.
   const dbReady = mongoose.connection.readyState === 1;
-  res.status(dbReady ? 200 : 503).json({
+
+  // Always 200. The platform restarts anything whose health check fails, and
+  // restarting does not fix an unreachable database - it just replaces a
+  // diagnosable "degraded" response with a boot loop that reports nothing.
+  // The body carries the real state for anyone actually looking.
+  res.status(200).json({
     status: dbReady ? "ok" : "degraded",
     database: dbReady ? "connected" : "disconnected",
     uptime: Math.round(process.uptime()),

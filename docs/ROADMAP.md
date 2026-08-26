@@ -456,12 +456,34 @@ win available.
 - [ ] Branch protection on `prod`, so the green tick is required rather than
       advisory
 - [ ] Multi-stage Dockerfile + `docker-compose.yml`
-- [ ] Deploy: Vercel (frontend) + Render (API) + Atlas M0. Render rather than
-      a serverless function because the graph engine serves BFS and Dijkstra
-      from an in-process snapshot — every cold invocation would rebuild it,
-      which is exactly the measurement the benchmark rests on. `render.yaml` is
-      committed so the service config is reviewable rather than living only in
-      a dashboard
+- [x] **Deployed.** Frontend <https://marvel-six-lake.vercel.app>, API
+      <https://marvel-api-mueo.onrender.com>, Atlas M0. Render rather than a
+      serverless function because the graph engine serves BFS and Dijkstra from
+      an in-process snapshot — every cold invocation would rebuild it, which is
+      exactly the measurement the benchmark rests on. `render.yaml` is committed
+      so the service config is reviewable rather than living only in a dashboard
+- [x] Startup defects found by deploying, none of which reproduce locally:
+      - Winston declared `File` transports writing to `logs/`. That directory
+        does not exist on the host and the transport throws during *module
+        load*, before any application code runs — so the failure presents as a
+        process that dies with no output at all. Files are now development-only;
+        the platform collects stdout itself
+      - Log level was `warn` in production, which suppressed both "MongoDB
+        connected" and "Server running on port". A healthy boot and a hanging
+        one looked identical from outside. Now `info`
+      - `connectDB()` called `process.exit(1)` on a failed first connect,
+        turning a bad connection string into a restart loop that reports
+        nothing. It now logs and stays up, so `/health` can answer `degraded` —
+        a diagnosis rather than a silence
+      - `/health` returned 503 when degraded, which makes the platform restart a
+        service that restarting cannot fix. Always 200; the body carries state
+      - `engines` said `>=20.0.0`, so Render installed Node **26.7.0** — a major
+        version the CI matrix (20, 22) has never run. Pinned to `22.x`
+- [ ] The empty-database failure deserves a note: `/health` reported `ok` and
+      every endpoint returned a valid 200 with `total: 0`, because the Atlas
+      connection string omitted the database name and silently used `test`.
+      Nothing anywhere reported an error. A health check that asserts a
+      collection is non-empty would have caught it
 - [x] Production readiness — three things that would have failed live while
       passing locally:
       - Auth cookies were `sameSite: "strict"`, which a browser never sends
