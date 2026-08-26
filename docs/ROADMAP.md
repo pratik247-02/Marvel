@@ -456,7 +456,30 @@ win available.
 - [ ] Branch protection on `prod`, so the green tick is required rather than
       advisory
 - [ ] Multi-stage Dockerfile + `docker-compose.yml`
-- [ ] Deploy: Vercel + Render/Fly + Atlas
+- [ ] Deploy: Vercel (frontend) + Render (API) + Atlas M0. Render rather than
+      a serverless function because the graph engine serves BFS and Dijkstra
+      from an in-process snapshot — every cold invocation would rebuild it,
+      which is exactly the measurement the benchmark rests on. `render.yaml` is
+      committed so the service config is reviewable rather than living only in
+      a dashboard
+- [x] Production readiness — three things that would have failed live while
+      passing locally:
+      - Auth cookies were `sameSite: "strict"`, which a browser never sends
+        cross-site. Vercel and Render are different sites, so every refresh
+        would have failed in production only. Now `none` + `secure` there
+      - `mongoose.connect()` took the default pool of 100 against M0's limit
+        of 500 concurrent connections. Now `maxPoolSize: 10`
+      - `CORS_ORIGIN` was a single string; Vercel issues a preview URL per
+        deploy and credentialed requests cannot use a wildcard. Now a list
+- [x] `/health` reports database state, not just process liveness — a server
+      answering HTTP with Mongo unreachable is not healthy, and reporting "ok"
+      there turns a visible outage into a silent one
+- [x] API client timeout 30s → 70s. Render's free tier sleeps after 15 minutes
+      and takes ~50s to wake, so the first request would have aborted *after*
+      successfully starting the server — failing while having worked, which
+      then looks random because the retry succeeds
+- [ ] Cold start is documented in the README rather than worked around. Worth
+      revisiting if the link is ever handed to someone live
 
 **On coverage targets.** No percentage goal is set here deliberately. A number
 invites writing tests to move the number, which is how suites fill up with
