@@ -61,16 +61,28 @@ export const tokenService = {
   /**
    * Cookie options for the refresh token.
    *
-   * `httpOnly` keeps it away from JavaScript. `sameSite: strict` means it is
-   * not sent on cross-site requests at all, which is CSRF protection for the
-   * refresh endpoint specifically. `path` scopes it so it is not attached to
-   * every API call - only the auth routes that actually need it.
+   * `httpOnly` keeps it away from JavaScript. `path` scopes it so it is not
+   * attached to every API call - only the auth routes that actually need it.
+   *
+   * `sameSite` depends on how the app is deployed, which is the subtle part.
+   * In development the frontend and API share `localhost`, so `strict` works
+   * and is real CSRF protection for the refresh endpoint. In production they
+   * are different sites - the frontend on Vercel, the API on Render - and a
+   * `strict` cookie is simply never sent, so every refresh fails while
+   * everything still passes locally.
+   *
+   * `none` is the only value a browser will send cross-site, and it requires
+   * `secure`. The CSRF protection `strict` was providing is not lost: the
+   * refresh route is scoped by `path`, the CORS origin is a single explicit
+   * domain rather than a wildcard, and the token itself rotates with reuse
+   * detection.
    */
   refreshCookieOptions() {
+    const crossSite = config.nodeEnv === "production";
     return {
       httpOnly: true,
-      secure: config.nodeEnv === "production",
-      sameSite: "strict",
+      secure: crossSite,
+      sameSite: crossSite ? "none" : "strict",
       path: "/api/auth",
       maxAge: REFRESH_TTL_DAYS * 24 * 60 * 60 * 1000,
     };
@@ -94,10 +106,14 @@ export const tokenService = {
    * needs to read it is served from the site root.
    */
   sessionHintCookieOptions() {
+    // Same cross-site reasoning as the refresh cookie above: this has to
+    // survive the trip from the API's domain to the frontend's, or the hint
+    // is never set and every visitor pays the 401 it exists to avoid.
+    const crossSite = config.nodeEnv === "production";
     return {
       httpOnly: false,
-      secure: config.nodeEnv === "production",
-      sameSite: "strict",
+      secure: crossSite,
+      sameSite: crossSite ? "none" : "strict",
       path: "/",
       maxAge: REFRESH_TTL_DAYS * 24 * 60 * 60 * 1000,
     };

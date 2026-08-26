@@ -9,7 +9,17 @@ import { tokenStore } from "./tokenStore";
 
 const apiClient: AxiosInstance = axios.create({
   baseURL: APP_CONFIG.apiUrl,
-  timeout: 30000,
+  /**
+   * Generous because the API runs on a free tier that sleeps after 15 minutes
+   * idle and takes roughly 50 seconds to wake. At the previous 30s the very
+   * first request of the day would abort and show an error, having actually
+   * succeeded in starting the server - the worst possible outcome, since a
+   * retry would then work and the failure would look random.
+   *
+   * Steady-state responses are single-digit milliseconds; this ceiling only
+   * ever applies to a cold start.
+   */
+  timeout: 70000,
   headers: {
     "Content-Type": "application/json",
   },

@@ -7,8 +7,18 @@ export const config = {
   port: parseInt(process.env.PORT, 10) || 5000,
   nodeEnv: process.env.NODE_ENV || "development",
 
-  // CORS
-  corsOrigin: process.env.CORS_ORIGIN || "http://localhost:3000",
+  /**
+   * Allowed CORS origins, comma-separated.
+   *
+   * A list rather than one value because Vercel serves the production domain
+   * and a distinct preview URL per deployment, and credentialed requests
+   * cannot use a wildcard - `Access-Control-Allow-Origin: *` is rejected by
+   * the browser whenever `credentials: true`, which the refresh cookie needs.
+   */
+  corsOrigin: (process.env.CORS_ORIGIN || "http://localhost:3000")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean),
 
   // Database
   mongoUri: process.env.MONGO_URI || "mongodb://localhost:27017/marvel",

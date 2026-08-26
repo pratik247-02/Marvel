@@ -1,0 +1,39 @@
+# Render service definition for the API.
+#
+# Committed rather than configured in the dashboard so the deployment is
+# reproducible and reviewable - a dashboard-only setup is a config nobody can
+# diff, and the one thing you cannot recover when an account is lost.
+#
+# The frontend is not here: it is a Next.js app on Vercel, which builds it
+# from the same repo. Only the Express API runs on Render.
+#
+# Why a web service rather than a serverless function: the graph engine keeps
+# an adjacency snapshot in process memory and serves BFS and Dijkstra from it.
+# On serverless every cold invocation would rebuild that snapshot, which is
+# exactly the measurement the project's benchmark rests on.
+
+services:
+  - type: web
+    name: marvel-api
+    runtime: node
+    plan: free
+    region: singapore
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    # Reports database state, not just liveness, so a running process with an
+    # unreachable Mongo is correctly treated as unhealthy.
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Generated once by Render and kept; rotating it invalidates every
+      # issued token, which is the intended behaviour for a secret leak.
+      - key: JWT_SECRET
+        generateValue: true
+      # Set these in the Render dashboard - they are secrets or depend on the
+      # frontend's deployed URL, which does not exist until Vercel has built.
+      - key: MONGO_URI
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
