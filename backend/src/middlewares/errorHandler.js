@@ -22,6 +22,25 @@ export const notFoundHandler = (req, res, next) => {
 // four-argument arity, so removing it would silently demote this to normal
 // middleware and errors would fall through to the default handler.
 export const errorHandler = (err, req, res, _next) => {
+  /**
+   * A body that is not valid JSON is a client mistake, not a server fault.
+   *
+   * `express.json()` raises a SyntaxError carrying `body`, and without this it
+   * falls through to the 500 branch - reporting an internal error for a
+   * truncated request, and burying real 500s in the logs alongside it.
+   */
+  if (
+    err instanceof SyntaxError &&
+    err.statusCode === StatusCodes.BAD_REQUEST &&
+    "body" in err
+  ) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      success: false,
+      status: "fail",
+      message: "Malformed JSON in request body",
+    });
+  }
+
   err.statusCode = err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
   err.status = err.status || "error";
 

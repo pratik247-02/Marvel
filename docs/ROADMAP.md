@@ -448,8 +448,18 @@ win available.
 - [x] Vitest, starting with the graph algorithm tests from Phase 2 — 21 tests
       against a hand-verified fixture, verified by injecting three deliberate
       bugs to confirm they fail. See `docs/GRAPH.md`
-- [ ] Supertest on the route layer: non-happy paths first (400/401/403/404),
-      since those are the ones that actually regress
+- [x] Supertest on the route layer — 20 tests, non-happy paths first. Found
+      two bugs that were live in production and unreachable from the UI:
+      `page=-5` computed a negative `skip` and returned 500, and a malformed
+      JSON body returned 500. Pagination is now normalised once in middleware
+      instead of being parsed independently by six services
+- [x] `mongodb-memory-server` for the route tests, so they run against a real
+      `mongod` rather than a mock of Mongoose's query API — the bugs worth
+      catching (a wrong projection, a missing populate) are the ones a mock
+      cannot see
+- [x] `src/app.js` split from `src/index.js`. Importing the old entry point ran
+      `listen()` and `mongoose.connect()` at module load, so any test that
+      touched it bound a port and reached for Atlas
 - [ ] `mongodb-memory-server` for service-layer tests, so they run against a
       real mongod rather than a mock of Mongoose's query API
 - [x] CI runs lint, tests, typecheck and build on Node 20 and 22

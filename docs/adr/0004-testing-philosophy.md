@@ -13,8 +13,8 @@ will find that out.
 No coverage percentage is set as a goal. Tests are concentrated where code
 would **fail silently if it were wrong**, and that list is deliberately short.
 
-Currently: 21 tests against the graph algorithms, run on a hand-verified
-9-node fixture.
+Currently: 41 tests. 21 against the graph algorithms on a hand-verified 9-node
+fixture, and 20 at the route layer against an in-memory `mongod`.
 
 ## Why no target
 
@@ -30,7 +30,7 @@ without anyone noticing". For this project:
 | Graph traversal returning a wrong-but-plausible path | ✅ 21 tests |
 | Edge weighting producing a subtly wrong ordering | ✅ |
 | ETL losing idempotency and duplicating on rerun | ⬜ planned |
-| Route layer returning 500 where it should return 400 | ⬜ planned |
+| Route layer returning 500 where it should return 400 | ✅ 20 tests |
 | A card rendering with the wrong padding | ❌ deliberately not |
 
 ## Why the graph tests are the ones that exist
@@ -56,9 +56,19 @@ code is wrong. A test that cannot fail is decoration. See
 - **Mongoose's own behaviour.** Testing that `findById` finds by id tests the
   library, not this code.
 - **Happy-path route responses**, in isolation. The valuable route tests are
-  the non-happy ones — expired token → 401, non-admin write → 403, malformed
-  ObjectId → **400 not 500**, `page=99999` → empty array not a crash. Those are
-  where real APIs break, and they are the next thing to write.
+  the non-happy ones, and those now exist: expired token → 401, a *refresh*
+  token used as an access token → 401, non-admin write → 403 (not 401 — the
+  caller is authenticated, just not permitted), malformed ObjectId → 400 not
+  500, `page=99999` → empty array not a crash.
+
+  **They earned their place immediately.** Writing them found two bugs that
+  were live in production: `page=-5` produced a negative `skip` and returned
+  **500**, and a malformed JSON body also returned **500**. Neither is
+  reachable from the UI, which is exactly why neither had been noticed.
+
+  Both are fixed — pagination is now normalised once in middleware rather than
+  parsed independently by six services, and `express.json()`'s SyntaxError is
+  recognised as the client error it is.
 
 ## What would change the answer
 
