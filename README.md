@@ -1,334 +1,261 @@
-# Marvel - Full Stack Application
+# MCU Hub
 
-A modern full-stack application built with **Next.js 15** (TypeScript) for the frontend and **Node.js** (JavaScript ES Modules) for the backend.
+A catalogue of the Marvel Cinematic Universe — every film, character, team,
+battle and artifact — with a graph traversal engine underneath that connects
+them all.
 
-## Tech Stack
+**Live:** [marvel-six-lake.vercel.app](https://marvel-six-lake.vercel.app) ·
+**API:** [marvel-api-mueo.onrender.com](https://marvel-api-mueo.onrender.com/health)
 
-### Frontend
-- **Framework:** Next.js 15 with App Router
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **UI Libraries:** Aceternity UI, Magic UI (to be added)
-- **Animations:** Framer Motion
-- **Icons:** Lucide React
-- **HTTP Client:** Axios
-- **Validation:** Zod
-- **UI Primitives:** Radix UI
-
-### Backend
-- **Runtime:** Node.js (v20+)
-- **Framework:** Express.js
-- **Language:** JavaScript (ES Modules)
-- **Database:** MongoDB with Mongoose
-- **Authentication:** JWT (jsonwebtoken)
-- **Validation:** Zod
-- **Logging:** Winston
-- **Security:** Helmet, CORS, Rate Limiting
+> The API runs on a free tier that sleeps after 15 minutes idle. The first
+> request may take ~50 seconds while it wakes. Every request after that is
+> fast. This was a deliberate choice over $7/month for a portfolio project.
 
 ---
 
-## Project Structure
+## The interesting part
+
+Ho Yinsen died in a cave in 2008. Galactus eats planets. This site will tell
+you they are four steps apart, and show you every one:
 
 ```
-Marvel/
-|-- frontend/                    # Next.js frontend application
-|   |-- app/                     # Next.js App Router pages
-|   |   |-- layout.tsx           # Root layout
-|   |   |-- page.tsx             # Home page
-|   |   |-- globals.css          # Global styles
-|   |-- components/
-|   |   |-- features/            # Feature-specific components
-|   |   |-- ui/                  # Reusable UI components
-|   |   |-- wrapper/             # Wrapper/HOC components
-|   |-- config/                  # App configuration
-|   |-- schema/                  # Zod validation schemas
-|   |-- types/                   # TypeScript type definitions
-|   |-- services/
-|   |   |-- main/
-|   |       |-- config.ts        # Axios instance configuration
-|   |       |-- index.ts         # API call utilities
-|   |-- hooks/                   # Custom React hooks
-|   |-- lib/                     # Utility libraries (cn, etc.)
-|   |-- utils/                   # Helper functions
-|   |-- constants/               # App constants
-|
-|-- backend/                     # Node.js backend application
-|   |-- src/
-|       |-- index.js             # Server entry point
-|       |-- config/              # Configuration files
-|       |-- controllers/         # Route controllers
-|       |-- middlewares/         # Express middlewares
-|       |-- models/              # Mongoose models
-|       |-- routes/              # API route definitions
-|       |-- services/            # Business logic services
-|       |-- utils/               # Utility functions
-|       |-- validators/          # Zod validation schemas
-|       |-- constants/           # Application constants
-|
-|-- .gitignore                   # Git ignore rules
-|-- README.md                    # This file
+Ho Yinsen → Tony Stark → Stephen Strange → Reed Richards → Galactus
+```
+
+That is `GET /api/graph/path?from=ho-yinsen&to=galactus`, and it returns in
+**0.2 ms** at p95 — because the traversal never touches the database.
+
+### What was actually built
+
+The graph is 193 nodes and 755 edges: about 40 KB of adjacency data. The
+engine loads it into process memory once and serves BFS, weighted Dijkstra,
+ego networks and betweenness centrality from there, rebuilding on write with a
+5-minute TTL as a backstop.
+
+| Traversal | p50 | p95 | vs naive |
+|---|---|---|---|
+| Naive `$graphLookup` | 30.6 ms | 34.7 ms | baseline |
+| **Dijkstra (weighted)** | 0.1 ms | **0.2 ms** | ~175× |
+| **BFS (fewest hops)** | 0.007 ms | **0.008 ms** | ~4000× |
+| Cold rebuild + path | 26.0 ms | 28.9 ms | ~1× |
+
+*Node v22, concurrency 1, Atlas M0, 100 iterations / 30 warmup, measured at the
+service layer. Harness: `node scripts/bench/graph-bench.js`.*
+
+**The premise I started with was wrong.** The plan predicted naive
+`$graphLookup` would cost 200–350 ms and an in-memory BFS would win by 20–40×.
+Reality was ~30 ms and ~175×: wrong in both directions.
+
+The reason is that the algorithm was never the bottleneck — **the network round
+trip was**. A single `findById` against Atlas is ~10 ms and the naive traversal
+issues two queries, which is essentially the whole 30 ms.
+
+Scaling the dataset 10× confirmed it:
+
+| | growth |
+|---|---|
+| Edges | 7.2× |
+| **Dijkstra p95** | **7.4×** |
+| Naive p95 | 1.4× |
+
+Dijkstra tracked edge growth within 3%, which is what an algorithm doing real
+work over a graph should do. Naive barely moved, because the number of round
+trips did not change when the graph got ten times bigger.
+
+So the headline is a comparison between doing I/O and not doing I/O, not
+between two algorithms. Full method in
+[docs/ROADMAP.md § Benchmarks](docs/ROADMAP.md#benchmarks); design in
+[docs/GRAPH.md](docs/GRAPH.md).
+
+---
+
+## Decisions, and what would change them
+
+Five [architecture decision records](docs/adr/), each naming what was rejected
+and the threshold that would reverse it.
+
+| # | Decision | Rejected |
+|---|---|---|
+| [0001](docs/adr/0001-mongodb-over-postgres-and-neo4j.md) | Stay on MongoDB | Postgres, Neo4j |
+| [0002](docs/adr/0002-in-process-graph-cache.md) | In-process snapshot | Redis |
+| [0003](docs/adr/0003-jwt-rotation-with-reuse-detection.md) | Rotation + reuse detection | Long-lived JWT in `localStorage` |
+| [0004](docs/adr/0004-testing-philosophy.md) | No coverage target | A percentage goal |
+| [0005](docs/adr/0005-committed-etl-fixtures.md) | Committed fixtures | Live API calls at seed time |
+
+**Why no Neo4j** is the one worth reading. At 200 nodes, `$graphLookup`, a
+Postgres recursive CTE and a Cypher query all return in single-digit
+milliseconds. There is no performance argument for any of them, so migrating
+costs weeks to earn nothing measurable — and adding Neo4j alongside MongoDB
+buys a third datastore and a dual-write consistency problem. I would revisit
+at ~10⁵ nodes, when the graph stops fitting in memory.
+
+---
+
+## Stack
+
+**Frontend** — Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4
+· Framer Motion
+
+**Backend** — Node 22 · Express 4 · Mongoose 8 · Zod · Winston · JWT
+
+**Data** — MongoDB Atlas · TMDB and the MCU Fandom wiki, via committed ETL
+fixtures
+
+**Deployed on** — Vercel (frontend) · Render (API) · Atlas M0
+
+---
+
+## Layout
+
+Vertical slices, not layers. Each backend module owns its model, service,
+controller, routes and validators, so a feature is one directory rather than
+five files in five folders.
+
+```
+backend/src/
+├── modules/
+│   ├── graph/          # the connection engine
+│   ├── characters/     ├── movies/      ├── battles/
+│   ├── teams/          ├── artifacts/   ├── quiz/
+│   └── auth/
+├── middlewares/        # auth, validation, error handling
+└── utils/              # response helpers, logger, slug
+
+backend/scripts/
+├── etl/                # fetchers + committed fixtures
+├── bench/              # benchmark harness
+├── migrations/
+└── seed.js
+
+frontend/
+├── app/                # routes
+├── components/         # blocks/ (composed) + ui/ (primitives)
+└── modules/            # per-domain services, hooks and types
 ```
 
 ---
 
-## Getting Started
+## Running it
 
-### Prerequisites
+**Requires** Node 22+ and a MongoDB connection string.
 
-- **Node.js** v20.0.0 or higher
-- **npm** v10+ or **yarn** v1.22+
-- **MongoDB** (local or cloud instance)
-
-### Installation
-
-1. **Clone the repository:**
 ```bash
-git clone <repository-url>
-cd Marvel
-```
+git clone https://github.com/pratik247-02/Marvel.git && cd Marvel
 
-2. **Install all dependencies (single command):**
-```bash
-npm run install:all
-```
-
-Or install separately:
-```bash
-# Root dependencies
+# backend
+cd backend
 npm install
+cp .env.example .env          # set MONGO_URI and JWT_SECRET
+npm run seed                  # 193 characters, 38 films, 77 artifacts…
+npm run dev                   # :5000
 
-# Frontend dependencies
-cd frontend && npm install
-
-# Backend dependencies
-cd ../backend && npm install
+# frontend
+cd ../frontend
+npm install
+cp .env.example .env.local    # set NEXT_PUBLIC_API_URL
+npm run dev                   # :3000
 ```
 
-3. **Set up environment variables:**
+**The seed needs no API key.** The ETL fetchers are separate programs whose
+output is committed as fixtures, so a fresh clone produces the full dataset —
+artwork included — without ever making a network request. That is
+[ADR 0005](docs/adr/0005-committed-etl-fixtures.md).
 
-**Frontend** - create `frontend/.env.local`:
-```env
-NEXT_PUBLIC_API_URL=http://localhost:5000/api
-NEXT_PUBLIC_APP_NAME=Marvel
-NEXT_PUBLIC_APP_ENV=development
-```
-
-**Backend** - create `backend/.env`:
-```env
-PORT=5000
-NODE_ENV=development
-CORS_ORIGIN=http://localhost:3000
-MONGO_URI=mongodb://localhost:27017/marvel
-JWT_SECRET=your-super-secret-key-change-in-production
-JWT_EXPIRES_IN=7d
-JWT_REFRESH_EXPIRES_IN=30d
-BCRYPT_SALT_ROUNDS=12
-```
-
----
-
-## Running the Application
-
-### Development Mode (Single Command)
+### Useful commands
 
 ```bash
-npm run dev
-```
-
-This runs both frontend and backend together using `concurrently`:
-- `[backend]` - Yellow output
-- `[frontend]` - Cyan output
-
-### Run Separately
-
-```bash
-# Backend only
-npm run dev:backend
-
-# Frontend only
-npm run dev:frontend
-```
-
-### URLs
-
-- **Frontend:** http://localhost:3000
-- **Backend API:** http://localhost:5000/api
-- **Health Check:** http://localhost:5000/health
-
-### Production Mode
-
-```bash
-# Build frontend
-npm run build
-
-# Start both servers
-npm start
+npm run validate              # assert every seed reference resolves
+npm test                      # graph algorithm suite
+node scripts/bench/graph-bench.js
+npm run tmdb:fetch            # refresh a fixture (needs a TMDB key)
 ```
 
 ---
 
-## Available Scripts
+## API
 
-### Root (Monorepo)
+```
+GET  /api/graph/path?from=<slug>&to=<slug>    shortest path, with edges
+GET  /api/graph/network/:ref?depth=n          ego network
+GET  /api/graph/stats                         centrality, components
+GET  /api/graph/full                          the whole graph
+POST /api/graph/rebuild                       force a snapshot rebuild (admin)
 
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Start both frontend and backend |
-| `npm start` | Start both in production mode |
-| `npm run dev:frontend` | Start frontend only |
-| `npm run dev:backend` | Start backend only |
-| `npm run install:all` | Install all dependencies |
-| `npm run lint` | Lint both projects |
-| `npm run format` | Format both projects |
-
-### Frontend
-
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm start` | Start production server |
-| `npm run lint` | Run ESLint |
-| `npm run format` | Format with Prettier |
-| `npm run type-check` | TypeScript type check |
-
-### Backend
-
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Start with nodemon |
-| `npm start` | Start production server |
-| `npm run lint` | Run ESLint |
-| `npm run format` | Format with Prettier |
-
----
-
-## Feature Development Workflow
-
-### Frontend
-
-1. **Types** - Define types in `types/featureName.ts`
-2. **Schema** - Create Zod schemas in `schema/featureName/index.ts`
-3. **Config** - Add feature config in `config/featureName/index.ts`
-4. **Services** - Add API calls in `services/featureName/index.ts`
-5. **Components** - Create components in `components/features/featureName/`
-6. **Export** - Update index files to export new modules
-
-### Backend
-
-1. **Validators** - Create Zod schemas in `validators/featureName.validator.js`
-2. **Models** - Define Mongoose models in `models/featureName.model.js`
-3. **Services** - Add business logic in `services/featureName.service.js`
-4. **Controllers** - Create route handlers in `controllers/featureName.controller.js`
-5. **Routes** - Define routes in `routes/featureName.routes.js`
-6. **Register** - Mount routes in `routes/index.js`
-
----
-
-## API Response Format
-
-### Success Response
-```json
-{
-  "success": true,
-  "message": "Operation successful",
-  "data": { }
-}
+GET  /api/characters  /movies  /teams  /battles  /artifacts  /quiz
+POST /api/auth/login  /refresh  /logout
+GET  /health                                  status + database state
 ```
 
-### Error Response
-```json
-{
-  "success": false,
-  "message": "Error message",
-  "errors": {
-    "field": ["Error detail"]
-  }
-}
-```
-
-### Paginated Response
-```json
-{
-  "success": true,
-  "message": "Success",
-  "data": [],
-  "pagination": {
-    "page": 1,
-    "limit": 10,
-    "total": 100,
-    "totalPages": 10,
-    "hasNext": true,
-    "hasPrev": false
-  }
-}
-```
+Writes require `admin`. Reads are never gated — requiring an account to view a
+character page would cost every first-time visitor and buy nothing.
 
 ---
 
-## Best Practices
+## Testing
 
-### Validation
-- Use **Zod** for all input validation (frontend and backend)
-- Validate at API boundaries
-- Provide clear error messages
+21 tests against the graph algorithms, on a hand-verified 9-node fixture.
+**Verified by mutation**: three deliberate bugs were injected — an off-by-one
+in the hop count, a reversed comparison in weight relaxation, a skipped
+visited-set check — to confirm the suite actually fails when the code is wrong.
+A test that cannot fail is decoration.
 
-### Error Handling
-- Use `asyncHandler` wrapper for async route handlers
-- Throw `AppError` for operational errors
-- Log all errors with proper context
+No coverage percentage is targeted, and [ADR 0004](docs/adr/0004-testing-philosophy.md)
+explains why: a number invites writing tests to move the number. The tests that
+exist cover the code that would fail *silently* — a shortest-path bug does not
+throw, it returns a plausible wrong answer.
 
-### Security
-- Never commit `.env` files
-- Use strong JWT secrets in production
-- Rate limit API endpoints
-- Sanitize user inputs
-- Use Helmet for security headers
-
-### Code Quality
-- Follow ESLint rules strictly
-- Write meaningful commit messages
-- Keep functions small and focused
-- Use TypeScript strict mode (frontend)
-- Document complex logic
+Route-level tests (401/403/400 paths) are the next thing to write and are
+honestly absent today.
 
 ---
 
-## Environment Variables Reference
+## Deliberately not built
 
-### Frontend
+Each of these was considered and rejected; the threshold that would change the
+answer is in the linked ADR or stated here.
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `NEXT_PUBLIC_API_URL` | Backend API URL | `http://localhost:5000/api` |
-| `NEXT_PUBLIC_APP_NAME` | Application name | `Marvel` |
-| `NEXT_PUBLIC_APP_ENV` | Environment | `development` |
-
-### Backend
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `PORT` | Server port | `5000` |
-| `NODE_ENV` | Environment | `development` |
-| `CORS_ORIGIN` | Allowed CORS origin | `http://localhost:3000` |
-| `MONGO_URI` | MongoDB connection string | - |
-| `JWT_SECRET` | JWT signing secret | - |
-| `JWT_EXPIRES_IN` | Access token expiry | `7d` |
-| `JWT_REFRESH_EXPIRES_IN` | Refresh token expiry | `30d` |
-| `BCRYPT_SALT_ROUNDS` | Password hash rounds | `12` |
+| | Why not |
+|---|---|
+| Neo4j / Postgres migration | Weeks of work, zero measurable gain at 200 nodes ([0001](docs/adr/0001-mongodb-over-postgres-and-neo4j.md)) |
+| Redis | Nothing to share until there is a second instance ([0002](docs/adr/0002-in-process-graph-cache.md)) |
+| Elasticsearch | Infrastructure with no problem behind it at 200 documents |
+| Vector / semantic search | Cosine similarity over 200 short documents is a `for` loop |
+| Microservices, queues | Actively negative signal at this scale |
+| GraphQL alongside REST | Two API surfaces, one story |
 
 ---
 
-## Contributing
+## Known limitations
 
-1. Create a feature branch from `main`
-2. Follow the coding standards
-3. Write meaningful commit messages
-4. Test your changes thoroughly
-5. Create a pull request with clear description
+Stated because a project with no known limitations is one nobody has examined.
+
+- **Cold start** — free tier, ~50 s to wake after 15 minutes idle
+- **Cache invalidation has holes** — writes through the raw MongoDB driver
+  bypass the Mongoose hooks, and invalidation is process-local. The 5-minute
+  TTL is the mitigation, and both are documented in
+  [ADR 0002](docs/adr/0002-in-process-graph-cache.md)
+- **Single instance assumed** — two instances can disagree for up to five
+  minutes after a write
+- **37 of 48 components are client components.** The App Router is doing less
+  than it could; converting pages to server components is planned and honest to
+  count today
+- **Three teams have no image** — they are groupings this project curates
+  rather than articles the source wiki carries
 
 ---
 
-## License
+## Docs
 
-This project is private and proprietary.
+| | |
+|---|---|
+| [GRAPH.md](docs/GRAPH.md) | The connection engine: edge weights, algorithms, force layout |
+| [DATABASE.md](docs/DATABASE.md) | Schema and indexing |
+| [ROADMAP.md](docs/ROADMAP.md) | Phases, benchmarks, everything still open |
+| [adr/](docs/adr/) | Architecture decision records |
+
+---
+
+Data from [TMDB](https://www.themoviedb.org/) and the
+[MCU Wiki](https://marvelcinematicuniverse.fandom.com/) (CC-BY-SA). Marvel
+characters and imagery are the property of Marvel Studios. This is a
+non-commercial fan project.
