@@ -9,6 +9,7 @@ import {
   graphRoutes,
   authRoutes,
 } from "../modules/index.js";
+import { normalizePagination } from "../middlewares/pagination.js";
 
 const router = Router();
 
@@ -20,6 +21,13 @@ router.get("/", (req, res) => {
     version: "1.0.0",
   });
 });
+
+/**
+ * Validate `page` and `limit` once, for every list endpoint beneath this
+ * point. Six services parsed them independently with `parseInt`, which turned
+ * `page=-5` into a negative skip and a 500.
+ */
+router.use(normalizePagination);
 
 // Mount feature routes
 router.use("/auth", authRoutes);

@@ -193,7 +193,8 @@ character page would cost every first-time visitor and buy nothing.
 
 ## Testing
 
-21 tests against the graph algorithms, on a hand-verified 9-node fixture.
+**41 tests.** 21 against the graph algorithms on a hand-verified 9-node
+fixture, and 20 at the route layer against an in-memory MongoDB.
 **Verified by mutation**: three deliberate bugs were injected — an off-by-one
 in the hop count, a reversed comparison in weight relaxation, a skipped
 visited-set check — to confirm the suite actually fails when the code is wrong.
@@ -204,8 +205,15 @@ explains why: a number invites writing tests to move the number. The tests that
 exist cover the code that would fail *silently* — a shortest-path bug does not
 throw, it returns a plausible wrong answer.
 
-Route-level tests (401/403/400 paths) are the next thing to write and are
-honestly absent today.
+The route tests are deliberately the non-happy paths — no token → 401,
+expired token → 401, **a refresh token used as an access token** → 401,
+non-admin write → 403 (not 401, since the caller *is* authenticated),
+malformed ObjectId → 400 not 500, `page=99999` → empty array not a crash.
+
+Writing them found two real bugs, both live in production at the time:
+`page=-5` produced a negative `skip` and a **500**, and a malformed JSON body
+also returned **500**. Both now return 400. That is the entire argument for
+testing the paths nobody looks at.
 
 ---
 
