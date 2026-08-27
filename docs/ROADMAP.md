@@ -561,7 +561,15 @@ scaffolding pretending to be architecture.
       algorithms, the force layout and its tuning, and why the explore page is
       split into three views
 - [ ] README rewrite with architecture diagram and live demo link
-- [ ] `docs/adr/` — five architecture decision records
+- [x] [`docs/adr/`](adr/) — five architecture decision records, each stating
+      what was rejected and **what would change the answer**. A decision
+      recorded without its threshold is an opinion with a date on it
+- [x] Benchmarks re-measured at the current graph size (193 nodes / 755 edges;
+      the earlier figures were taken at 18 / 105 and were stale). The scaling
+      comparison is the interesting part: Dijkstra grew **7.4×** against 7.2×
+      edge growth, while naive `$graphLookup` grew only 1.4× — because it is
+      dominated by two network round trips, and the round-trip count did not
+      change when the graph got 10× bigger
 - [ ] OpenAPI spec + Swagger UI at `/api/docs`
 - [ ] Lighthouse and accessibility pass
 - [ ] Optional: deterministic battle simulator with seeded RNG
@@ -570,54 +578,81 @@ scaffolding pretending to be architecture.
 
 ## Benchmarks
 
-### Baseline — naive `$graphLookup`, measured 2026-08-21
+### Method
 
-Shortest path Groot → Tony Stark (a genuine 3-hop route), measured at the
-service layer rather than over HTTP so the numbers reflect query and algorithm
-cost without Express and JSON serialization mixed in.
+Shortest path Groot → Tony Stark (a genuinely distant pair — Groot reaches Tony
+only through Rocket and Thor), measured at the **service layer** rather than
+over HTTP, so the numbers reflect query and algorithm cost without Express and
+JSON serialization mixed in.
 
-Node v22.22.2, concurrency 1, 18 character nodes / 105 edges.
-Local: 200 iterations, 50 warmup. Atlas: 100 iterations, 30 warmup.
+Node v22.22.2, concurrency 1, against the same Atlas M0 cluster the deployed
+API uses. 100 iterations, 30 warmup, except the cold-rebuild row (10
+iterations — each one pays a full snapshot build).
 
-| Traversal | Local p95 | Atlas p95 |
-|---|---|---|
-| `shortestPath` maxDepth=2 | 2.6 ms | 22.7 ms |
-| `shortestPath` maxDepth=3 | 2.6 ms | 32.8 ms |
-| `shortestPath` maxDepth=4 | 2.8 ms | 31.6 ms |
-| `shortestPath` maxDepth=6 | 2.7 ms | 21.6 ms |
-| *context:* `findById` | 0.6 ms | 10.3 ms |
-| *context:* find all + populate | 2.7 ms | 29.8 ms |
+Re-measured **2026-08-27** at the current graph size. The earlier run was taken
+at 18 nodes / 105 edges; the dataset is now **193 nodes / 755 edges**, so those
+figures were stale and have been replaced rather than kept alongside.
 
-### Result — in-process adjacency snapshot
+### Naive `$graphLookup` — the baseline
 
-The original premise, that naive `$graphLookup` would cost 200-350 ms and an
-in-memory BFS would be a 20-40x win, **did not hold at this data size**. At 18
-nodes `$graphLookup` against a local mongod is ~2 ms; the algorithm was never
-the bottleneck.
+| Traversal | p50 | p95 | p99 |
+|---|---|---|---|
+| `shortestPath` maxDepth=2 | 29.5 ms | 34.7 ms | 44.7 ms |
+| `shortestPath` maxDepth=3 | 30.6 ms | 36.9 ms | 38.7 ms |
+| `shortestPath` maxDepth=4 | 30.7 ms | 38.9 ms | 46.9 ms |
+| `shortestPath` maxDepth=6 | 30.6 ms | 33.2 ms | 37.1 ms |
 
-The real cost is the **network round trip**. A single `findById` against Atlas
-is ~10 ms and the naive traversal issues two queries, which is essentially the
-whole ~22 ms. So the optimization that mattered was not beating `$graphLookup`
-but not crossing the network at all for a graph that fits in memory.
+Cost is flat across depth. That is the first clue about what is actually slow:
+if the traversal were the bottleneck, depth 6 would cost visibly more than
+depth 2.
 
-Measured 2026-08-21, Atlas, Node v22.22.2, concurrency 1, path Groot -> Tony
-Stark. Naive: 100 iterations / 30 warmup. Engine: 2000 iterations / 200 warmup
-(the coarser harness could not resolve sub-millisecond timings).
+### In-process adjacency snapshot — the result
 
-| Traversal | p95 | vs naive |
-|---|---|---|
-| Naive `$graphLookup` maxDepth=2 | 24.2 ms | baseline |
-| Naive `$graphLookup` maxDepth=4 | 28.6 ms | baseline |
-| **Engine — Dijkstra (weighted)** | **0.027 ms** | **~900x** |
-| **Engine — BFS (fewest hops)** | **0.006 ms** | **~4000x** |
-| Engine — cold rebuild + path | 27.1 ms | ~1x |
+| Traversal | p50 | p95 | vs naive p95 |
+|---|---|---|---|
+| **Dijkstra (weighted)** | **0.1 ms** | **0.2 ms** | **~175×** |
+| **BFS (fewest hops)** | **0.007 ms** | **0.008 ms** | **~4000×** |
+| Cold rebuild + path | 26.0 ms | 28.9 ms | ~1× |
 
-Snapshot build: 18 nodes, 84 edges, 12-27 ms against Atlas (5 concurrent
-queries). The cold-rebuild row is the honest caveat: the first request after a
-write or a restart pays the full rebuild, which costs about the same as one
-naive traversal. Every subsequent request inside the TTL is essentially free.
+Snapshot build: 193 nodes, 755 edges in **24–33 ms** against Atlas.
 
-The speedup is large because it is a comparison between doing I/O and not doing
-I/O, not between two algorithms. That distinction is the point.
+### What the numbers actually say
+
+**The original premise did not hold.** The plan predicted naive `$graphLookup`
+would cost 200–350 ms and an in-memory BFS would be a 20–40× win. At this data
+size `$graphLookup` is ~30 ms, and the speedup is far larger than 40×. Both
+halves of the guess were wrong, in opposite directions.
+
+The reason is that **the algorithm was never the bottleneck — the network round
+trip was.** A single `findById` against Atlas is ~10 ms and the naive traversal
+issues two queries, which is essentially the whole ~30 ms. The optimization
+that mattered was not beating `$graphLookup`; it was not crossing the network
+at all for a graph that fits in memory.
+
+**Scaling confirms it**, almost too neatly. Between the 18-node and 193-node
+runs the graph grew **10.7× in nodes and 7.2× in edges**:
+
+| | growth |
+|---|---|
+| Edges | 7.2× |
+| Dijkstra p95 | **7.4×** (0.027 → 0.2 ms) |
+| Naive p95 | 1.4× (24.2 → 34.7 ms) |
+
+Dijkstra tracked edge growth within 3%, which is what an algorithm doing real
+work over a graph should do. Naive `$graphLookup` barely moved, because it is
+not dominated by the traversal — it is dominated by two network round trips,
+and the number of round trips did not change when the graph got 10× bigger.
+
+The in-memory path scales with the graph. The naive path scales with the
+network, which is why it looked deceptively fine at 18 nodes and would keep
+looking fine right up until the graph stopped fitting in memory.
+
+**The honest caveat** is the cold-rebuild row: the first request after a write
+or a restart pays the full snapshot build, about the same as one naive
+traversal. Every subsequent request inside the TTL is essentially free. On the
+deployed free tier this compounds with the platform's own cold start.
+
+So the headline is a comparison between doing I/O and not doing I/O, not
+between two algorithms. Stating it that way is more useful than the 4000×.
 
 Harness: `node scripts/bench/graph-bench.js [--uri ...] [--iterations N] [--warmup N]`
