@@ -586,6 +586,107 @@ scaffolding pretending to be architecture.
 
 ---
 
+### Phase 9 — Horizontal scale
+
+Everything built so far assumes one process. Two decisions say so explicitly:
+[ADR 0002](adr/0002-in-process-graph-cache.md) holds the adjacency snapshot in
+a module-level variable and closes with *"Redis becomes the right answer the
+moment this runs on more than one instance, and not before"*, and the
+idempotency middleware stores keys in a plain `Map`, with a comment naming the
+same limit — a retry routed to a second instance would not be deduplicated.
+
+That was the right call at the time and it is still the right call for a
+single box. This phase is what happens when the premise changes: run more than
+one instance, find out which of those guarantees breaks first, measure it, and
+fix only what the measurement justifies.
+
+**Why now.** Not because the traffic demands it — it does not. Because both
+ADRs named a threshold, and a decision with a stated reversal condition is
+worth actually testing rather than leaving as an assertion. The interesting
+output of this phase is the measurement, not the Redis dependency.
+
+#### What is expected to break
+
+Stated up front so the results can contradict them, the way Phase 2's
+predictions did:
+
+1. **Stale reads.** A write on instance A rebuilds A's snapshot and invalidates
+   nothing on B. B serves the old graph until its 5-minute TTL expires. The
+   window should be up to 5 minutes, and observable.
+2. **Duplicate writes.** An idempotency key retried against B is unknown to B,
+   so the write runs twice. The middleware's guarantee is per-process, and two
+   processes mean no guarantee at all.
+3. **Memory, doubled.** Each instance holds its own 40 KB snapshot. Trivial
+   here, and worth stating because it is the cost that scales with instance
+   count rather than with data.
+
+The prediction is that (2) matters most, because a stale read corrects itself
+and a duplicate write does not.
+
+#### Steps
+
+**9.1 — Throughput baseline.** The existing harness runs at concurrency 1 and
+says so: it measures latency, not throughput. Add an HTTP-level load test
+(`scripts/bench/load.js`, autocannon or k6) that ramps concurrency until p95
+degrades, and record where a single instance saturates and what saturates
+first — event loop lag, connection pool, or CPU. Every number after this is
+measured against that baseline, so it lands before any change.
+
+**9.2 — Two instances, no fixes.** Run two app processes behind nginx with
+round-robin. Write a test that demonstrates the stale read and one that
+demonstrates the duplicate write. These tests are the deliverable; the fixes
+are easy once the failures are pinned down. Capture the observed staleness
+window against the predicted 5 minutes.
+
+**9.3 — Shared invalidation.** Redis pub/sub: a write publishes an
+invalidation, every instance drops its snapshot and rebuilds lazily. The
+snapshot itself stays in process memory — the thing being shared is the
+*signal*, not the 40 KB payload, which would otherwise add a network hop to
+every traversal and undo Phase 2. Re-run 9.2's stale-read test; it should now
+fail to reproduce.
+
+**9.4 — Shared idempotency.** Swap the `Map` for Redis behind the existing
+interface. The middleware was written so only the store changes, which this
+phase gets to verify — if it needs more than a store swap, that is a finding
+worth writing down.
+
+**9.5 — Writes through a queue.** Admin writes and ETL reseeds enqueue to
+BullMQ and are handled by a worker process, with exponential-backoff retries
+and a dead-letter queue for messages that keep failing. This is the one piece
+with no precedent in the codebase: nothing here is currently asynchronous, and
+a request that triggers a rebuild pays for it inline.
+
+**9.6 — Metrics.** A `/metrics` endpoint via `prom-client`: request rate,
+p50/p95/p99, queue depth, worker lag, snapshot rebuild count. Without queue
+depth and worker lag, 9.5 is unfalsifiable — a queue with no visibility is
+just a slower write path.
+
+**9.7 — Re-measure and write it down.** Re-run 9.1 against the two-instance
+setup. Produce `docs/SCALING.md` with the before/after table, the saturation
+point, what saturates first, and a capacity model. Add ADR 0006 recording the
+Redis decision, and amend ADR 0002 — it is not wrong, its condition was met.
+
+#### Done when
+
+- A single-instance saturation number exists, with the bottleneck named.
+- The stale read and the duplicate write are each reproduced by a test, then
+  fixed, with the test proving the fix.
+- Writes run through a queue with retries and a dead-letter queue, and queue
+  depth is observable.
+- `docs/SCALING.md` states throughput before and after, and is honest about
+  what did not improve.
+- ADR 0002 is amended rather than quietly contradicted.
+
+#### Deliberately not in scope
+
+Autoscaling, multi-region, Kubernetes, sharding the graph. The graph fits in
+memory and will keep fitting; the moment it does not is a different phase and
+[ADR 0001](adr/0001-mongodb-over-postgres-and-neo4j.md) already names ~10⁵
+nodes as the threshold. Adding orchestration to a two-process deployment would
+be resume-driven development, which is the thing this phase is trying not to
+be.
+
+
 ## Benchmarks
 
 ### Method
