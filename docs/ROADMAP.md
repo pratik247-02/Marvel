@@ -510,8 +510,17 @@ win available.
       and takes ~50s to wake, so the first request would have aborted *after*
       successfully starting the server — failing while having worked, which
       then looks random because the retry succeeds
-- [ ] Cold start is documented in the README rather than worked around. Worth
-      revisiting if the link is ever handed to someone live
+- [x] Cold start worked around, now that the link goes to recruiters. An
+      UptimeRobot **keyword** monitor hits `/health` every 5 minutes, inside
+      Render's 15-minute idle window. Keyword rather than HTTP because
+      `/health` always returns 200 and reports `"status":"degraded"` in the
+      body, so a status-code check would stay green through a database outage.
+      Costs ~744 of the workspace's 750 free instance-hours a month, so a
+      second free Render service on the same account would get suspended late
+      in the month. Configured in UptimeRobot's dashboard, not in this repo
+- [ ] Wake the API on page load: send a request to `/health` as soon as a page
+      opens and show a "waking the server" state instead of a blank page, as
+      a fallback for redeploys, platform restarts or a pinger outage
 
 **On coverage targets.** No percentage goal is set here deliberately. A number
 invites writing tests to move the number, which is how suites fill up with
