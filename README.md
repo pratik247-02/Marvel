@@ -7,9 +7,11 @@ them all.
 **Live:** [marvel-six-lake.vercel.app](https://marvel-six-lake.vercel.app) ·
 **API:** [marvel-api-mueo.onrender.com](https://marvel-api-mueo.onrender.com/health)
 
-> The API runs on a free tier that sleeps after 15 minutes idle. The first
-> request may take ~50 seconds while it wakes. Every request after that is
-> fast. This was a deliberate choice over $7/month for a portfolio project.
+> The API runs on a free tier that sleeps after 15 minutes idle. An
+> UptimeRobot keyword monitor checks `/health` every 5 minutes, which keeps it
+> awake and alerts if the database is unreachable. If the API has just been
+> redeployed or restarted, the first request may still take ~50 seconds. This
+> was a deliberate choice over $7/month for a portfolio project.
 
 ---
 
@@ -237,7 +239,9 @@ answer is in the linked ADR or stated here.
 
 Stated because a project with no known limitations is one nobody has examined.
 
-- **Cold start** — free tier, ~50 s to wake after 15 minutes idle
+- **Cold start** — free tier, ~50 s to wake after 15 minutes idle. An
+  external 5-minute ping keeps it awake, but a redeploy or platform restart
+  still pays the cold start once
 - **Cache invalidation has holes** — writes through the raw MongoDB driver
   bypass the Mongoose hooks, and invalidation is process-local. The 5-minute
   TTL is the mitigation, and both are documented in
